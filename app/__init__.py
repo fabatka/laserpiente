@@ -6,6 +6,8 @@ from logging.handlers import RotatingFileHandler
 from flask import Flask
 
 from app.views.main import bp as main_bp
+from app.static.utils import bp as utils_bp
+
 
 env_loglevel_map = {
     'dev': logging.DEBUG,
@@ -37,4 +39,5 @@ def create_app(config_file_path='config.ini'):
 if __name__ == '__main__':
     app = create_app()
     app.register_blueprint(main_bp)
+    app.register_blueprint(utils_bp)
     app.run()
