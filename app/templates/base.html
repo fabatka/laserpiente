@@ -3,13 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <title>La Serpiente</title>
+    {% block link %}{% endblock %}
 </head>
 <body>
-<div>
-    La Serpiente:
-    <a href={{ url_for('main.home') }}>Home</a>
-</div>
-<hr>
 {% block content %}{% endblock %}
 </body>
 </html>

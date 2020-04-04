@@ -1,0 +1,116 @@
+body {
+    margin: 0;
+    background-color: peru;
+}
+
+
+.quizbox {
+    /*width: 100%;*/
+    /*height: 100%;*/
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    font-size: 2.6rem;
+}
+
+.quizbox h1 {
+    padding: 0 20px;
+    font-size: 2rem;
+}
+
+.quizbox-question {
+    position: relative;
+    float: left;
+    width: 50%;
+    height: 50%;
+}
+
+.quizbox-answer {
+    position: relative;
+    float: right;
+    width: 50%;
+    height: 50%;
+}
+
+.conj-question {
+    color: black;
+    /*font-family: 'Poppins', sans-serif;*/
+    position: absolute;
+    right: 0;
+    text-align: right;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 1rem 0 0;
+}
+
+
+/* The form css is from https://codepen.io/lucasyem/pen/ZEEYKdj*/
+.quizbox .form__group {
+    color: black;
+    position: absolute;
+    left: 0;
+    text-align: left;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 25px 0 25px 1rem;
+}
+
+.form__field {
+    font-family: inherit;
+    border: 0;
+    border-bottom: 2px solid #000000;
+    outline: 0;
+    font-size: 2.6rem;
+    color: #000000;
+    padding: 0 0 0 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.form__field::placeholder {
+    color: transparent;
+}
+
+.form__label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1.5rem;
+    color: #000000;
+}
+
+.form__field:focus {
+    border-image: linear-gradient(to right, #990709, #efce0d);
+    border-image-slice: 1;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+    font-size: 2.6rem;
+    cursor: text;
+    position: absolute;
+    left: 0;
+    text-align: left;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 0 0 0 1rem;
+}
+
+.form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0px;
+    display: block;
+    transition: 0.2s;
+    font-size: 1.5rem;
+    color: #000000;
+}
+
+/* reset input */
+.form__field:required, .form__field:invalid {
+    box-shadow: none;
+}
+
+
+/*End of form css*/
