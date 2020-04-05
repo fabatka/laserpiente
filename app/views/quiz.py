@@ -1,9 +1,9 @@
-from flask import Blueprint, render_template, make_response, request
+from flask import Blueprint, render_template, make_response, request, redirect
 
 from app.static.utils import execute_query
 from lang import pronoun_map_db_hr, pronoun_map_hr_db
 
-bp = Blueprint('main', __name__, template_folder='templates')
+bp = Blueprint('quiz', __name__, template_folder='templates')
 
 
 query_which_pronoun = """
@@ -28,13 +28,14 @@ from laserpiente.v_conj_ind_pres
 where infinitivo = %(verb)s'''
 
 
-@bp.route('/')
-@bp.route('/home')
-def home():
-    pronoun_db: str = execute_query(query_which_pronoun)[0].get('column_name')
-    verb: str = execute_query(query_which_verb)[0].get('infinitivo')
-    pronoun_hr: str = pronoun_map_db_hr[pronoun_db]
-    return render_template('home.html', pronoun=pronoun_hr, verb=verb)
+@bp.route('/', methods=['GET', 'POST'])
+@bp.route('/quiz', methods=['GET', 'POST'])
+def quiz():
+    if request.method == 'GET':
+        pronoun_db: str = execute_query(query_which_pronoun)[0].get('column_name')
+        verb: str = execute_query(query_which_verb)[0].get('infinitivo')
+        pronoun_hr: str = pronoun_map_db_hr[pronoun_db]
+        return render_template('quiz.html', pronoun=pronoun_hr, verb=verb)
 
 
 @bp.route('/submit', methods=['POST'])
@@ -55,3 +56,7 @@ def submit():
     else:
         response_text = f'<p> <span class="false">¡Incorrecto! </span>La solución: {solution}</p>'
     return make_response(response_text, 200)
+
+@bp.route('/bla')
+def bla():
+    return 'HELLO'

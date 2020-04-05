@@ -1,29 +1,37 @@
-const submitButton = document.getElementById('submit');
+function sendRequest(method, url, requestBody) {
+    xhr.open(method, url);
+    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.send(requestBody);
+}
 
 
-
-// clicking on submit sends
-submitButton.addEventListener('click', function (event) {
+function handleClickEvent(event) {
+    console.log('CLICKED');
     const answerElement = document.getElementById('answer');
     const questionElement = document.getElementById('question');
     const pronounElement = document.getElementById('pronoun');
+    const serverResponseParagraph = document.getElementById('result');
 
-    // this will send a request
-    xhr.open('POST', '/submit');
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
-    xhr.send('answer=' + answerElement.value +
-        '&question=' + questionElement.textContent +
-        '&pronoun=' + pronounElement.textContent);
-});
+    if (serverResponseParagraph.textContent === '') {
+        let requestBody = 'answer=' + answerElement.value +
+            '&question=' + questionElement.textContent +
+            '&pronoun=' + pronounElement.textContent;
+        sendRequest('POST', '/submit', requestBody);
+    } else {
+        window.location.href = '/quiz'
+    }
+}
 
 
-
-
+// handle response
 const xhr = new XMLHttpRequest();
-
-// this will run when we get a response
 xhr.onload = function () {
-    const serverResponseParagraph = document.getElementById('serverResponse');
+    console.log(this.response);
+    const serverResponseParagraph = document.getElementById('result');
     serverResponseParagraph.innerHTML = this.responseText;
 };
 
+
+// clicking on submit button sends answer to server
+const submitButton = document.getElementById('submit');
+submitButton.addEventListener('click', handleClickEvent);
