@@ -3,7 +3,6 @@ import os
 from configparser import ConfigParser
 from logging.handlers import RotatingFileHandler
 from flask_bootstrap import Bootstrap
-
 from flask import Flask
 
 from app.views.quiz import bp as quiz_bp

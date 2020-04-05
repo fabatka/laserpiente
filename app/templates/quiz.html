@@ -7,18 +7,23 @@
 
 {% block content %}
     {{ super() }}
-    <div class="quizbox">
-        <div class="quizbox-description">Conjugación - Indicativo, presente</div>
-        <div class="quizbox-task">
-            <div id="question" class="conj-question">{{ verb }}</div>
-            <div class="form__group">
-                <input type="text" class="form__field enter-input" placeholder="" name="answer_input" id="answer"/>
-                <label id="pronoun" for="answer" class="form__label">{{ pronoun }}</label>
+    <div class="wrapper">
+        {% block sidebar %}
+            {{ super() }}
+        {% endblock %}
+        <div class="quizbox">
+            <div class="quizbox-description">Conjugación - Indicativo, presente</div>
+            <div class="quizbox-task">
+                <div id="question" class="conj-question">{{ verb }}</div>
+                <div class="form__group">
+                    <input type="text" class="form__field enter-input" placeholder="" name="answer_input" id="answer"/>
+                    <label id="pronoun" for="answer" class="form__label">{{ pronoun }}</label>
+                </div>
             </div>
-        </div>
-        <div class="quizbox-result">
-            <button id="submit" class="enter-button btn btn-lg btn-default">Submit</button>
-            <div id="result" class="response"></div>
+            <div class="quizbox-result">
+                <button id="submit" class="enter-button btn btn-lg btn-default">Submit</button>
+                <div id="result" class="response"></div>
+            </div>
         </div>
     </div>
 {% endblock %}
