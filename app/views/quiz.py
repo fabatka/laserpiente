@@ -1,7 +1,7 @@
 from flask import Blueprint, render_template, make_response, request, redirect
 
 from app.static.utils import execute_query
-from lang import pronoun_map_db_hr, pronoun_map_hr_db
+from app.lang import pronoun_map_db_hr, pronoun_map_hr_db
 
 bp = Blueprint('quiz', __name__, template_folder='templates')
 
