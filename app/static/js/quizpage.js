@@ -27,6 +27,8 @@ const xhr = new XMLHttpRequest();
 xhr.onload = function () {
     const serverResponseParagraph = document.getElementById('result');
     serverResponseParagraph.innerHTML = this.responseText;
+    const button = document.getElementById('submit')
+    button.innerText = 'Következő'
 };
 
 
