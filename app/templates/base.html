@@ -1,0 +1,40 @@
+{% extends 'bootstrap/base.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+{% endblock %}
+
+{% block title %}La Serpiente{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="../static/js/lib/jquery-3.4.1.js"></script>
+{% endblock %}
+
+{% block sidebar %}
+    <nav id="sidebar">
+        <div class="sidebar-header">
+            <h3>La Serpiente</h3>
+        </div>
+
+        <ul class="list-unstyled components">
+            <li>
+                <a href="/">Főoldal</a>
+            </li>
+            <li>
+                <a href="#pageSubmenu" data-toggle="collapse" aria-expanded="false"
+                   class="dropdown-toggle">Igék</a>
+                <ul class="collapse list-unstyled" id="pageSubmenu">
+                    <li>
+                        <a href="/quiz">Indicativo, jelen idő</a>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">Kapcsolat</a>
+            </li>
+        </ul>
+    </nav>
+{% endblock %}
