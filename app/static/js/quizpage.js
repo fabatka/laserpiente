@@ -6,7 +6,6 @@ function sendRequest(method, url, requestBody) {
 
 
 function handleClickEvent(event) {
-    console.log('CLICKED');
     const answerElement = document.getElementById('answer');
     const questionElement = document.getElementById('question');
     const pronounElement = document.getElementById('pronoun');
@@ -26,7 +25,6 @@ function handleClickEvent(event) {
 // handle response
 const xhr = new XMLHttpRequest();
 xhr.onload = function () {
-    console.log(this.response);
     const serverResponseParagraph = document.getElementById('result');
     serverResponseParagraph.innerHTML = this.responseText;
 };
