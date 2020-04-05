@@ -2,6 +2,7 @@ import logging
 import os
 from configparser import ConfigParser
 from logging.handlers import RotatingFileHandler
+from flask_bootstrap import Bootstrap
 
 from flask import Flask
 
@@ -38,6 +39,7 @@ def create_app(config_file_path='config.ini'):
 
 if __name__ == '__main__':
     app = create_app()
+    Bootstrap(app)
     app.register_blueprint(main_bp)
     app.register_blueprint(utils_bp)
     app.run()

@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>La Serpiente</title>
-    {% block head %}{% endblock %}
-</head>
-<body>
-{% block content %}{% endblock %}
-</body>
-</html>
+{% extends 'bootstrap/base.html' %}
+
+{% block head %}
+    {{ super() }}
+    <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
+{% endblock %}
+
+{% block title %}La Serpiente{% endblock %}

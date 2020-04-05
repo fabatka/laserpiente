@@ -2,9 +2,6 @@ body {
     margin: 0;
     background-color: peru;
 }
-.clearfix {
-    clear: both;
-}
 
 .quizbox {
     position: absolute;
@@ -12,55 +9,35 @@ body {
     top: 0;
     left: 0;
     right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
     font-size: 2.6rem;
 }
 
-.quizbox h1 {
-    padding: 0 20px;
-    font-size: 2rem;
-}
-
-.quizbox-question {
-    position: relative;
-    float: left;
+.quizbox-task {
     width: 50%;
-    height: 50%;
-}
-
-.quizbox-answer {
-    position: relative;
-    float: right;
-    width: 50%;
-    height: 50%;
-}
-
-.quizbox-result {
-    position: relative;
-    width: 100%;
-    height: 25%;
+    display: flex;
 }
 
 .conj-question {
+    width: 50%;
+    display: inline;
+    padding: 2rem 1rem 2rem 0;
+    text-align: right;
     color: black;
     /*font-family: 'Poppins', sans-serif;*/
-    position: absolute;
-    right: 0;
-    text-align: right;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 0 1rem 0 0;
 }
 
-
 /* The form css is from https://codepen.io/lucasyem/pen/ZEEYKdj*/
-.quizbox .form__group {
+.form__group {
+    width: 50%;
     color: black;
-    position: absolute;
-    left: 0;
+    display: inline;
+    position: relative;
     text-align: left;
-    top: 50%;
-    transform: translateY(-50%);
-    padding: 25px 0 25px 1rem;
+    padding: 2rem 0 2rem 1rem;
 }
 
 .form__field {
@@ -79,59 +56,58 @@ body {
     color: transparent;
 }
 
-.form__label {
-    position: absolute;
-    top: 0;
-    display: block;
-    transition: 0.2s;
-    font-size: 1.5rem;
-    color: #000000;
-}
-
 .form__field:focus {
     border-image: linear-gradient(to right, #990709, #efce0d);
     border-image-slice: 1;
 }
 
-.form__field:placeholder-shown ~ .form__label {
-    font-size: 2.6rem;
+.form__label {
+    position: absolute;
     cursor: text;
+    top: 0;
+    left: 0;
+    padding: 0 0 0 1rem;
+    transition: 0.2s;
+    font-size: 1.5rem;
+    color: #000000;
+    font-style: italic;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+    display: inline;
     position: absolute;
     left: 0;
-    text-align: left;
-    top: 50%;
-    transform: translateY(-50%);
+    top: 27%;
     padding: 0 0 0 1rem;
+    font-size: 2.6rem;
+    text-align: left;
+    font-style: italic;
 }
 
 .form__field:focus ~ .form__label {
     position: absolute;
     top: 0;
-    display: block;
+    left: 0;
+    padding: 0 0 0 1rem;
     transition: 0.2s;
     font-size: 1.5rem;
     color: #000000;
 }
-
-/* reset input */
-.form__field:required, .form__field:invalid {
-    box-shadow: none;
-}
 /*End of form css*/
 
-.enter-button {
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0%);
+.quizbox-result {
+    text-align: center;
+    height: 10rem;
 }
 
 .response {
-    position: absolute;
-    top: 30px;
-    left: 50%;
-    transform: translate(-50%, 0%);
-    text-align: center;
+    padding: 1rem;
 }
+
+.submit {
+    display: block;
+}
+
 .correct {
     color: green;
 }

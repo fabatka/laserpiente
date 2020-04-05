@@ -6,7 +6,7 @@ const submitButton = document.getElementById('submit');
 submitButton.addEventListener('click', function (event) {
     const answerElement = document.getElementById('answer');
     const questionElement = document.getElementById('question');
-    const pronounElement = document.getElementById('pronoun')
+    const pronounElement = document.getElementById('pronoun');
 
     // this will send a request
     xhr.open('POST', '/submit');

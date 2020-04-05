@@ -1,28 +1,30 @@
 {% extends "base.html" %}
 
-{% block head %}
+{% block styles %}
+    {{ super() }}
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage.css') }}">
 {% endblock %}
 
 {% block content %}
+    {{ super() }}
     <div class="quizbox">
-        <h1>Conjugación - Indicativo, presente</h1>
-        <div class="quizbox-question">
+        <div class="quizbox-description">Conjugación - Indicativo, presente</div>
+        <div class="quizbox-task">
             <div id="question" class="conj-question">{{ verb }}</div>
-        </div>
-        <div class="quizbox-answer">
             <div class="form__group">
                 <input type="text" class="form__field enter-input" placeholder="" name="answer_input" id="answer"/>
                 <label id="pronoun" for="answer" class="form__label">{{ pronoun }}</label>
             </div>
         </div>
-        <div class="clearfix"></div>
         <div class="quizbox-result">
-            <button id="submit" class="enter-button">Submit</button>
+            <button id="submit" class="enter-button btn btn-lg btn-default">Submit</button>
             <div id="serverResponse" class="response"></div>
         </div>
     </div>
+{% endblock %}
 
+{% block scripts %}
+    {{ super() }}
     <script src="../static/js/enter.js"></script>
     <script src="../static/js/quizpage.js"></script>
 {% endblock %}
