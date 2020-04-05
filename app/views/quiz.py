@@ -56,7 +56,3 @@ def submit():
     else:
         response_text = f'<p> <span class="false">¡Incorrecto! </span>La solución: {solution}</p>'
     return make_response(response_text, 200)
-
-@bp.route('/bla')
-def bla():
-    return 'HELLO'
