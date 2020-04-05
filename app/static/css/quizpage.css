@@ -7,8 +7,6 @@ body {
 }
 
 .quizbox {
-    /*width: 100%;*/
-    /*height: 100%;*/
     position: absolute;
     bottom: 0;
     top: 0;
@@ -39,7 +37,7 @@ body {
 .quizbox-result {
     position: relative;
     width: 100%;
-    height: 50%;
+    height: 25%;
 }
 
 .conj-question {
@@ -108,7 +106,7 @@ body {
 
 .form__field:focus ~ .form__label {
     position: absolute;
-    top: 0px;
+    top: 0;
     display: block;
     transition: 0.2s;
     font-size: 1.5rem;
