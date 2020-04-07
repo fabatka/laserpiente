@@ -1,3 +1,4 @@
+import os
 import psycopg2 as pg
 
 from typing import Optional, Union, Dict, List
@@ -25,8 +26,7 @@ def execute_query(raw_query: str,
     config: ConfigParser = app.config.get('file')
     db_config = config['postgresql']
     try:
-        conn = pg.connect(host=db_config['host'], port=db_config['port'], database=db_config['database'],
-                          user=db_config['user'], password=db_config['password'])
+        conn = pg.connect(os.environ['DATABASE_URL'], sslmode='require')
         cursor = conn.cursor(cursor_factory=DictCursor)
     except pg.OperationalError as err:
         app.logger.error(f"Couldn't connect to database: {err}")
