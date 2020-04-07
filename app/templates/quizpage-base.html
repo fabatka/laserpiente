@@ -2,7 +2,7 @@
 
 {% block styles %}
     {{ super() }}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage-base.css') }}">
 {% endblock %}
 
 {% block content %}
@@ -14,11 +14,7 @@
         <div class="quizbox">
             <div class="quizbox-description">Conjugación - Indicativo, presente</div>
             <div class="quizbox-task">
-                <div id="question" class="conj-question">{{ verb }}</div>
-                <div class="form__group">
-                    <input type="text" class="form__field enter-input" placeholder="" name="answer_input" id="answer"/>
-                    <label id="pronoun" for="answer" class="form__label">{{ pronoun }}</label>
-                </div>
+                {% block quiztask %}{% endblock %}
             </div>
             <div class="quizbox-result">
                 <button id="submit" class="enter-button btn btn-lg btn-default">Ellenőrzés</button>
@@ -31,5 +27,5 @@
 {% block scripts %}
     {{ super() }}
     <script src="../static/js/enter.js"></script>
-    <script src="../static/js/quizpage.js"></script>
+    <script src="../static/js/quizpage-common.js"></script>
 {% endblock %}

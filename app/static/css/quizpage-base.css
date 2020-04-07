@@ -1,0 +1,50 @@
+/*
+The general layout of the quizbox, which most of the quiz types can use.
+*/
+
+@import "colors.css";
+
+body {
+    margin: 0;
+    background-color: var(--color4);
+    color: var(--color1);
+}
+
+.quizbox {
+    width: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 2.6rem;
+}
+
+.quizbox-description {
+    color: var(--color1);
+}
+
+.quizbox-task {
+    width: 50%;
+    display: flex;
+}
+
+.quizbox-result {
+    text-align: center;
+    height: 10rem;
+}
+
+.response {
+    padding: 1rem;
+}
+
+.submit {
+    display: block;
+}
+
+.correct {
+    color: green;
+}
+
+.false {
+    color: red;
+}

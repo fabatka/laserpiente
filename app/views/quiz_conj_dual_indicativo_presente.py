@@ -3,7 +3,7 @@ from flask import Blueprint, render_template, make_response, request, redirect
 from app.static.utils import execute_query
 from app.lang import pronoun_map_db_hr, pronoun_map_hr_db
 
-bp = Blueprint('quiz', __name__, template_folder='templates')
+bp = Blueprint('quiz-indicativo-presente', __name__, template_folder='templates')
 
 
 query_which_pronoun = """
@@ -29,20 +29,20 @@ where infinitivo = %(verb)s'''
 
 
 @bp.route('/', methods=['GET', 'POST'])
-@bp.route('/quiz', methods=['GET', 'POST'])
+@bp.route('/quiz-conj-dual-indicativo-presente', methods=['GET', 'POST'])
 def quiz():
     if request.method == 'GET':
         pronoun_db: str = execute_query(query_which_pronoun)[0].get('column_name')
         verb: str = execute_query(query_which_verb)[0].get('infinitivo')
         pronoun_hr: str = pronoun_map_db_hr[pronoun_db]
-        return render_template('quiz.html', pronoun=pronoun_hr, verb=verb)
+        return render_template('quizpage-dual.html', question_hint=pronoun_hr, question=verb)
 
 
-@bp.route('/submit', methods=['POST'])
+@bp.route('/quiz-conj-dual-indicativo-presente-submit', methods=['POST'])
 def submit():
     answer: str = request.form.get('answer')
     question: str = request.form.get('question')
-    pronoun_hr: str = request.form.get('pronoun')
+    pronoun_hr: str = request.form.get('questionHint')
     pronoun_db = pronoun_map_hr_db[pronoun_hr]
 
     identifier_params = {'pronoun': pronoun_db}
