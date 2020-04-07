@@ -1,0 +1,78 @@
+/*
+This css file defines the layout for a single question, there is one block of text,
+which misses a word and where the input field is.
+*/
+
+.question {
+    /*width: 50%;*/
+    display: inline;
+    padding: 2rem 1rem 2rem 0;
+    /*text-align: right;*/
+    color: var(--color1);
+    /*font-family: 'Poppins', sans-serif;*/
+}
+
+/* The form css is from https://codepen.io/lucasyem/pen/ZEEYKdj*/
+.form__group {
+    /*width: 50%;*/
+    color: var(--color1);
+    display: inline;
+    position: relative;
+    text-align: left;
+    padding: 2rem 0 2rem 1rem;
+}
+
+.form__field {
+    font-family: inherit;
+    border: 0;
+    border-bottom: 2px solid #000000;
+    outline: 0;
+    font-size: 2.6rem;
+    color: var(--color1);
+    padding: 0 0 0 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.form__field::placeholder {
+    color: transparent;
+}
+
+.form__field:focus {
+    border-image: linear-gradient(to right, #990709, #efce0d);
+    border-image-slice: 1;
+}
+
+.form__label {
+    position: absolute;
+    cursor: text;
+    top: 0;
+    left: 0;
+    padding: 0 0 0 1rem;
+    transition: 0.2s;
+    font-size: 1.5rem;
+    color: var(--color1);
+    font-style: italic;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+    display: inline;
+    position: absolute;
+    left: 0;
+    top: 27%;
+    padding: 0 0 0 1rem;
+    font-size: 2.6rem;
+    text-align: left;
+    font-style: italic;
+}
+
+.form__field:focus ~ .form__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 0 0 0 1rem;
+    transition: 0.2s;
+    font-size: 1.5rem;
+    color: var(--color1);
+}
+/*End of form css*/

@@ -1,0 +1,22 @@
+{% extends "quizpage-base.html" %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage-mono.css') }}">
+{% endblock %}
+
+{% block quiztask %}
+    <div id="question" class="question">
+        {{ question_first }}
+        <div class="form__group">
+            <input type="text" class="form__field mono" placeholder="" name="answer_input" id="answer"/>
+            <label id="questionHint" for="answer" class="form__label mono">{{ question_hint }}</label>
+        </div>
+        {{ question_second }}
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="../static/js/quizpage-mono.js"></script>
+{% endblock %}
