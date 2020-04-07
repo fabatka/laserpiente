@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, make_response, request, redirect
+from flask import Blueprint, render_template, make_response, request
 
 from app.static.utils import execute_query
 from app.lang import pronoun_map_db_hr, pronoun_map_hr_db
@@ -28,14 +28,13 @@ from laserpiente.v_conj_ind_pres
 where infinitivo = %(verb)s'''
 
 
-@bp.route('/', methods=['GET', 'POST'])
-@bp.route('/quiz-conj-dual-indicativo-presente', methods=['GET', 'POST'])
+@bp.route('/', methods=['GET'])
+@bp.route('/quiz-conj-dual-indicativo-presente', methods=['GET'])
 def quiz():
-    if request.method == 'GET':
-        pronoun_db: str = execute_query(query_which_pronoun)[0].get('column_name')
-        verb: str = execute_query(query_which_verb)[0].get('infinitivo')
-        pronoun_hr: str = pronoun_map_db_hr[pronoun_db]
-        return render_template('quizpage-dual.html', question_hint=pronoun_hr, question=verb)
+    pronoun_db: str = execute_query(query_which_pronoun)[0].get('column_name')
+    verb: str = execute_query(query_which_verb)[0].get('infinitivo')
+    pronoun_hr: str = pronoun_map_db_hr[pronoun_db]
+    return render_template('quizpage-dual.html', question_hint=pronoun_hr, question=verb)
 
 
 @bp.route('/quiz-conj-dual-indicativo-presente-submit', methods=['POST'])
