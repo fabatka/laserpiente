@@ -20,5 +20,6 @@ xhr.onload = function () {
 window.onload = function () {
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', handleClickEvent);
-}
+};
 
+// TODO: create a common 'handleClickEvent' function that gets a list/map as a parameter

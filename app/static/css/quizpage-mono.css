@@ -3,3 +3,11 @@ This css file defines the layout for a single question, there is one block of te
 which misses a word and where the input field is.
 */
 
+
+#questionFirst {
+    display: inline;
+}
+
+#questionSecond {
+    display: inline;
+}

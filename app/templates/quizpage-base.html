@@ -12,7 +12,7 @@
             {{ super() }}
         {% endblock %}
         <div class="quizbox">
-            <div class="quizbox-description">Conjugación - Indicativo, presente</div>
+            <div class="quizbox-description">{{ quiz_title }}</div>
             <div class="quizbox-task">
                 {% block quiztask %}{% endblock %}
             </div>

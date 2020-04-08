@@ -7,12 +7,12 @@
 
 {% block quiztask %}
     <div id="question" class="question">
-        {{ question_first }}
-        <div class="form__group mono">
+        <div id="questionFirst">{{ question_first }}</div>
+        <div class="form__group">
             <input type="text" class="form__field" placeholder="" name="answer_input" id="answer"/>
             <label id="questionHint" for="answer" class="form__label">{{ question_hint }}</label>
         </div>
-        {{ question_second }}
+        <div id="questionSecond">{{ question_second }}</div>
     </div>
 {% endblock %}
 
