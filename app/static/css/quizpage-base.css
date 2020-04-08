@@ -1,3 +1,7 @@
+/*
+The general layout of the quizbox, which most of the quiz types can use.
+*/
+
 @import "colors.css";
 
 body {
@@ -24,18 +28,35 @@ body {
     display: flex;
 }
 
-.conj-question {
-    width: 50%;
+.quizbox-result {
+    text-align: center;
+    height: 10rem;
+}
+
+.response {
+    padding: 1rem;
+}
+
+.submit {
+    display: block;
+}
+
+.correct {
+    color: green;
+}
+
+.false {
+    color: red;
+}
+
+.question {
     display: inline;
     padding: 2rem 1rem 2rem 0;
-    text-align: right;
     color: var(--color1);
-    /*font-family: 'Poppins', sans-serif;*/
 }
 
 /* The form css is from https://codepen.io/lucasyem/pen/ZEEYKdj*/
 .form__group {
-    width: 50%;
     color: var(--color1);
     display: inline;
     position: relative;
@@ -97,24 +118,3 @@ body {
     color: var(--color1);
 }
 /*End of form css*/
-
-.quizbox-result {
-    text-align: center;
-    height: 10rem;
-}
-
-.response {
-    padding: 1rem;
-}
-
-.submit {
-    display: block;
-}
-
-.correct {
-    color: green;
-}
-
-.false {
-    color: red;
-}

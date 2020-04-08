@@ -1,0 +1,13 @@
+/*
+This css file defines the layout for a dual-symmetric question, where on the left side there is the question,
+and on the right side there is the single input field (suitable for no more than a word).
+*/
+
+.question.dual {
+    width: 50%;
+    text-align: right;
+}
+
+.form__group.dual {
+    width: 50%;
+}

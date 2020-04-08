@@ -20,8 +20,10 @@ def create_app(config_file_path='config.ini'):
     app_instance.config['file'] = config
 
     bootstrap.init_app(app_instance)
-    from app.views.quiz import bp as quiz_bp
-    app_instance.register_blueprint(quiz_bp)
+    from app.views.quiz_conj_dual_indicativo_presente import bp as quiz_conj_dual_indicativo_presente_bp
+    app_instance.register_blueprint(quiz_conj_dual_indicativo_presente_bp)
+    from app.views.quiz_subj_probabilidad import bp as quiz_subj_probabilidad_bp
+    app_instance.register_blueprint(quiz_subj_probabilidad_bp)
     from app.static.utils import bp as utils_bp
     app_instance.register_blueprint(utils_bp)
 
