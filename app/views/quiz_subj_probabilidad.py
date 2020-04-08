@@ -32,4 +32,3 @@ def quiz():
 
 
 # TODO: implement answer checking
-# TODO: separate common css stuff, use additional classes 'dual' and 'mono' to specify differences

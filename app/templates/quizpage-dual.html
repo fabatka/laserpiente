@@ -6,9 +6,9 @@
 {% endblock %}
 
 {% block quiztask %}
-    <div id="question" class="conj-question">{{ question }}</div>
+    <div id="question" class="question dual">{{ question }}</div>
     <div class="form__group">
-        <input type="text" class="form__field enter-input" placeholder="" name="answer_input" id="answer"/>
+        <input type="text" class="form__field" placeholder="" name="answer_input" id="answer"/>
         <label id="questionHint" for="answer" class="form__label">{{ question_hint }}</label>
     </div>
 {% endblock %}
