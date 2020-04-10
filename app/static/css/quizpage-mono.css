@@ -3,6 +3,62 @@ This css file defines the layout for a single question, there is one block of te
 which misses a word and where the input field is.
 */
 
+.quizbox-task {
+    width: 70%;
+    text-align: center;
+}
+
+/* The form css is from https://codepen.io/lucasyem/pen/ZEEYKdj*/
+.form__group {
+    padding-top: calc(var(--textsize)*0.85);
+    color: var(--color1);
+    display: inline;
+    position: relative;
+    text-align: left;
+}
+
+.form__field {
+    font-family: inherit;
+    border: 0;
+    border-bottom: 2px solid #000000;
+    outline: 0;
+    color: var(--color1);
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.form__field::placeholder {
+    color: transparent;
+}
+
+.form__field:focus {
+    border-image: linear-gradient(to right, #000, var(--color4));
+    border-image-slice: 1;
+}
+
+.form__label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+    padding: 0;
+    cursor: text;
+    transition: 0.2s;
+    font-size: calc(var(--textsize)*0.7);
+    color: var(--color3);
+    font-style: italic;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+    top: calc(var(--textsize)*0.875);
+    font-size: var(--textsize);
+    display: inline;
+    position: absolute;
+    left: 0;
+    text-align: left;
+    font-style: italic;
+}
+/*End of form css*/
 
 #questionFirst {
     display: inline;

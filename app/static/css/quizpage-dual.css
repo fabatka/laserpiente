@@ -3,11 +3,74 @@ This css file defines the layout for a dual-symmetric question, where on the lef
 and on the right side there is the single input field (suitable for no more than a word).
 */
 
-.question.dual {
+.quizbox-task {
     width: 50%;
-    text-align: right;
+    display: flex;
+    text-align: center;
 }
 
-.form__group.dual {
+.question {
     width: 50%;
+    text-align: right;
+    display: inline;
+    padding: var(--textsize) 0;
+    padding-right: calc(var(--textsize)*0.5);
+    color: var(--color1);
 }
+
+/* The form css is from https://codepen.io/lucasyem/pen/ZEEYKdj*/
+.form__group {
+    width: 50%;
+    color: var(--color1);
+    display: inline;
+    position: relative;
+    text-align: left;
+    padding: var(--textsize) 0;
+    padding-left: calc(var(--textsize)*0.5);
+}
+
+.form__field {
+    width: calc(var(--textsize)*6);
+    font-family: inherit;
+    border: 0;
+    border-bottom: 2px solid #000000;
+    outline: 0;
+    color: var(--color1);
+    padding: 0;
+    background: transparent;
+    transition: border-color 0.2s;
+}
+
+.form__field::placeholder {
+    color: transparent;
+}
+
+.form__field:focus {
+    border-image: linear-gradient(to right, #000, var(--color4));
+    border-image-slice: 1;
+}
+
+.form__label {
+    position: absolute;
+    left: 0;
+    top: 0;
+    white-space: nowrap;
+    padding-left: calc(var(--textsize)*0.5);
+    cursor: text;
+    transition: 0.2s;
+    font-size: calc(var(--textsize)*0.7);
+    color: var(--color3);
+    font-style: italic;
+}
+
+.form__field:placeholder-shown ~ .form__label {
+    display: inline;
+    position: absolute;
+    left: 0;
+    top: var(--textsize);
+    padding-left: calc(var(--textsize)*0.5);
+    font-size: var(--textsize);
+    text-align: left;
+    font-style: italic;
+}
+/*End of form css*/

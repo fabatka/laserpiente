@@ -35,8 +35,10 @@ def quiz():
     pronoun_db: str = execute_query(query_which_pronoun)[0].get('column_name')
     verb: str = execute_query(query_which_verb)[0].get('infinitivo')
     pronoun_hr: str = pronoun_map_db_hr[pronoun_db]
+    input_width = max(len(pronoun_hr), len(verb))
+    input_width_attr = f'width: calc(var(--textsize)*{input_width}*0.7)'
     return render_template('quizpage-dual.html', question_hint=pronoun_hr, question=verb,
-                           quiz_title='Conjugación - Indicativo, presente')
+                           quiz_title='Conjugación - Indicativo, presente', input_width=input_width_attr)
 
 
 @bp.route(f'/{path}-submit', methods=['POST'])
