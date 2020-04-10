@@ -1,7 +1,7 @@
 function handleClickEvent(event) {
     const answerElement = document.getElementById('answer');
     const questionElement = document.getElementById('question');
-    const questionHintElement = document.getElementById('questionHint');
+    const questionHintElement = document.getElementById('questionHint') || document.getElementById('question');
     const serverResponseParagraph = document.getElementById('result');
 
     if (serverResponseParagraph.textContent === '') {

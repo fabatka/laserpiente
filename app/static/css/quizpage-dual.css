@@ -14,8 +14,12 @@ and on the right side there is the single input field (suitable for no more than
     text-align: right;
     display: inline;
     padding: var(--textsize) 0;
-    padding-right: calc(var(--textsize)*0.5);
+    padding-right: calc(var(--textsize) * 0.5);
     color: var(--color1);
+}
+
+.question.numeros {
+    width: auto;
 }
 
 /* The form css is from https://codepen.io/lucasyem/pen/ZEEYKdj*/
@@ -26,11 +30,11 @@ and on the right side there is the single input field (suitable for no more than
     position: relative;
     text-align: left;
     padding: var(--textsize) 0;
-    padding-left: calc(var(--textsize)*0.5);
+    padding-left: calc(var(--textsize) * 0.5);
 }
 
 .form__field {
-    width: calc(var(--textsize)*6);
+    width: calc(var(--textsize) * 6);
     font-family: inherit;
     border: 0;
     border-bottom: 2px solid #000000;
@@ -55,10 +59,10 @@ and on the right side there is the single input field (suitable for no more than
     left: 0;
     top: 0;
     white-space: nowrap;
-    padding-left: calc(var(--textsize)*0.5);
+    padding-left: calc(var(--textsize) * 0.5);
     cursor: text;
     transition: 0.2s;
-    font-size: calc(var(--textsize)*0.7);
+    font-size: calc(var(--textsize) * 0.7);
     color: var(--color3);
     font-style: italic;
 }
@@ -68,9 +72,22 @@ and on the right side there is the single input field (suitable for no more than
     position: absolute;
     left: 0;
     top: var(--textsize);
-    padding-left: calc(var(--textsize)*0.5);
+    padding-left: calc(var(--textsize) * 0.5);
     font-size: var(--textsize);
     text-align: left;
     font-style: italic;
 }
+
+.question.numeros {
+    padding: calc(var(--textsize) * 0.5);
+}
+
+.form__group.numeros {
+    width: 100%;
+    background: var(--color2);
+    padding: calc(var(--textsize) * 0.5);
+    height: 0;
+    resize: none;
+}
+
 /*End of form css*/
