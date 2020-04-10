@@ -45,7 +45,7 @@ which misses a word and where the input field is.
     cursor: text;
     transition: 0.2s;
     font-size: calc(var(--textsize)*0.7);
-    color: #849483;
+    color: var(--color3);
     font-style: italic;
 }
 

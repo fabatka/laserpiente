@@ -59,7 +59,7 @@ and on the right side there is the single input field (suitable for no more than
     cursor: text;
     transition: 0.2s;
     font-size: calc(var(--textsize)*0.7);
-    color: #849483;
+    color: var(--color3);
     font-style: italic;
 }
 
