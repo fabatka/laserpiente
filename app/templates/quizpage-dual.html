@@ -7,9 +7,9 @@
 
 {% block quiztask %}
     <div class="quizbox-task">
-        <div id="question" class="question dual">{{ question }}</div>
-        <div class="form__group dual">
-            <input type="text" class="form__field dual" placeholder="dummy placeholder" name="answer_input" id="answer"
+        <div id="question" class="question">{{ question }}</div>
+        <div class="form__group">
+            <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input" id="answer"
                    style="{{ input_width }}"/>
             <label id="questionHint" for="answer" class="form__label">{{ question_hint }}</label>
         </div>
