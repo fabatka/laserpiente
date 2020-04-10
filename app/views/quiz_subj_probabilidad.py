@@ -34,19 +34,21 @@ def quiz():
     missing_word_pos: int = question_row['palabra_q_falta']
     solution_infinitive = question_row['solucion_infinitivo']
     solution_subject = question_row['solucion_sujeto']
-    sentence_first = ' '.join(sentence_split[:missing_word_pos - 1])
-    sentence_second = ' '.join(sentence_split[missing_word_pos:])
+    sentence_first = ' '.join(sentence_split[:missing_word_pos-1]) + ' '
+    sentence_second = ' ' + ' '.join(sentence_split[missing_word_pos:])
     hint = f'{solution_infinitive} ({pronoun_map_db_hr[solution_subject]})'
+    input_width = max(len(sentence_split[missing_word_pos - 1]), len(pronoun_map_db_hr[solution_subject])) * 3 / 2 + 2.5
+    input_width_attr = f'width: {input_width*3}vmin'
 
     return render_template('quizpage-mono.html', question_first=sentence_first, question_second=sentence_second,
-                           question_hint=hint, quiz_title='Subjuntivo, probabilidad')
+                           question_hint=hint, quiz_title='Subjuntivo, probabilidad', input_width=input_width_attr)
 
 
 @bp.route(f'/{path}-submit', methods=['POST'])
 def submit():
     answer: str = request.form.get('answer')
-    question_first: str = request.form.get('questionFirst')
-    question_second: str = request.form.get('questionSecond')
+    question_first: str = request.form.get('questionFirst').strip()
+    question_second: str = request.form.get('questionSecond').strip()
     hint: str = request.form.get('questionHint')
     infinitivo, solution_subject_hr = hint.split(' ')  # the hint is like "infinitivo (pronoun)"
     solution_subject_db = pronoun_map_hr_db[solution_subject_hr[1:-1]]  # there are parentheses around the pronouns

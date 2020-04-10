@@ -5,9 +5,12 @@ The general layout of the quizbox, which most of the quiz types can use.
 @import "colors.css";
 
 body {
+    position: absolute;
     margin: 0;
     background-color: var(--color4);
     color: var(--color1);
+    top: 0;
+    bottom: 0;
 }
 
 .quizbox {
@@ -16,29 +19,29 @@ body {
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    font-size: 2.6rem;
+    font-size: 7.6vmin;
 }
 
 .quizbox-description {
     color: var(--color1);
-}
-
-.quizbox-task {
-    width: 50%;
-    display: flex;
+    font-size: 8vmin;
+    text-align: center;
+    font-weight: 700;
+    margin: 5vmin;
 }
 
 .quizbox-result {
     text-align: center;
-    height: 10rem;
+    height: 10vmin;
 }
 
 .response {
-    padding: 1rem;
+    padding: 1vmin;
 }
 
-.submit {
-    display: block;
+#submit {
+    font-size: 6.25vmin;
+    margin: 4vmin;
 }
 
 .correct {

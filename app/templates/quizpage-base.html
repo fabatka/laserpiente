@@ -13,15 +13,12 @@
         {% endblock %}
         <div class="quizbox">
             <div class="quizbox-description">{{ quiz_title }}</div>
-            <div class="quizbox-task">
-                {% block quiztask %}{% endblock %}
-            </div>
+            {% block quiztask %}{% endblock %}
             <div class="quizbox-result">
                 <button id="submit" class="enter-button btn btn-lg btn-default">Ellenőrzés</button>
                 <div id="result" class="response"></div>
             </div>
         </div>
-    </div>
 {% endblock %}
 
 {% block scripts %}
