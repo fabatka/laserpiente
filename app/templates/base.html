@@ -16,7 +16,13 @@
 </head>
 <body>
 <div class="wrapper">
+
     <nav id="sidebar">
+
+        <div id="dismiss">
+            <img class="dismiss-img" alt="X" src="../static/img/x-color4.svg">
+        </div>
+
         <div class="sidebar-header">
             <h3>La Serpiente</h3>
         </div>
@@ -48,8 +54,22 @@
             </li>
         </ul>
     </nav>
+
     {% block content -%}
+
+        <div class="sidebar-toggle-container">
+            <div class="container-fluid">
+
+                <button type="button" id="sidebarCollapse" class="btn">
+                    <span>Menü</span>
+                </button>
+            </div>
+        </div>
+
     {%- endblock content %}
+
+    <div class="overlay"></div>
+
 </div>
 {% block scripts %}
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
@@ -61,6 +81,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
+    <script src="../static/js/navbar.js"></script>
 {%- endblock scripts %}
 
 </body>

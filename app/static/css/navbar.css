@@ -5,12 +5,14 @@
 }
 
 #sidebar {
+    position: relative;
     min-width: 250px;
     max-width: 250px;
     min-height: 100vh;
     background: var(--color1);
     color: var(--color2);
     transition: all 0.3s;
+    z-index: 9999;
 }
 
 #sidebar.active {
@@ -70,4 +72,67 @@ ul ul a {
     font-size: 0.9em !important;
     padding-left: 30px !important;
     background: var(--color1);
+}
+
+@media (max-width: 768px) {
+    #sidebar {
+        margin-left: -250px;
+    }
+
+    #sidebar.active {
+        margin-left: 0;
+    }
+}
+
+@media (min-width: 768px) {
+    #dismiss {
+        display: none;
+    }
+
+    .sidebar-toggle-container {
+        display: none;
+    }
+}
+
+.overlay {
+    display: none;
+    position: fixed;
+    /* full screen */
+    width: 100vw;
+    height: 100vh;
+    /* transparent black */
+    background: rgba(0, 0, 0, 0.7);
+    /* middle layer, i.e. appears below the sidebar */
+    z-index: 998;
+    opacity: 0;
+    /* animate the transition */
+    transition: all 0.5s ease-in-out;
+}
+/* display .overlay when it has the .active class */
+.overlay.active {
+    display: block;
+    opacity: 1;
+}
+
+#dismiss {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    /* top right corner of the sidebar */
+    top: 10px;
+    right: 10px;
+    text-align: center;
+}
+
+
+.sidebar-toggle-container {
+    position: absolute;
+}
+
+.dismiss-img {
+    height: 20px;
+}
+
+#sidebarCollapse {
+ background-color: var(--color2);
 }
