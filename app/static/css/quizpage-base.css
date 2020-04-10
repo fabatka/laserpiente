@@ -2,7 +2,7 @@
 The general layout of the quizbox, which most of the quiz types can use.
 */
 
-@import "colors.css";
+@import "standards.css";
 
 body {
     position: absolute;
@@ -13,35 +13,40 @@ body {
     bottom: 0;
 }
 
+#submit {
+    background-color: var(--color1);
+    color: var(--color3);
+}
+
 .quizbox {
     width: inherit;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    font-size: 7.6vmin;
+    font-size: var(--textsize);
 }
 
 .quizbox-description {
     color: var(--color1);
-    font-size: 8vmin;
+    font-size: calc(var(--textsize)*1.5);
     text-align: center;
     font-weight: 700;
-    margin: 5vmin;
+    margin-bottom: calc(var(--textsize)*2);
 }
 
 .quizbox-result {
     text-align: center;
-    height: 10vmin;
+    height: calc(var(--textsize)*3);
+    margin-top: calc(var(--textsize)*1.25);
 }
 
 .response {
-    padding: 1vmin;
+    margin: calc(var(--textsize)*0.3);
 }
 
 #submit {
-    font-size: 6.25vmin;
-    margin: 4vmin;
+    font-size: var(--textsize);
 }
 
 .correct {
@@ -51,73 +56,3 @@ body {
 .false {
     color: red;
 }
-
-.question {
-    display: inline;
-    padding: 2rem 1rem 2rem 0;
-    color: var(--color1);
-}
-
-/* The form css is from https://codepen.io/lucasyem/pen/ZEEYKdj*/
-.form__group {
-    color: var(--color1);
-    display: inline;
-    position: relative;
-    text-align: left;
-    padding: 2rem 0 2rem 1rem;
-}
-
-.form__field {
-    font-family: inherit;
-    border: 0;
-    border-bottom: 2px solid #000000;
-    outline: 0;
-    font-size: 2.6rem;
-    color: var(--color1);
-    padding: 0 0 0 0;
-    background: transparent;
-    transition: border-color 0.2s;
-}
-
-.form__field::placeholder {
-    color: transparent;
-}
-
-.form__field:focus {
-    border-image: linear-gradient(to right, #990709, #efce0d);
-    border-image-slice: 1;
-}
-
-.form__label {
-    position: absolute;
-    cursor: text;
-    top: 0;
-    left: 0;
-    padding: 0 0 0 1rem;
-    transition: 0.2s;
-    font-size: 1.5rem;
-    color: var(--color1);
-    font-style: italic;
-}
-
-.form__field:placeholder-shown ~ .form__label {
-    display: inline;
-    position: absolute;
-    left: 0;
-    top: 27%;
-    padding: 0 0 0 1rem;
-    font-size: 2.6rem;
-    text-align: left;
-    font-style: italic;
-}
-
-.form__field:focus ~ .form__label {
-    position: absolute;
-    top: 0;
-    left: 0;
-    padding: 0 0 0 1rem;
-    transition: 0.2s;
-    font-size: 1.5rem;
-    color: var(--color1);
-}
-/*End of form css*/
