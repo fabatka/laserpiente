@@ -7,12 +7,9 @@
 {% endblock %}
 
 {% block quiztask %}
-    <div>
-        <button id="recordButton" onclick="onBtnRecordClicked()">Record</button>
-        <button id="stopButton" onclick="onBtnStopClicked()" disabled>Stop</button>
-    </div>
     <div class="quizbox-task">
         <div id="question" class="question {{ extra_class }}">{{ question }}</div>
+        <img id="recordButton" onclick="onBtnRecordClicked()" class="recordingStopped" alt="MIC" src="/static/img/mic-color1.svg">
         <textarea wrap="soft" class="form__group numeros" name="answer_input" id="answer">{{ answer }}</textarea>
         <label for="answer"></label>
     </div>
@@ -20,10 +17,10 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="../static/js/quizpage-dual.js"></script>
-    <script src="../static/js/texarea_cant_copy.js"></script>
-    <script src="../static/js/textarea_auto_height.js"></script>
-    <script src="../static/js/textarea_disable_newline.js"></script>
-    <script src="../static/js/lib/recorder.js"></script>
-    <script src="../static/js/audio_recording.js"></script>
+    <script src="/static/js/quizpage-dual.js"></script>
+    <script src="/static/js/texarea_cant_copy.js"></script>
+    <script src="/static/js/textarea_auto_height.js"></script>
+    <script src="/static/js/textarea_disable_newline.js"></script>
+    <script src="/static/js/lib/recorder.js"></script>
+    <script src="/static/js/audio_recording.js"></script>
 {% endblock %}

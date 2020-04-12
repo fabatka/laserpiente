@@ -91,3 +91,8 @@ and on the right side there is the single input field (suitable for no more than
 }
 
 /*End of form css*/
+
+#recordButton {
+    width: calc(var(--textsize)*2);
+    padding: calc(var(--textsize)*0.5);
+}

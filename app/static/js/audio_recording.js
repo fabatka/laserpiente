@@ -2,8 +2,7 @@
 
 const constraints = {audio: true, video: false};
 
-const recBtn = document.querySelector("button#recordButton");
-const stopBtn = document.querySelector("button#stopButton");
+const recBtn = document.querySelector("img#recordButton");
 
 
 let rec;
@@ -46,18 +45,27 @@ function permission() {
     }
 }
 
-
 function onBtnRecordClicked() {
+    if (recBtn.className === 'recordingStopped') {
+        log('rec started');
+        startRec();
+    } else {
+        if (recBtn.className === 'recordingStarted') {
+            stopRec();
+        }
+    }
+}
+
+
+function startRec() {
     permission();
     if (localStream == null) {
         // alert('Could not get local stream from mic/camera');
     } else {
-        recBtn.disabled = true;
-        stopBtn.disabled = false;
-
-        /* use the stream */
+        rec.record();
+        recBtn.className = 'recordingStarted';
+        recBtn.src = '/static/img/mic-color3.svg';
         log('Start recording...');
-        rec.record()
     }
 }
 
@@ -76,8 +84,10 @@ navigator.mediaDevices.ondevicechange = function (event) {
     */
 };
 
-function onBtnStopClicked() {
+function stopRec() {
     rec.stop();
+    recBtn.className = 'recordingStopped';
+    recBtn.src = '/static/img/mic-color1.svg';
     rec.exportWAV(function (blob) {
         let form = new FormData();
         form.append('file', blob, 'filename.wav');
@@ -93,9 +103,6 @@ function onBtnStopClicked() {
         });
     });
     rec.clear();
-    // mediaRecorder.stop();
-    recBtn.disabled = false;
-    stopBtn.disabled = true;
 }
 
 function log(message) {
