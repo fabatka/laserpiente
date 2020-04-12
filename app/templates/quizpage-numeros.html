@@ -9,7 +9,7 @@
 {% block quiztask %}
     <div class="quizbox-task">
         <div id="question" class="question {{ extra_class }}">{{ question }}</div>
-        <img id="recordButton" onclick="onBtnRecordClicked()" class="recordingStopped" alt="MIC" src="/static/img/mic-color1.svg">
+        <img id="recordButton" class="recordingStopped" alt="MIC" src="/static/img/mic-color1.svg">
         <textarea wrap="soft" class="form__group numeros" name="answer_input" id="answer">{{ answer }}</textarea>
         <label for="answer"></label>
     </div>

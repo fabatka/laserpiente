@@ -45,12 +45,24 @@ function permission() {
     }
 }
 
+permission();
+
+$(recBtn).mousedown(function () {
+    onBtnRecordClicked()
+});
+
+$(recBtn).mouseup(function () {
+    onBtnRecordClicked()
+});
+
 function onBtnRecordClicked() {
+    log('clicked!');
     if (recBtn.className === 'recordingStopped') {
         log('rec started');
         startRec();
     } else {
         if (recBtn.className === 'recordingStarted') {
+            log('rec stopped');
             stopRec();
         }
     }
@@ -58,7 +70,6 @@ function onBtnRecordClicked() {
 
 
 function startRec() {
-    permission();
     if (localStream == null) {
         // alert('Could not get local stream from mic/camera');
     } else {
