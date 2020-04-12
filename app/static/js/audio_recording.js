@@ -19,12 +19,12 @@ function permission() {
                 localStream.getTracks().forEach(function (track) {
                     if (track.kind === "audio") {
                         track.onended = function (event) {
-                            log("audio track.onended Audio track.readyState=" + track.readyState + ", track.muted=" + track.muted);
+                            console.log("audio track.onended Audio track.readyState=" + track.readyState + ", track.muted=" + track.muted);
                         }
                     }
                     if (track.kind === "video") {
                         track.onended = function (event) {
-                            log("video track.onended Audio track.readyState=" + track.readyState + ", track.muted=" + track.muted);
+                            console.log("video track.onended Audio track.readyState=" + track.readyState + ", track.muted=" + track.muted);
                         }
                     }
                 });
@@ -35,12 +35,12 @@ function permission() {
                     const source = window.audioContext.createMediaStreamSource(stream);
                     rec = new Recorder(source);
                 } catch (e) {
-                    log('Web Audio API not supported.');
+                    console.log('Web Audio API not supported.');
                 }
 
             }).catch(function (err) {
             /* handle the error */
-            log('navigator.getUserMedia error: ' + err);
+            console.log('navigator.getUserMedia error: ' + err);
         });
     }
 }
@@ -77,7 +77,7 @@ function startRec() {
             rec.record();
             recBtn.className = 'recordingStarted';
             recBtn.src = '/static/img/mic-color3.svg';
-            log('Start recording...');
+            console.log('Start recording...');
         }
     }
 }
@@ -110,23 +110,19 @@ function stopRec() {
 }
 
 navigator.mediaDevices.ondevicechange = function (event) {
-    log("mediaDevices.ondevicechange");
+    console.log("mediaDevices.ondevicechange");
     /*
     if (localStream != null){
         localStream.getTracks().forEach(function(track) {
             if(track.kind == "audio"){
                 track.onended = function(event){
-                    log("audio track.onended");
+                    console.log("audio track.onended");
                 }
             }
         });
     }
     */
 };
-
-function log(message) {
-    console.log(message)
-}
 
 //browser ID
 function getBrowser() {
