@@ -3,7 +3,7 @@
 const constraints = {audio: true, video: false};
 
 const recBtn = document.querySelector("img#recordButton");
-const ansTextBox = document.getElementById('answer')
+const ansTextBox = document.getElementById('answer');
 
 let rec;
 let localStream = null;
@@ -86,7 +86,7 @@ function stopRec() {
     if (recBtn.className === 'recordingStarted') {
         rec.stop();
         recBtn.className = 'recordingStopped';
-        recBtn.src = '/static/img/mic-color1.svg';
+        recBtn.src = '/static/img/mic-color6.svg';
         rec.exportWAV(function (blob) {
             let form = new FormData();
             form.append('file', blob, 'filename.wav');
@@ -102,6 +102,7 @@ function stopRec() {
                 // maybe return a non-200 status code and based on that write an output stating there was an error
                 // in speech recognition?
                 ansTextBox.textContent += data;
+                recBtn.src = '/static/img/mic-color1.svg';
             });
         });
         rec.clear();
