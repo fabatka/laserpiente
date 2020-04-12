@@ -48,35 +48,64 @@ function permission() {
 permission();
 
 $(recBtn).mousedown(function () {
-    onBtnRecordClicked()
+    startRec()
 });
 
 $(recBtn).mouseup(function () {
-    onBtnRecordClicked()
+    stopRec()
 });
 
-function onBtnRecordClicked() {
-    log('clicked!');
+document.addEventListener("keydown", function (event) {
+    let code = getKeyboardEventCode(event);
+    if ((code === 97) || (code === 'a')) {
+        event.preventDefault();
+        startRec()
+    }
+});
+
+document.addEventListener("keyup", function (event) {
+    let code = getKeyboardEventCode(event);
+    if ((code === 97) || (code === 'a')) {
+        event.preventDefault();
+        stopRec()
+    }
+});
+
+
+
+function startRec() {
     if (recBtn.className === 'recordingStopped') {
-        log('rec started');
-        startRec();
-    } else {
-        if (recBtn.className === 'recordingStarted') {
-            log('rec stopped');
-            stopRec();
+        if (localStream == null) {
+            // alert('Could not get local stream from mic/camera');
+        } else {
+            rec.record();
+            recBtn.className = 'recordingStarted';
+            recBtn.src = '/static/img/mic-color3.svg';
+            log('Start recording...');
         }
     }
 }
 
-
-function startRec() {
-    if (localStream == null) {
-        // alert('Could not get local stream from mic/camera');
-    } else {
-        rec.record();
-        recBtn.className = 'recordingStarted';
-        recBtn.src = '/static/img/mic-color3.svg';
-        log('Start recording...');
+function stopRec() {
+    if (recBtn.className === 'recordingStarted') {
+        rec.stop();
+        recBtn.className = 'recordingStopped';
+        recBtn.src = '/static/img/mic-color1.svg';
+        rec.exportWAV(function (blob) {
+            let form = new FormData();
+            form.append('file', blob, 'filename.wav');
+            $.ajax({
+                type: 'POST',
+                url: '/audio',
+                data: form,
+                cache: false,
+                processData: false,
+                contentType: false
+            }).done(function (data) {
+                console.log(data);
+            });
+        });
+        rec.clear();
     }
 }
 
@@ -94,27 +123,6 @@ navigator.mediaDevices.ondevicechange = function (event) {
     }
     */
 };
-
-function stopRec() {
-    rec.stop();
-    recBtn.className = 'recordingStopped';
-    recBtn.src = '/static/img/mic-color1.svg';
-    rec.exportWAV(function (blob) {
-        let form = new FormData();
-        form.append('file', blob, 'filename.wav');
-        $.ajax({
-            type: 'POST',
-            url: '/audio',
-            data: form,
-            cache: false,
-            processData: false,
-            contentType: false
-        }).done(function (data) {
-            console.log(data);
-        });
-    });
-    rec.clear();
-}
 
 function log(message) {
     console.log(message)
