@@ -13,6 +13,15 @@ body {
     bottom: 0;
 }
 
+#infobutton {
+    width: max(var(--textsize), 30px);
+    height: max(var(--textsize), 30px);
+    background: url('/static/img/info-color1-color4.svg');
+    position: absolute;
+    top: var(--textsize);
+    right: var(--textsize);
+}
+
 #submit {
     background-color: var(--color1);
     color: var(--color2);

@@ -23,3 +23,13 @@ window.onload = function () {
 };
 
 // TODO: create a common 'handleClickEvent' function that gets a list/map as a parameter
+
+$('#infobutton').hover(function (e) {
+    $('[data-toggle="tooltip"]').tooltip('enable');
+    $('[data-toggle="tooltip"]').tooltip('toggle');
+    $(this).attr('src', '/static/img/info-color1-color3.svg');
+}, function () {
+    $('[data-toggle="tooltip"]').tooltip('toggle');
+    $(this).attr('src', '/static/img/info-color1-color4.svg');
+    $('[data-toggle="tooltip"]').tooltip('disable');
+});
