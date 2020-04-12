@@ -1,6 +1,6 @@
 let input = document.getElementById('answer');
 
-input.addEventListener("keyup", function (event) {
+function getKeyboardEventCode(event) {
     let code;
 
     if (event.key !== undefined) {
@@ -10,6 +10,11 @@ input.addEventListener("keyup", function (event) {
     } else if (event.keyCode !== undefined) {
         code = event.keyCode;
     }
+    return code;
+}
+
+input.addEventListener("keyup", function (event) {
+    let code = getKeyboardEventCode(event);
 
     if ((code === 13) || (code === 'Enter')) {
         event.preventDefault();

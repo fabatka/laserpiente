@@ -1,6 +1,6 @@
-function sendRequest(method, url, requestBody) {
+function sendRequest(method, url, requestBody, contentType = 'application/x-www-form-urlencoded') {
     xhr.open(method, url);
-    xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+    xhr.setRequestHeader('Content-type', contentType);
     xhr.send(requestBody);
 }
 
@@ -19,7 +19,7 @@ xhr.onload = function () {
 // only execute this after complete page load, because handleClickEvent is defined in separate files
 window.onload = function () {
     const submitButton = document.getElementById('submit');
-    submitButton.addEventListener('click', handleClickEvent);
+    submitButton.addEventListener('click', handleSubmitClickEvent);
 };
 
 // TODO: create a common 'handleClickEvent' function that gets a list/map as a parameter

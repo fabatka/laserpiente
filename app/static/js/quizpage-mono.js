@@ -1,4 +1,4 @@
-function handleClickEvent(event) {
+function handleSubmitClickEvent(event) {
     const answerElement = document.getElementById('answer');
     const questionFirstElement = document.getElementById('questionFirst');
     const questionSecondElement = document.getElementById('questionSecond');
@@ -10,7 +10,7 @@ function handleClickEvent(event) {
             '&questionFirst=' + questionFirstElement.textContent +
             '&questionSecond=' + questionSecondElement.textContent +
             '&questionHint=' + questionHintElement.textContent;
-        sendRequest('POST', window.location.pathname + '-submit', requestBody);
+        sendRequest('POST', window.location.pathname + '-submit', requestBody, 'application/x-www-form-urlencoded');
     } else {
         window.location.href = window.location.pathname
     }
