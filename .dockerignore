@@ -1,4 +1,5 @@
 .idea
-app/__pycache
+__pycache__
 logs
 db
+audio

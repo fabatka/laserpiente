@@ -1,5 +1,9 @@
+import json
+import os
+from datetime import datetime
 from random import randrange
-from flask import Blueprint, render_template, make_response, request
+from requests import post
+from flask import Blueprint, render_template, make_response, request, current_app
 from app.lang import numbers_map
 
 
@@ -58,8 +62,26 @@ def submit():
 
 @bp.route('/audio', methods=['POST'])
 def speech2text():
-    audio = request.files.get('file')
-    with open('audio.wav', 'wb') as f:
-        f.write(audio.read())
+    raw_audio = request.files.get('file')
+    audio = raw_audio.read()
 
-    return make_response('yay!', 200)
+    filename = datetime.now().strftime('%Y-%m-%d_%H.%M.%S')
+    if not os.path.exists('audio'):
+        os.mkdir('audio')
+    with open(f'audio/{filename}.wav', 'wb') as f:
+        f.write(audio)
+
+    key = current_app.config['file']['azure']['key']
+    host = current_app.config['file']['azure']['host']
+    azure_headers = {'Ocp-Apim-Subscription-Key': key,
+                     'Content-Type': 'audio/wav; codecs=audio/pcm; samplerate=16000'}
+    azure_host = host
+    azure_payload = audio
+    speech2text_req = post(azure_host, headers=azure_headers, data=azure_payload)
+    if speech2text_req.ok:
+        current_app.logger.debug(speech2text_req.text)
+        response = json.loads(speech2text_req.text)
+        speech2text_result = response['NBest'][0]['Lexical']
+        return make_response(speech2text_result, 200)
+
+    return make_response('', 200)

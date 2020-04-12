@@ -3,6 +3,7 @@
 const constraints = {audio: true, video: false};
 
 const recBtn = document.querySelector("img#recordButton");
+const ansTextBox = document.getElementById('answer')
 
 let rec;
 let localStream = null;
@@ -97,7 +98,10 @@ function stopRec() {
                 processData: false,
                 contentType: false
             }).done(function (data) {
-                console.log(data);
+                // write response into textarea
+                // maybe return a non-200 status code and based on that write an output stating there was an error
+                // in speech recognition?
+                ansTextBox.textContent += data;
             });
         });
         rec.clear();
