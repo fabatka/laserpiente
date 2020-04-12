@@ -4,7 +4,6 @@ const constraints = {audio: true, video: false};
 
 const recBtn = document.querySelector("img#recordButton");
 
-
 let rec;
 let localStream = null;
 
@@ -57,21 +56,17 @@ $(recBtn).mouseup(function () {
 
 document.addEventListener("keydown", function (event) {
     let code = getKeyboardEventCode(event);
-    if ((code === 97) || (code === 'a')) {
-        event.preventDefault();
+    if (((code === 97) || (code === 'a')) && document.activeElement !== document.getElementById('answer')) {
         startRec()
     }
 });
 
 document.addEventListener("keyup", function (event) {
     let code = getKeyboardEventCode(event);
-    if ((code === 97) || (code === 'a')) {
-        event.preventDefault();
+    if (((code === 97) || (code === 'a')) && document.activeElement !== document.getElementById('answer')) {
         stopRec()
     }
 });
-
-
 
 function startRec() {
     if (recBtn.className === 'recordingStopped') {

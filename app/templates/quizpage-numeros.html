@@ -9,7 +9,10 @@
 {% block quiztask %}
     <div class="quizbox-task">
         <div id="question" class="question {{ extra_class }}">{{ question }}</div>
-        <img id="recordButton" class="recordingStopped" alt="MIC" src="/static/img/mic-color1.svg">
+        <img id="recordButton" class="recordingStopped" alt="MIC" src="/static/img/mic-color1.svg"
+             data-toggle="tooltip" data-html="true" title="" data-original-title="A hangfelvételhez klikkelj a
+             mikrofon ábrára, vagy nyomd le az <b>a</b> gombot. Amíg nyomva tartod az egeret vagy billentyűt, addig
+             megy a felvétel.">
         <textarea wrap="soft" class="form__group numeros" name="answer_input" id="answer">{{ answer }}</textarea>
         <label for="answer"></label>
     </div>
@@ -17,7 +20,7 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="/static/js/quizpage-dual.js"></script>
+    <script src="/static/js/quizpage-numeros.js"></script>
     <script src="/static/js/texarea_cant_copy.js"></script>
     <script src="/static/js/textarea_auto_height.js"></script>
     <script src="/static/js/textarea_disable_newline.js"></script>
