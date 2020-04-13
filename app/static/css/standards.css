@@ -28,3 +28,13 @@
 .icon-information {
     background-image: url("/static/img/info-color1.svg");
 }
+
+.footnotes {
+    margin-bottom: 0;
+    margin-top: calc(var(--textsize)*2.5);
+}
+
+a.footnotes {
+    color: blue;
+    text-underline: blue;
+}

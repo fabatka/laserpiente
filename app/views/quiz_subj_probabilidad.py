@@ -40,7 +40,7 @@ def quiz():
     input_width = max(len(sentence_split[missing_word_pos - 1]), len(pronoun_map_db_hr[solution_subject]))
     input_width_attr = f'width: calc(var(--textsize)*{input_width}*0.7)'
 
-    return render_template('quizpage-mono.html', question_first=sentence_first, question_second=sentence_second,
+    return render_template('subjuntivo-probabilidad.html', question_first=sentence_first, question_second=sentence_second,
                            question_hint=hint, quiz_title='Subjuntivo, probabilidad', input_width=input_width_attr)
 
 
