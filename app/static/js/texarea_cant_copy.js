@@ -28,6 +28,5 @@ for (textarea of textareas) {
 }
 const button = document.querySelector("button");
 button.addEventListener("click", e => {
-  console.log("paste");
   document.execCommand('insertText', false, textareas[0].copiedData)
 });

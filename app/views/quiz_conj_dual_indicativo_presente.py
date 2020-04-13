@@ -29,7 +29,6 @@ from laserpiente.v_conj_ind_pres
 where infinitivo = %(verb)s'''
 
 
-@bp.route('/', methods=['GET'])
 @bp.route(f'/{path}', methods=['GET'])
 def quiz():
     pronoun_db: str = execute_query(query_which_pronoun)[0].get('column_name')

@@ -1,9 +1,3 @@
-// enable tooltip on record button
-$(function () {
-    $('#recordButton').tooltip()
-});
-
-
 function handleSubmitClickEvent(event) {
     const answerElement = document.getElementById('answer');
     const questionElement = document.getElementById('question');

@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+{% endblock %}
+
+{% block content %}
+    {{ super() }}
+    <div class="quizbox">
+        <h1>La Serpiente</h1>
+        <p>
+            Ez az oldal néhány spanyol nyelvtani gyakorlatot tartalmaz. A bal oldali menüben lehet az egyes kvízekhez
+            navigálni, a jobb felső sarokban levő ikonra víve plusz információhoz lehet jutni néhány oldalon.
+        </p>
+    </div>
+{% endblock %}

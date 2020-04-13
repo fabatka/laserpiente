@@ -6,6 +6,8 @@ from requests import post
 from flask import Blueprint, render_template, make_response, request, current_app
 from app.lang import numbers_map
 
+from werkzeug.datastructures import FileStorage
+
 
 bp = Blueprint('quiz-numeros', __name__, template_folder='templates')
 
@@ -62,8 +64,12 @@ def submit():
 
 @bp.route('/audio', methods=['POST'])
 def speech2text():
-    raw_audio = request.files.get('file')
-    audio = raw_audio.read()
+    raw_audio: FileStorage = request.files.get('file')
+    audio: bytes = raw_audio.read()
+
+    # if the recording is too short, we don't even try to process it
+    if (len(audio) / 1024) < 200:
+        return make_response('', 200)
 
     filename = datetime.now().strftime('%Y-%m-%d_%H.%M.%S')
     if not os.path.exists('audio'):

@@ -7,14 +7,15 @@
 
 {% block content %}
     {{ super() }}
-        <div class="quizbox">
-            <div class="quizbox-description">{{ quiz_title }}</div>
-            {% block quiztask %}{% endblock %}
-            <div class="quizbox-result">
-                <button id="submit" class="btn btn-lg btn-default">Ellenőrzés</button>
-                <div id="result" class="response"></div>
-            </div>
+    <div class="quizbox">
+        <img id="infobutton" alt="i" src="/static/img/info-color1-color4.svg">
+        <div class="quizbox-description">{{ quiz_title }}</div>
+        {% block quiztask %}{% endblock %}
+        <div class="quizbox-result">
+            <button id="submit" class="btn btn-lg btn-default">Ellenőrzés</button>
+            <div id="result" class="response"></div>
         </div>
+    </div>
 {% endblock %}
 
 {% block scripts %}

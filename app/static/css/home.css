@@ -1,0 +1,16 @@
+@import "standards.css";
+
+body {
+    position: absolute;
+    margin: 0;
+    background-color: var(--color4);
+    color: var(--color1);
+    top: 0;
+    bottom: 0;
+}
+
+.quizbox {
+    font-size: var(--textsize);
+    padding: calc(var(--textsize)*2);
+    text-align: justify;
+}
