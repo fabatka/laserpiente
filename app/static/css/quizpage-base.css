@@ -7,7 +7,7 @@ The general layout of the quizbox, which most of the quiz types can use.
 body {
     position: absolute;
     margin: 0;
-    background-color: var(--color4);
+    background-color: var(--color1);
     color: var(--color1);
     top: 0;
     bottom: 0;
@@ -70,6 +70,7 @@ body {
     flex-direction: column;
     font-size: var(--textsize);
     position: relative;
+    background-color: var(--color4);
 }
 
 .quizbox-description {
