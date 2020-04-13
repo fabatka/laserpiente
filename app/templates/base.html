@@ -59,15 +59,9 @@
     </nav>
 
     {% block content -%}
-
-        <div class="sidebar-toggle-container">
-            <div class="container-fluid">
-                <button type="button" id="sidebarCollapse" class="btn">
-                    <span>Menü</span>
-                </button>
-            </div>
-        </div>
-
+        <button type="button" id="sidebarCollapse" class="btn sidebar-toggle-container">
+            <i class="icon icon-sidebar"></i>
+        </button>
     {%- endblock content %}
 
     <div class="overlay"></div>

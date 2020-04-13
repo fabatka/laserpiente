@@ -26,13 +26,13 @@ body {
     display: block;
     position: absolute;
     top: var(--textsize);
-    left: var(--textsize);
+    right: max(calc(var(--textsize)*3), 60px);
     border: 0;
     padding: 0;
     background: transparent;
-    width: calc(var(--textsize)*2);
-    height: calc(var(--textsize)*1.75);
-    z-index: 999;
+    width: max(calc(var(--textsize)*2), 45px);
+    height: max(calc(var(--textsize)*1.75), 45px);
+    z-index: 2;
 }
 
 #theoryButton.active {
@@ -50,20 +50,11 @@ body {
     color: var(--color4);
     font-size: max(calc(var(--textsize)*0.5), 10px);
     text-align: justify;
-    z-index: 998;
+    z-index: 1;
 }
 
 #theoryButton.active ~ #theoryOverlay {
     display: block;
-}
-
-.icon-book {
-    background-image: url('/static/img/book-color1.svg');
-    background-repeat: no-repeat;
-    display: inline-block;
-    background-size: contain;
-    width: calc(var(--textsize)*2);
-    height: calc(var(--textsize)*2);
 }
 
 #submit {
@@ -109,4 +100,8 @@ body {
 
 .false {
     color: red;
+}
+
+.icon-sidebar {
+    margin: -7px 0 0 -13px;
 }

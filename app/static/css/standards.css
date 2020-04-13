@@ -8,3 +8,23 @@
 
     --textsize: 4vmin;
 }
+
+.icon {
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-size: contain;
+    width: inherit;
+    height: inherit;
+}
+
+.icon-book {
+    background-image: url('/static/img/book-color1.svg');
+}
+
+.icon-sidebar {
+    background-image: url("/static/img/sidebar-color1.svg");
+}
+
+.icon-information {
+    background-image: url("/static/img/info-color1.svg");
+}

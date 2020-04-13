@@ -14,3 +14,9 @@ body {
     padding: calc(var(--textsize)*2);
     text-align: justify;
 }
+
+.icon {
+    width: var(--textsize);
+    height: var(--textsize);
+    margin-bottom: calc(var(--textsize)*-0.2);
+}
