@@ -16,6 +16,37 @@
     </div>
 {% endblock %}
 
+{% block theory %}
+    <h1>Számok</h1>
+    <p>A számokat spanyolban viszonylag egyszerűen lehet képezni:</p>
+    <ul>
+        <li>0-tól 15-ig minden számnév egyedi: <em>cero</em>, <em>quince</em>, stb.</li>
+        <li>16-tól 29-ig a logika az, hogy először jön a tízes helyiérték (<em>diez</em>, <em>veinte</em>), utána pedig
+            az egyes helyiérték, és ezt a két szót kis változtatással összevonjuk. Így jönnek ki a hangzásra ismerős, de
+            írásban kicsit trükkös számok: <em>die<strong>ci</strong>ocho</em>, <em>veint<strong>i</strong>dos</em>,
+            stb.
+        </li>
+        <li>30-tól 100-ig a tizes helyiértéket és az egyes helyiértéket különírjuk, közéjük egy "y"-t teszünk: <em><b>cuarenta
+            y</b> dos</em>, <em>noventa y quatro</em>, stb. Kerek számoknál természetesen csak a tizes helyiértéket
+            mondjuk.
+        </li>
+        <li>100-tól 999-ig a százas helyiérték után tesszük a többi részt (különírva): <em><strong>ciento</strong> once</em>,
+            <em><strong>quinientos</strong> sesenta y seis</em>, stb. Annyi trükk van, hogy a kerek 100 <em>cien</em>,
+            de a 100-200 közötti számoknál <em>ciento</em>-t használunk ehelyett.
+        </li>
+        <li>1'000-től 999'999-ig az ezres, tízezres, százezres helyiértékű számokat ugyanúgy mondjuk, mint a 0-999
+            közötti számokat, mögéjük téve a <em>mil</em> szót, és aztán a többi részt: <em><strong>dos
+                mil</strong></em>, <em><strong>setecientos cuarenta y tres mil</strong> doscientos treinta y cuatro</em>.
+            Itt annyi trükk van, hogy az 1000-1999 közötti számokat <em><strong>Un</strong> mil</em>-lel kezdjük, nem
+            <em><strong>Uno</strong> mil</em>-lel.
+        </li>
+        <li>1'000'000-999'999'999 között a logika hasonló, csak <em>mil</em> helyett a <em><strong>millón</strong></em>
+            vagy <em><strong>millones</strong></em> szót tesszük az első három számjegynek megfelelő szám után:
+            <em><strong>Un millón</strong> cuatrocientos cincuenta y siete mil trescientos cincuenta y nueve</em>,
+            <em><strong>Dos millones</strong> seiscientos sesenta y ocho mil trescientos veintisiete</em>
+        </li>
+    </ul>
+{% endblock %}
 
 {% block scripts %}
     {{ super() }}
