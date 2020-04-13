@@ -22,6 +22,50 @@ body {
     right: var(--textsize);
 }
 
+#theoryButton {
+    display: block;
+    position: absolute;
+    top: var(--textsize);
+    left: var(--textsize);
+    border: 0;
+    padding: 0;
+    background: transparent;
+    width: calc(var(--textsize)*2);
+    height: calc(var(--textsize)*1.75);
+    z-index: 999;
+}
+
+#theoryButton.active {
+    background-color: var(--color3);
+}
+
+#theoryOverlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    min-height: 100vh;
+    min-width: 100%;
+    padding: calc(var(--textsize)*3);
+    background-color: var(--color5);
+    color: var(--color4);
+    font-size: max(calc(var(--textsize)*0.5), 10px);
+    text-align: justify;
+    z-index: 998;
+}
+
+#theoryButton.active ~ #theoryOverlay {
+    display: block;
+}
+
+.icon-book {
+    background-image: url('/static/img/book-color1.svg');
+    background-repeat: no-repeat;
+    display: inline-block;
+    background-size: contain;
+    width: calc(var(--textsize)*2);
+    height: calc(var(--textsize)*2);
+}
+
 #submit {
     background-color: var(--color1);
     color: var(--color2);
@@ -34,6 +78,7 @@ body {
     justify-content: center;
     flex-direction: column;
     font-size: var(--textsize);
+    position: relative;
 }
 
 .quizbox-description {

@@ -9,6 +9,9 @@
     {{ super() }}
     <div class="quizbox">
         <img id="infobutton" alt="i" src="/static/img/info-color1-color4.svg">
+        <button id="theoryButton" class="btn" data-toggle="button"><i class="icon-book"></i></button>
+        <div id="theoryOverlay">{% block theory %}
+            <h1>Ehhez az oldalhoz nem készült elméleti összefoglaló</h1>{% endblock %}</div>
         <div class="quizbox-description">{{ quiz_title }}</div>
         {% block quiztask %}{% endblock %}
         <div class="quizbox-result">
