@@ -57,14 +57,14 @@ $(recBtn).mouseup(function () {
 
 document.addEventListener("keydown", function (event) {
     let code = getKeyboardEventCode(event);
-    if (((code === 97) || (code === 'a')) && document.activeElement !== document.getElementById('answer')) {
+    if (((code === 97) || (code === 'a')) && !(Array.from(document.getElementsByTagName('textarea')).includes(document.activeElement))) {
         startRec()
     }
 });
 
 document.addEventListener("keyup", function (event) {
     let code = getKeyboardEventCode(event);
-    if (((code === 97) || (code === 'a')) && document.activeElement !== document.getElementById('answer')) {
+    if (((code === 97) || (code === 'a')) && !(Array.from(document.getElementsByTagName('textarea')).includes(document.activeElement))) {
         stopRec()
     }
 });
