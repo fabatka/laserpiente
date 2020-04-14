@@ -9,7 +9,14 @@
     {{ super() }}
     <div class="quizbox">
         <img id="infobutton" alt="i" src="/static/img/info-color1-color4.svg">
-        <button id="theoryButton" class="btn" data-toggle="button"><i class="icon icon-book"></i></button>
+        <button id="theoryButton" class="btn" data-toggle="button">
+            <i data-toggle="tooltip" data-html="true" data-placement="bottom" data-original-title="Elmélet"
+               class="icon icon-book"></i>
+        </button>
+        <button id='errorButton' type="button" class="btn" data-toggle="modal" data-target="#exampleModal">
+            <i class='icon icon-exclamation' data-toggle="tooltip" data-html="true"
+               data-placement="bottom" data-original-title="Hiba jelentése"></i>
+        </button>
         <div id="theoryOverlay">{% block theory %}
             <h1>Ehhez az oldalhoz nem készült elméleti összefoglaló</h1>{% endblock %}</div>
         <div class="quizbox-description">{{ quiz_title }}</div>

@@ -29,6 +29,10 @@
     background-image: url("/static/img/info-color1.svg");
 }
 
+.icon-exclamation {
+    background-image: url("/static/img/exclamation-color1-color3.svg");
+}
+
 .footnotes {
     margin-bottom: 0;
     margin-top: calc(var(--textsize)*2.5);

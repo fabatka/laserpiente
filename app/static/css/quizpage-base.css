@@ -57,6 +57,18 @@ body {
     display: block;
 }
 
+#errorButton {
+    display: block;
+    position: absolute;
+    top: calc(var(--textsize)*1);
+    right: max(calc(var(--textsize)*6), 130px);
+    border: 0;
+    padding: 0;
+    background: transparent;
+    width: max(calc(var(--textsize)*2), 45px);
+    height: max(calc(var(--textsize)*1.75), 45px);
+}
+
 #submit {
     background-color: var(--color1);
     color: var(--color2);
