@@ -7,7 +7,7 @@ The general layout of the quizbox, which most of the quiz types can use.
 body {
     position: absolute;
     margin: 0;
-    background-color: var(--color4);
+    background-color: var(--color1);
     color: var(--color1);
     top: 0;
     bottom: 0;
@@ -22,6 +22,41 @@ body {
     right: var(--textsize);
 }
 
+#theoryButton {
+    display: block;
+    position: absolute;
+    top: var(--textsize);
+    right: max(calc(var(--textsize)*3), 60px);
+    border: 0;
+    padding: 0;
+    background: transparent;
+    width: max(calc(var(--textsize)*2), 45px);
+    height: max(calc(var(--textsize)*1.75), 45px);
+    z-index: 2;
+}
+
+#theoryButton.active {
+    background-color: var(--color3);
+}
+
+#theoryOverlay {
+    display: none;
+    position: absolute;
+    top: 0;
+    min-height: 100vh;
+    min-width: 100%;
+    padding: calc(var(--textsize)*3);
+    background-color: var(--color5);
+    color: var(--color4);
+    font-size: max(calc(var(--textsize)*0.5), 10px);
+    text-align: justify;
+    z-index: 1;
+}
+
+#theoryButton.active ~ #theoryOverlay {
+    display: block;
+}
+
 #submit {
     background-color: var(--color1);
     color: var(--color2);
@@ -34,6 +69,8 @@ body {
     justify-content: center;
     flex-direction: column;
     font-size: var(--textsize);
+    position: relative;
+    background-color: var(--color4);
 }
 
 .quizbox-description {
@@ -64,4 +101,8 @@ body {
 
 .false {
     color: red;
+}
+
+.icon-sidebar {
+    margin: -7px 0 0 -13px;
 }
