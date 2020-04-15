@@ -3,7 +3,7 @@
     --color2: rgba(242, 243, 174, 1);
     --color3: rgba(187, 68, 48, 1);
     --color4: rgba(252, 191, 73, 1);
-    --color5: rgba(65,123,90, 1);
+    --color5: rgba(65, 123, 90, 1);
     --color6: rgba(85, 40, 111, 1);
 
     --textsize: 4vmin;
@@ -35,10 +35,16 @@
 
 .footnotes {
     margin-bottom: 0;
-    margin-top: calc(var(--textsize)*2.5);
+    margin-top: calc(var(--textsize) * 2.5);
 }
 
 a.footnotes {
     color: blue;
     text-underline: blue;
+}
+
+.btn-primary {
+    color: var(--color2);
+    background-color: var(--color1);
+    border-color: var(--color1)
 }
