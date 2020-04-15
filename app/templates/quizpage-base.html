@@ -52,7 +52,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
-                    <button type="button" class="btn btn-primary">Küldés</button>
+                    <button type="button" class="btn btn-primary" onclick='submitError()'>Küldés</button>
                 </div>
             </div>
         </div>
@@ -63,4 +63,5 @@
     {{ super() }}
     <script src="/static/js/enter.js"></script>
     <script src="/static/js/quizpage-common.js"></script>
+    <script src='/static/js/errorReport.js'></script>
 {% endblock %}
