@@ -3,7 +3,7 @@ This css file defines the layout for a dual-symmetric question, where on the lef
 and on the right side there is the single input field (suitable for no more than a word).
 */
 
-.quizbox-task {
+#quizbox-task {
     width: 50%;
     display: flex;
     text-align: center;

@@ -11,12 +11,10 @@
         <img id="infobutton" alt="i" src="/static/img/info-color1-color4.svg">
         <button id="theoryButton" class="btn" data-toggle="button">
             <i data-toggle="tooltip" data-html="true" data-placement="bottom" data-original-title="Elmélet"
-               class="icon icon-book"></i>
-        </button>
+               class="icon icon-book"></i></button>
         <button id='errorButton' type="button" class="btn" data-toggle="modal" data-target="#errorModal">
             <i class='icon icon-exclamation' data-toggle="tooltip" data-html="true"
-               data-placement="bottom" data-original-title="Hiba jelentése"></i>
-        </button>
+               data-placement="bottom" data-original-title="Hiba jelentése"></i></button>
 
         <div id="theoryOverlay">
             {% block theory %}
@@ -24,11 +22,11 @@
             {% endblock %}
         </div>
 
-        <div class="quizbox-description">{{ quiz_title }}</div>
+        <div id="quizbox-description">{{ quiz_title }}</div>
 
-        {% block quiztask %}{% endblock %}
+        <div id="quizbox-task">{% block quiztask %}{% endblock %}</div>
 
-        <div class="quizbox-result">
+        <div id="quizbox-result">
             <button id="submit" class="btn btn-lg btn-default">Ellenőrzés</button>
             <div id="result" class="response"></div>
         </div>
