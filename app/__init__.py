@@ -1,7 +1,7 @@
 import logging
 import os
 from configparser import ConfigParser
-from logging.handlers import RotatingFileHandler
+from logging.handlers import RotatingFileHandler, SMTPHandler
 from flask_bootstrap import Bootstrap
 from flask import Flask
 from flask_mail import Mail
@@ -58,7 +58,20 @@ def create_app(config_file_path='config.ini'):
     app_instance.logger.setLevel(env_loglevel_map[app_instance.config['file']['env']['env']])
     app_instance.logger.info('La Serpiente startup')
     if app_instance.config['file']['env']['env'] == 'dev':
-        app_instance.logger.debug('Debug mode active')
         app_instance.env = 'development'
+        app_instance.logger.debug('Debug mode active')
+    elif app_instance.config['file']['env']['env'] == 'prod':
+        app_instance.env = 'production'
+
+        app_instance.logger.info('Production environment detected, setting up mail log handler')
+        mail_handler = SMTPHandler(
+            mailhost=(app_instance.config['MAIL_SERVER'], app_instance.config['MAIL_PORT']),
+            fromaddr=f"{app_instance.config['MAIL_USERNAME']}@{app_instance.config['MAIL_SERVER']}",
+            toaddrs=app_instance.config['MAIL_RECIPIENT'],
+            subject='La Serpiente Failure',
+            credentials=(app_instance.config['MAIL_USERNAME'], app_instance.config['MAIL_PASSWORD']),
+            secure=() if app_instance.config['MAIL_USE_TLS'] else None)
+        mail_handler.setLevel(logging.ERROR)
+        app_instance.logger.addHandler(mail_handler)
 
     return app_instance
