@@ -76,15 +76,16 @@ def speech2text():
     with open(f'audio/{filename}.wav', 'wb') as f:
         f.write(audio)
 
-    key = current_app.config['file']['azure']['key']
-    host = current_app.config['file']['azure']['host']
-    azure_headers = {'Ocp-Apim-Subscription-Key': key,
+    azure_key = current_app.config['file']['azure']['key']
+    azure_host = current_app.config['file']['azure']['host']
+    azure_headers = {'Ocp-Apim-Subscription-Key': azure_key,
                      'Content-Type': 'audio/wav; codecs=audio/pcm; samplerate=16000'}
-    azure_host = host
     azure_payload = audio
+    current_app.logger.info('Sending audio to Azure for speech recognition')
     speech2text_req = post(azure_host, headers=azure_headers, data=azure_payload)
     if speech2text_req.ok:
         current_app.logger.debug(speech2text_req.text)
+        current_app.logger.info('Speech recognition request successful')
         response = json.loads(speech2text_req.text)
         speech2text_result = response['NBest'][0]['Lexical']
         return make_response(speech2text_result, 200)
