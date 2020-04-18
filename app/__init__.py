@@ -4,8 +4,10 @@ from configparser import ConfigParser
 from logging.handlers import RotatingFileHandler
 from flask_bootstrap import Bootstrap
 from flask import Flask
+from flask_mail import Mail
 
 bootstrap = Bootstrap()
+mail = Mail()
 
 env_loglevel_map = {
     'dev': logging.DEBUG,
@@ -18,8 +20,17 @@ def create_app(config_file_path='config.ini'):
     config = ConfigParser()
     config.read(config_file_path)
     app_instance.config['file'] = config
+    app_instance.config['MAIL_SERVER'] = config['email']['host']
+    app_instance.config['MAIL_PORT'] = config['email']['port']
+    app_instance.config['MAIL_USERNAME'] = config['email']['user']
+    app_instance.config['MAIL_PASSWORD'] = config['email']['password']
+    app_instance.config['MAIL_USE_TLS'] = True
+    app_instance.config['MAIL_USE_SSL'] = False
+    app_instance.config['MAIL_DOMAIN'] = config['email']['domain']
+    app_instance.config['MAIL_RECIPIENT'] = config['email']['recipient']
 
     bootstrap.init_app(app_instance)
+    mail.init_app(app_instance)
     from app.views.common import bp as common_bp
     app_instance.register_blueprint(common_bp)
     from app.views.home import bp as home_bp
