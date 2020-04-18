@@ -6,14 +6,13 @@
 {% endblock %}
 
 {% block quiztask %}
-    <div class="quizbox-task">
-        <div id="question" class="question {{ extra_class }}">{{ question }}</div>
-        <img id="recordButton" class="recordingStopped" alt="MIC" src="/static/img/mic-color1.svg" data-toggle="tooltip"
-             data-html="true" data-placement="top" data-original-title="A szám diktálásához klikkelj a
+    <div id="question" class="question numeros">{{ question }}</div>
+    <img id="recordButton" class="recordingStopped" alt="MIC" src="/static/img/mic-color1.svg" data-toggle="tooltip"
+         data-html="true" data-placement="top" data-original-title="A szám diktálásához klikkelj a
              mikrofon ábrára, vagy nyomd le az <b>a</b> billentyűt. Amíg nyomva tartod az egeret vagy billentyűt, addig
-             megy a felvétel."> <textarea wrap="soft" class="form__group numeros" name="answer_input"
-                                          id="answer">{{ answer }}</textarea> <label for="answer"></label>
-    </div>
+             megy a felvétel.">
+    <textarea wrap="soft" class="form__group numeros" name="answer_input" id="answer">{{ answer }}</textarea>
+    <label for="answer"></label>
 {% endblock %}
 
 {% block theory %}
@@ -45,8 +44,8 @@
             <em><strong>Un millón</strong> cuatrocientos cincuenta y siete mil trescientos cincuenta y nueve</em>,
             <em><strong>Dos millones</strong> seiscientos sesenta y ocho mil trescientos veintisiete</em>
         </li>
-        <li>Egymilliárd és afelett ugyanez a logika, és a magyarhoz hasonló számneveket kell használni
-            (eltérve az angoltól): milliárd-<em><strong>millardo</strong></em>/<em><strong>millardos</strong></em>,
+        <li>Egymilliárd és afelett ugyanez a logika, és a magyarhoz hasonló számneveket kell használni (eltérve az
+            angoltól): milliárd-<em><strong>millardo</strong></em>/<em><strong>millardos</strong></em>,
             billió-<em><strong>billón</strong></em>/<em><strong>billones</strong></em>, stb. A milliárdokat
             kifejezhetjük ezer milliókkal is, pl <em>Doscientos veintidós <strong>mil</strong> doscientos treinta y
                 cuatro <strong>millones</strong></em> = <em><strong>Doscientos veintidós millardos</strong> doscientos

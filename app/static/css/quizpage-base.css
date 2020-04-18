@@ -57,6 +57,18 @@ body {
     display: block;
 }
 
+#errorButton {
+    display: block;
+    position: absolute;
+    top: calc(var(--textsize)*1);
+    right: max(calc(var(--textsize)*6), 130px);
+    border: 0;
+    padding: 0;
+    background: transparent;
+    width: max(calc(var(--textsize)*2), 45px);
+    height: max(calc(var(--textsize)*1.75), 45px);
+}
+
 #submit {
     background-color: var(--color1);
     color: var(--color2);
@@ -73,7 +85,7 @@ body {
     background-color: var(--color4);
 }
 
-.quizbox-description {
+#quizbox-description {
     color: var(--color1);
     font-size: calc(var(--textsize)*1.5);
     text-align: center;
@@ -81,7 +93,7 @@ body {
     margin-bottom: calc(var(--textsize)*2);
 }
 
-.quizbox-result {
+#quizbox-result {
     text-align: center;
     height: calc(var(--textsize)*3);
     margin-top: calc(var(--textsize)*1.25);
