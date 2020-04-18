@@ -31,6 +31,8 @@ def create_app(config_file_path='config.ini'):
 
     bootstrap.init_app(app_instance)
     mail.init_app(app_instance)
+    from app.views.error_handlers import bp as error_handlers_bp
+    app_instance.register_blueprint(error_handlers_bp)
     from app.views.error import bp as error_bp
     app_instance.register_blueprint(error_bp)
     from app.views.home import bp as home_bp
