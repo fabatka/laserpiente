@@ -30,7 +30,7 @@ def execute_query(raw_query: str,
         cursor = conn.cursor(cursor_factory=DictCursor)
     except pg.OperationalError as err:
         app.logger.error(f"Couldn't connect to database: {err}")
-        return []
+        raise
 
     try:
         if identifier_params is not None:
@@ -40,12 +40,12 @@ def execute_query(raw_query: str,
             query = raw_query
         cursor.execute(query, query_params)
     except pg.Error as err:
-        app.logger.error(f"Error executing query: {err}")
-        app.logger.debug(f"\nquery:\n{raw_query}\n"
+        app.logger.error(f"Error executing query: {err}"
+                         f"\nquery:\n{raw_query}\n"
                          f"query_params:\n{query_params}\n"
                          f"identifier_params:\n{identifier_params}\n")
         conn.rollback()
-        return []
+        raise
     else:
         results = cursor.fetchall()
         conn.commit()
