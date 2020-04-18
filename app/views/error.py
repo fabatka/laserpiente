@@ -21,5 +21,6 @@ def error_report():
                f"gyakorlat: {exercise} \n\n" \
                f"válasz: {answer}"
     mail.send(msg)
+    current_app.logger.info(f'Error report sent to {recipient}')
 
     return make_response('', 200)
