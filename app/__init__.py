@@ -24,8 +24,8 @@ def create_app(config_file_path='config.ini'):
     app_instance.config['MAIL_PORT'] = config['email']['port']
     app_instance.config['MAIL_USERNAME'] = config['email']['user']
     app_instance.config['MAIL_PASSWORD'] = config['email']['password']
-    app_instance.config['MAIL_USE_TLS'] = True
-    app_instance.config['MAIL_USE_SSL'] = False
+    app_instance.config['MAIL_USE_TLS'] = config['email']['tls'].lower() == 'true'
+    app_instance.config['MAIL_USE_SSL'] = config['email']['ssl'].lower() == 'true'
     app_instance.config['MAIL_DOMAIN'] = config['email']['domain']
     app_instance.config['MAIL_RECIPIENT'] = config['email']['recipient']
 
