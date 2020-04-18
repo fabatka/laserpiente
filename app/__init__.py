@@ -57,5 +57,8 @@ def create_app(config_file_path='config.ini'):
     app_instance.logger.addHandler(file_handler)
     app_instance.logger.setLevel(env_loglevel_map[app_instance.config['file']['env']['env']])
     app_instance.logger.info('La Serpiente startup')
+    if app_instance.config['file']['env']['env'] == 'dev':
+        app_instance.logger.debug('Debug mode active')
+        app_instance.env = 'development'
 
     return app_instance
