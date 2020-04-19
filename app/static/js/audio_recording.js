@@ -91,6 +91,7 @@ function stopRec() {
             let form = new FormData();
             form.append('file', blob, 'filename.wav');
             $.ajax({
+
                 type: 'POST',
                 url: '/audio',
                 data: form,
@@ -102,6 +103,10 @@ function stopRec() {
                 // maybe return a non-200 status code and based on that write an output stating there was an error
                 // in speech recognition?
                 ansTextBox.textContent += data;
+            }).fail(function (xhr, status, error) {
+                // write error message into textarea
+                ansTextBox.textContent += xhr.responseText;
+            }).always(function () {
                 recBtn.src = '/static/img/mic-color1.svg';
             });
         });

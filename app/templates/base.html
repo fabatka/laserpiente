@@ -29,14 +29,14 @@
 
         <ul class="list-unstyled components">
             <li>
-                <a href="/">Főoldal</a>
+                <a href="{{ url_for('home.home') }}">Főoldal</a>
             </li>
             <li>
                 <a href="#verbosSubmenu" data-toggle="collapse" aria-expanded="false"
                    class="dropdown-toggle">Igék</a>
                 <ul class="collapse list-unstyled" id="verbosSubmenu">
                     <li>
-                        <a href="/quiz-conj-dual-indicativo-presente">Indicativo, jelen idő</a>
+                        <a href="{{ url_for('quiz-indicativo-presente.quiz') }}">Indicativo, jelen idő</a>
                     </li>
                 </ul>
             </li>
@@ -45,12 +45,12 @@
                    class="dropdown-toggle">Subjuntivo</a>
                 <ul class="collapse list-unstyled" id="subjuntivoSubmenu">
                     <li>
-                        <a href="/quiz-subjuntivo-probabilidad">Subjuntivo - probabilidad</a>
+                        <a href="{{ url_for('quiz-subjuntivo-probabilidad.quiz') }}">Subjuntivo - probabilidad</a>
                     </li>
                 </ul>
             </li>
             <li>
-                <a href="/quiz-numeros">Números</a>
+                <a href="{{ url_for('quiz-numeros.quiz') }}">Números</a>
             </li>
             <li>
                 <a href="#">Kapcsolat</a>

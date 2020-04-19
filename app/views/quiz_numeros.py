@@ -2,7 +2,7 @@ import json
 import os
 from datetime import datetime
 from random import randrange
-from requests import post
+from requests import post, exceptions
 from flask import Blueprint, render_template, make_response, request, current_app
 from app.lang import numbers_map
 
@@ -82,12 +82,21 @@ def speech2text():
                      'Content-Type': 'audio/wav; codecs=audio/pcm; samplerate=16000'}
     azure_payload = audio
     current_app.logger.info('Sending audio to Azure for speech recognition')
-    speech2text_req = post(azure_host, headers=azure_headers, data=azure_payload)
-    if speech2text_req.ok:
-        current_app.logger.debug(speech2text_req.text)
-        current_app.logger.info('Speech recognition request successful')
-        response = json.loads(speech2text_req.text)
-        speech2text_result = response['NBest'][0]['Lexical']
-        return make_response(speech2text_result, 200)
-
-    return make_response('', 200)
+    error_response_text = 'Hiba'
+    try:
+        speech2text_req = post(azure_host, headers=azure_headers, data=azure_payload)
+        if speech2text_req.ok:
+            current_app.logger.debug(speech2text_req.text)
+            current_app.logger.info('Speech recognition request successful')
+            response = json.loads(speech2text_req.text)
+            speech2text_result = response['NBest'][0]['Lexical']
+            return make_response(speech2text_result, 200)
+        else:
+            current_app.logger.error(f'Speect-to-text request unsuccessful. '
+                                     f'Status code:{speech2text_req.status_code} '
+                                     f'Reason:{speech2text_req.reason}')
+            return make_response(error_response_text, 500)
+    except exceptions.MissingSchema as err:
+        current_app.logger.error(f'Unable to send speech-to-text request'
+                                 f'Error: {err}')
+        return make_response(error_response_text, 500)
