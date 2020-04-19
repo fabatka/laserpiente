@@ -1,18 +1,17 @@
 from typing import List
 from flask import Blueprint, render_template, make_response, request
+from markupsafe import escape
 
 from app.static.utils import execute_query
 from app.lang import pronoun_map_db_hr, pronoun_map_hr_db
 
-bp = Blueprint('quiz-subjuntivo-probabilidad', __name__, template_folder='templates')
-
-path = 'quiz-subjuntivo-probabilidad'
+bp = Blueprint('quiz-subjuntivo', __name__, template_folder='templates')
 
 query_question = '''
 select frase, palabra_q_falta, solucion_infinitivo, solucion_sujeto
 from laserpiente.sentences
 where 1=1
-    and quiz = 'subjuntivo-probabilidad'
+    and quiz = %(quiz)s
 order by random()
 limit 1'''
 
@@ -20,16 +19,19 @@ query_solution = '''
 select frase
 from laserpiente.sentences
 where 1=1
-    and quiz = 'subjuntivo-probabilidad'
+    and quiz = %(quiz)s
     and frase like %(sentence_first)s || '%%' 
     and frase like '%%' || %(sentence_second)s 
     and palabra_q_falta = %(missing_word_pos)s
     and solucion_sujeto = %(solution_subject)s '''
 
 
-@bp.route(f'/{path}', methods=['GET'])
-def quiz():
-    question_row = execute_query(query_question)[0]
+@bp.route(f'/quiz-subjuntivo-<quiz_type>', methods=['GET'])
+def quiz_page(quiz_type: str):
+    quiz = 'subjuntivo-' + escape(quiz_type)
+    page = f'{quiz}.html'
+
+    question_row = execute_query(raw_query=query_question, query_params={'quiz': quiz})[0]
     sentence_split: List[str, int] = question_row['frase'].split()
     missing_word_pos: int = question_row['palabra_q_falta']
     solution_infinitive = question_row['solucion_infinitivo']
@@ -40,12 +42,13 @@ def quiz():
     input_width = max(len(sentence_split[missing_word_pos - 1]), len(pronoun_map_db_hr[solution_subject]))
     input_width_attr = f'width: calc(var(--textsize)*{input_width}*0.7)'
 
-    return render_template('subjuntivo-probabilidad.html', question_first=sentence_first, question_second=sentence_second,
+    return render_template(page, question_first=sentence_first, question_second=sentence_second,
                            question_hint=hint, quiz_title='Subjuntivo, probabilidad', input_width=input_width_attr)
 
 
-@bp.route(f'/{path}-submit', methods=['POST'])
-def submit():
+@bp.route(f'/quiz-subjuntivo-<quiz_type>-submit', methods=['POST'])
+def submit(quiz_type: str):
+    quiz = 'subjuntivo-' + escape(quiz_type)
     answer: str = request.form.get('answer')
     question_first: str = request.form.get('questionFirst').strip()
     question_second: str = request.form.get('questionSecond').strip()
@@ -54,6 +57,7 @@ def submit():
     solution_subject_db = pronoun_map_hr_db[solution_subject_hr[1:-1]]  # there are parentheses around the pronouns
 
     query_params = {
+        'quiz': quiz,
         'sentence_first': question_first,
         'sentence_second': question_second,
         'missing_word_pos': len(question_first.split(' ')) + 1,
