@@ -42,4 +42,5 @@ values ('subjuntivo-probabilidad', 'Probablemente esté de mal humor.', 2, 'esta
        ('subjuntivo-probabilidad', 'Posiblemente nadie lo haya visto.', 4, 'haber', 'singular3'),
        ('subjuntivo-probabilidad', 'Es posible que le haga falta.', 5, 'hacer', 'singular3'),
        ('subjuntivo-probabilidad', 'Ya está listo con sus tareas probablemente.', 2, 'estar', 'singular3'),
-       ('subjuntivo-probabilidad', 'Nos molesta que haya gatos en el parque infantil.', 4, 'haber', 'singular3')
+       ('subjuntivo-probabilidad', 'Nos molesta que haya gatos en el parque infantil.', 4, 'haber', 'singular3'),
+       ('subjuntivo-verbos_de_cabeza', 'No supongo que viajen este año al extranjero.', 4, 'viajar', 'plural3')

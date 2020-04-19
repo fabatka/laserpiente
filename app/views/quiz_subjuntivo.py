@@ -36,6 +36,7 @@ where quiz like 'subjuntivo%'
 def quiz_page(quiz_type: str):
     quiz = 'subjuntivo-' + escape(quiz_type)
     page = f'{quiz}.html'
+    title = quiz.replace('-', ' - ').replace('_', ' ').capitalize()
 
     subjuntivo_quizzes = [row['quiz'] for row in execute_query(query_subjuntivo_quizzes)]
     if quiz not in subjuntivo_quizzes:
@@ -53,7 +54,7 @@ def quiz_page(quiz_type: str):
     input_width_attr = f'width: calc(var(--textsize)*{input_width}*0.7)'
 
     return render_template(page, question_first=sentence_first, question_second=sentence_second,
-                           question_hint=hint, quiz_title='Subjuntivo, probabilidad', input_width=input_width_attr)
+                           question_hint=hint, quiz_title=title, input_width=input_width_attr)
 
 
 @bp.route(f'/quiz-subjuntivo-<quiz_type>-submit', methods=['POST'])
