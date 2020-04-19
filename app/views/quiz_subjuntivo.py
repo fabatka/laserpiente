@@ -1,5 +1,5 @@
 from typing import List
-from flask import Blueprint, render_template, make_response, request
+from flask import Blueprint, render_template, make_response, request, abort
 from markupsafe import escape
 
 from app.static.utils import execute_query
@@ -25,11 +25,21 @@ where 1=1
     and palabra_q_falta = %(missing_word_pos)s
     and solucion_sujeto = %(solution_subject)s '''
 
+query_subjuntivo_quizzes = '''
+select distinct quiz
+from laserpiente.sentences
+where quiz like 'subjuntivo%'
+'''
+
 
 @bp.route(f'/quiz-subjuntivo-<quiz_type>', methods=['GET'])
 def quiz_page(quiz_type: str):
     quiz = 'subjuntivo-' + escape(quiz_type)
     page = f'{quiz}.html'
+
+    subjuntivo_quizzes = [row['quiz'] for row in execute_query(query_subjuntivo_quizzes)]
+    if quiz not in subjuntivo_quizzes:
+        abort(404)
 
     question_row = execute_query(raw_query=query_question, query_params={'quiz': quiz})[0]
     sentence_split: List[str, int] = question_row['frase'].split()
