@@ -39,8 +39,8 @@ def create_app(config_file_path='config.ini'):
     app_instance.register_blueprint(home_bp)
     from app.views.quiz_conj_dual_indicativo_presente import bp as quiz_conj_dual_indicativo_presente_bp
     app_instance.register_blueprint(quiz_conj_dual_indicativo_presente_bp)
-    from app.views.quiz_subj_probabilidad import bp as quiz_subj_probabilidad_bp
-    app_instance.register_blueprint(quiz_subj_probabilidad_bp)
+    from app.views.quiz_subjuntivo import bp as quiz_subjuntivo_bp
+    app_instance.register_blueprint(quiz_subjuntivo_bp)
     from app.views.quiz_numeros import bp as quiz_numeros
     app_instance.register_blueprint(quiz_numeros)
     from app.static.utils import bp as utils_bp
@@ -58,9 +58,11 @@ def create_app(config_file_path='config.ini'):
     app_instance.logger.setLevel(env_loglevel_map[app_instance.config['file']['env']['env']])
     app_instance.logger.info('La Serpiente startup')
     if app_instance.config['file']['env']['env'] == 'dev':
+        app_instance.logger.setLevel(logging.DEBUG)
         app_instance.env = 'development'
         app_instance.logger.debug('Debug mode active')
     elif app_instance.config['file']['env']['env'] == 'prod':
+        app_instance.logger.setLevel(logging.INFO)
         app_instance.env = 'production'
 
         app_instance.logger.info('Production environment detected, setting up mail log handler')
