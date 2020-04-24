@@ -42,6 +42,7 @@ body {
 #theoryOverlay {
     display: none;
     position: absolute;
+    width: inherit;
     top: 0;
     min-height: 100vh;
     min-width: 100%;
@@ -121,4 +122,34 @@ body {
 
 #theoryOverlay td {
     padding: 5px 20px;
+}
+
+.flex-list-item {
+    display: flex;
+    align-items: center;
+}
+
+.flex-list-item > span {
+    margin: 5px 10px;
+    overflow-wrap: break-word;
+    text-align: center;
+    flex-grow: 1;
+}
+
+#theoryOverlay li {
+    padding: 15px 0;
+    border-bottom: dashed;
+}
+
+#theoryOverlay li:last-child {
+    border: none;
+}
+
+#theoryOverlay .multiple > span {
+  display: block;
+  border-bottom: dotted;
+}
+
+#theoryOverlay .multiple > span:last-child {
+  border-bottom: none
 }

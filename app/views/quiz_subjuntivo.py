@@ -43,7 +43,7 @@ def quiz_page(quiz_type: str):
         abort(404)
 
     question_row = execute_query(raw_query=query_question, query_params={'quiz': quiz})[0]
-    sentence_split: List[str, int] = question_row['frase'].split()
+    sentence_split: List[str] = question_row['frase'].split()
     missing_word_pos: int = question_row['palabra_q_falta']
     solution_infinitive = question_row['solucion_infinitivo']
     solution_subject = question_row['solucion_sujeto']
