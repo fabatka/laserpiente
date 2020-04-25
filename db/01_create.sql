@@ -44,4 +44,8 @@ values ('subjuntivo-probabilidad', 'Probablemente esté de mal humor.', 2, 'esta
        ('subjuntivo-probabilidad', 'Ya está listo con sus tareas probablemente.', 2, 'estar', 'singular3'),
        ('subjuntivo-probabilidad', 'Nos molesta que haya gatos en el parque infantil.', 4, 'haber', 'singular3'),
        ('subjuntivo-verbos_de_cabeza', 'No supongo que viajen este año al extranjero.', 4, 'viajar', 'plural3'),
-       ('subjuntivo-frases_temporales', 'Cuando vengas a Budapest, tienes que visitarme.', 2, 'ir', 'singular2')
+       ('subjuntivo-frases_temporales', 'Cuando vengas a Budapest, tienes que visitarme.', 2, 'ir', 'singular2'),
+       ('subjuntivo-estructuras_fijas', E'Puedo descansar un poco más? \nDescanses cuanto quieras.', 6, 'descansar',
+        'singular2'),
+       ('subjuntivo-expresiones_para_valorar', 'Es mejor que esperemos un poco más.', 4, 'esperar', 'plural1'),
+       ('subjuntivo-peticion_prohibicion_etc', 'Necesito que me des un lápiz.', 4, 'dar', 'singular2')

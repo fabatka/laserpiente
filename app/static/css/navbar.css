@@ -143,3 +143,11 @@ ul ul a {
     width: 80px;
     height: 52px;
 }
+
+#sidebar .submenu a {
+    display: flex;
+}
+
+.submenu a > span {
+    align-items: baseline;
+}

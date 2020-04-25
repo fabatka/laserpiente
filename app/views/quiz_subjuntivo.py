@@ -1,9 +1,10 @@
 from typing import List
+
 from flask import Blueprint, render_template, make_response, request, abort
 from markupsafe import escape
 
-from app.static.utils import execute_query
 from app.lang import pronoun_map_db_hr, pronoun_map_hr_db
+from app.static.utils import execute_query
 
 bp = Blueprint('quiz-subjuntivo', __name__, template_folder='templates')
 
@@ -43,15 +44,15 @@ def quiz_page(quiz_type: str):
         abort(404)
 
     question_row = execute_query(raw_query=query_question, query_params={'quiz': quiz})[0]
-    sentence_split: List[str, int] = question_row['frase'].split()
+    sentence_split: List[str] = question_row['frase'].split()
     missing_word_pos: int = question_row['palabra_q_falta']
     solution_infinitive = question_row['solucion_infinitivo']
     solution_subject = question_row['solucion_sujeto']
-    sentence_first = ' '.join(sentence_split[:missing_word_pos-1]) + ' '
+    sentence_first = ' '.join(sentence_split[:missing_word_pos - 1]) + ' '
     sentence_second = ' ' + ' '.join(sentence_split[missing_word_pos:])
     hint = f'{solution_infinitive} ({pronoun_map_db_hr[solution_subject]})'
-    input_width = max(len(sentence_split[missing_word_pos - 1]), len(pronoun_map_db_hr[solution_subject]))
-    input_width_attr = f'width: calc(var(--textsize)*{input_width}*0.7)'
+    input_width = max(len(sentence_split[missing_word_pos - 1]), len(hint))
+    input_width_attr = f'width: calc(var(--textsize)*{input_width}*0.45)'
 
     return render_template(page, question_first=sentence_first, question_second=sentence_second,
                            question_hint=hint, quiz_title=title, input_width=input_width_attr)
