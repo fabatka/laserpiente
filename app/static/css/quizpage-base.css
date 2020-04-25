@@ -136,12 +136,12 @@ body {
     flex-grow: 1;
 }
 
-#theoryOverlay li {
+#theoryOverlay li.separate {
     padding: 15px 0;
     border-bottom: dashed;
 }
 
-#theoryOverlay li:last-child {
+#theoryOverlay li.separate:last-child {
     border: none;
 }
 
