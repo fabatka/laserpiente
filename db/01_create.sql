@@ -47,5 +47,5 @@ values ('subjuntivo-probabilidad', 'Probablemente esté de mal humor.', 2, 'esta
        ('subjuntivo-frases_temporales', 'Cuando vengas a Budapest, tienes que visitarme.', 2, 'ir', 'singular2'),
        ('subjuntivo-estructuras_fijas', E'Puedo descansar un poco más? \nDescanses cuanto quieras.', 6, 'descansar',
         'singular2'),
-       ('subjuntivo-expresiones_para_valorar', 'Es mejor que esperemos un poco más.', 4, 'esperemos', 'plural1'),
-       ('subjuntivo-peticion_prohibicion_etc', 'Necesito que me des un lápiz.', 4, 'des', 'singular2')
+       ('subjuntivo-expresiones_para_valorar', 'Es mejor que esperemos un poco más.', 4, 'esperar', 'plural1'),
+       ('subjuntivo-peticion_prohibicion_etc', 'Necesito que me des un lápiz.', 4, 'dar', 'singular2')
