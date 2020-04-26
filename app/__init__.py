@@ -1,10 +1,11 @@
 import logging
 import os
-from configparser import ConfigParser
 from logging.handlers import RotatingFileHandler, SMTPHandler
 from flask_bootstrap import Bootstrap
 from flask import Flask
 from flask_mail import Mail
+
+from app.config import parse_config
 
 bootstrap = Bootstrap()
 mail = Mail()
@@ -15,19 +16,19 @@ env_loglevel_map = {
 }
 
 
-def create_app(config_file_path='config.ini'):
+def create_app():
     app_instance = Flask(__name__)
-    config = ConfigParser()
-    config.read(config_file_path)
-    app_instance.config['file'] = config
-    app_instance.config['MAIL_SERVER'] = config['email']['host']
-    app_instance.config['MAIL_PORT'] = config['email']['port']
-    app_instance.config['MAIL_USERNAME'] = config['email']['user']
-    app_instance.config['MAIL_PASSWORD'] = config['email']['password']
-    app_instance.config['MAIL_USE_TLS'] = config['email']['tls'].lower() == 'true'
-    app_instance.config['MAIL_USE_SSL'] = config['email']['ssl'].lower() == 'true'
-    app_instance.config['MAIL_DOMAIN'] = config['email']['domain']
-    app_instance.config['MAIL_RECIPIENT'] = config['email']['recipient']
+
+    cnf = parse_config()
+    app_instance.config['file'] = cnf
+    app_instance.config['MAIL_SERVER'] = cnf['email']['host']
+    app_instance.config['MAIL_PORT'] = cnf['email']['port']
+    app_instance.config['MAIL_USERNAME'] = cnf['email']['user']
+    app_instance.config['MAIL_PASSWORD'] = cnf['email']['password']
+    app_instance.config['MAIL_USE_TLS'] = cnf['email']['tls'].lower() == 'true'
+    app_instance.config['MAIL_USE_SSL'] = cnf['email']['ssl'].lower() == 'true'
+    app_instance.config['MAIL_DOMAIN'] = cnf['email']['domain']
+    app_instance.config['MAIL_RECIPIENT'] = cnf['email']['recipient']
 
     bootstrap.init_app(app_instance)
     mail.init_app(app_instance)
