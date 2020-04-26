@@ -68,15 +68,17 @@ def submit(quiz_type: str):
     infinitivo, solution_subject_hr = hint.split(' ')  # the hint is like "infinitivo (pronoun)"
     solution_subject_db = pronoun_map_hr_db[solution_subject_hr[1:-1]]  # there are parentheses around the pronouns
 
+    missing_word_pos = len(question_first.split(' ')) if len(question_first) > 0 else 0
+
     query_params = {
         'quiz': quiz,
         'sentence_first': question_first,
         'sentence_second': question_second,
-        'missing_word_pos': len(question_first.split(' ')) + 1,
+        'missing_word_pos': missing_word_pos + 1,
         'solution_subject': solution_subject_db
     }
     solution_sentence = execute_query(query_solution, query_params=query_params)[0].get('frase')
-    solution = solution_sentence.split(' ')[len(question_first.split(' '))]
+    solution = solution_sentence.split(' ')[missing_word_pos]
 
     if answer.strip().lower() == solution.strip().lower():
         response_text = '<p> <span class="correct">¡Correcto!</span></p>'
