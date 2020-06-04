@@ -6,13 +6,18 @@
 {% endblock %}
 
 {% block quiztask %}
-    <div id="questionFirst">{{ question_first }}</div>
-    <div class="form__group">
-        <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input" id="answer"
-               style="{{ input_width }}"/>
-        <label id="questionHint" for="answer" class="form__label">{{ question_hint }}</label>
-    </div>
-    <div id="questionSecond">{{ question_second }}</div>
+    {% for question in questions %}
+        <div id="question{{ loop.index }}" class='question'>{{ question }}</div>
+        {% if not loop.last %}
+            <div class="form__group">
+                <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input"
+                       id="answer{{ loop.index }}" style="{{ input_widths[loop.index0] }}"/>
+                <label id="questionHint{{ loop.index }}" for="answer{{ loop.index }}" class="form__label">
+                    {{ question_hints[loop.index0] }}
+                </label>
+            </div>
+        {% endif %}
+    {% endfor %}
 {% endblock %}
 
 {% block scripts %}

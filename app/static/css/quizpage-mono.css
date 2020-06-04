@@ -60,10 +60,6 @@ which misses a word and where the input field is.
 }
 /*End of form css*/
 
-#questionFirst {
-    display: inline;
-}
-
-#questionSecond {
+.question {
     display: inline;
 }
