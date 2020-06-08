@@ -1,4 +1,4 @@
-from typing import List, Optional
+from typing import List, Optional, Tuple
 
 import psycopg2 as pg
 from flask import Blueprint, render_template, make_response, request, abort, jsonify
@@ -6,6 +6,8 @@ from markupsafe import escape
 
 from app.lang import pronoun_map_db_hr
 from app.static.utils import execute_query
+
+punctuations = '-–.,:?'
 
 bp = Blueprint('quiz-subjuntivo', __name__, template_folder='templates')
 
@@ -59,25 +61,26 @@ def quiz_page(quiz_type: str):
 
     # we query the whole sentence, and lists of positions of the words to be omitted, their inifnite forms and subjects
     question_row = execute_query(raw_query=query_question, query_params={'quiz': quiz})[0]
-    # TODO: handle punctuation marks, dashes, newlines etc. properly
     sentence_splits: List[str] = question_row['texto'].split()
-    missing_positions: List[Optional[int]] = question_row['palabra_q_falta']
+    missing_pos: List[Optional[int]] = question_row['palabra_q_falta']
     solutions_infinitive: List[str] = question_row['solucion_infinitivo']
     solutions_subject: List[str] = question_row['solucion_sujeto']
     ids: List[int] = question_row['id']
+
+    sentence_splits_mod, missing_pos_mod = handle_punctuations(sentence_splits, missing_pos)
+
     # we create a list of the sentence parts between the solutions (and omit them)
     # the template will iterate over these and create html elements with the
     # appropriate attributes and content
-    text_limits = [None] + missing_positions + [None]
-
+    text_limits = [None] + missing_pos_mod + [None]
     def ending(x: Optional[int]): return None if x is None else x - 1
-
-    sentence_parts = [' '.join(sentence_splits[beg:ending(end)]) + ' '
+    sentence_parts = [' '.join(sentence_splits_mod[beg:ending(end)]) + ' '
                       for beg, end in zip(text_limits, text_limits[1:])]
+
     hints = [f'{inf} ({pronoun_map_db_hr[subj]})'
              for inf, subj in zip(solutions_infinitive, solutions_subject)]
-    input_widths = [max(len(sentence_splits[missing_pos - 1]), len(hints[idx]))
-                    for idx, missing_pos in enumerate(missing_positions)]
+    input_widths = [max(len(sentence_splits_mod[missing_pos_mod - 1]), len(hints[idx]))
+                    for idx, missing_pos_mod in enumerate(missing_pos_mod)]
     input_width_attrs = [f'width: calc(var(--textsize)*{input_width}*0.45)'
                          for input_width in input_widths]
 
@@ -89,12 +92,28 @@ def quiz_page(quiz_type: str):
                            quiz_title=title)
 
 
+def handle_punctuations(sentence_splits: List[str], missing_pos: List[int]) -> Tuple[List[str], List[Optional[int]]]:
+    missing_pos_mod = missing_pos.copy()
+    sentence_splits_mod = []
+    for word in sentence_splits:
+        k = len(sentence_splits_mod)
+        if word[0] in punctuations:
+            sentence_splits_mod.extend([word[0], word[1:]])
+            missing_pos_mod = [m + 1 if m >= k + 1 else m for m in missing_pos_mod]
+        elif word[-1] in punctuations:
+            sentence_splits_mod.extend([word[:-1], word[-1]])
+            missing_pos_mod = [m + 1 if m > k + 1 else m for m in missing_pos_mod]
+        else:
+            sentence_splits_mod.append(word)
+    return sentence_splits_mod, missing_pos_mod
+
+
 def distinct_subjuntivo_quizzes() -> List[str]:
     return [row['quiz'] for row in execute_query(query_subjuntivo_quizzes)]
 
 
-@bp.route(f'/quiz-subjuntivo-<quiz_type>-submit', methods=['POST'])
-def submit(quiz_type: str):
+@bp.route(f'/quiz-subjuntivo-<_quiz_type>-submit', methods=['POST'])
+def submit(_quiz_type: str):
     data = request.get_json()
     answers: List[str] = data['answers']
     question_ids: List[str] = data['questionIds']
@@ -107,8 +126,11 @@ def submit(quiz_type: str):
             sentence: str = solution_row['texto']
             missing_place: int = solution_row['palabra_q_falta']
             solution = sentence.split()[missing_place-1]
-            solutions.append(solution)
-            results.append(solution.strip(' .-,!?').lower() == answer.strip(' .-,!?').lower())
+            solution_clean = solution.strip().strip(punctuations).lower()
+            answer_clean = answer.strip().strip(punctuations).lower()
+            print(solution, solution_clean, solution.strip(punctuations))
+            solutions.append(solution_clean)
+            results.append(answer_clean == solution_clean)
 
         if all(results):
             response_text = '<p> <span class="correct">¡Correcto!</span></p>'
