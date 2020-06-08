@@ -1,3 +1,4 @@
+import re
 from typing import List, Optional, Tuple
 
 import psycopg2 as pg
@@ -61,13 +62,20 @@ def quiz_page(quiz_type: str):
 
     # we query the whole sentence, and lists of positions of the words to be omitted, their inifnite forms and subjects
     question_row = execute_query(raw_query=query_question, query_params={'quiz': quiz})[0]
-    # TODO: handle newlines
-    sentence_splits: List[str] = question_row['texto'].split()
+    text: str = question_row['texto']
     missing_pos: List[Optional[int]] = question_row['palabra_q_falta']
     solutions_infinitive: List[str] = question_row['solucion_infinitivo']
     solutions_subject: List[str] = question_row['solucion_sujeto']
     ids: List[int] = question_row['id']
 
+    # handle newlines
+    text = text.replace('\r\n', ' \r\n ')
+    for idx, word in enumerate(text.split(' ')):
+        if re.search(r'\r\n', word):
+            missing_pos = [pos+1 if pos > idx else pos for pos in missing_pos]
+
+    # handle punctuations
+    sentence_splits: List[str] = text.split(' ')
     sentence_splits_mod, missing_pos_mod = handle_punctuations(sentence_splits, missing_pos)
 
     # we create a list of the sentence parts between the solutions (and omit them)
@@ -129,7 +137,6 @@ def submit(_quiz_type: str):
             solution = sentence.split()[missing_place-1]
             solution_clean = solution.strip().strip(punctuations).lower()
             answer_clean = answer.strip().strip(punctuations).lower()
-            print(solution, solution_clean, solution.strip(punctuations))
             solutions.append(solution_clean)
             results.append(answer_clean == solution_clean)
 
