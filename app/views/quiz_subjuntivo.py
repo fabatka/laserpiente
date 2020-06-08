@@ -89,9 +89,10 @@ def quiz_page(quiz_type: str):
     # TODO: left align
     sentence_parts = [prettify(part) for part in sentence_parts]
 
-    hints = [f'{inf} ({pronoun_map_db_hr[subj]})'
+    hints = ['' if (inf is None) or (subj is None)
+             else f'{inf} ({pronoun_map_db_hr[subj]})'
              for inf, subj in zip(solutions_infinitive, solutions_subject)]
-    input_widths = [max(len(sentence_splits_mod[missing_pos_mod - 1]), len(hints[idx]))
+    input_widths = [max(len(sentence_splits_mod[missing_pos_mod - 1])+3, len(hints[idx]))
                     for idx, missing_pos_mod in enumerate(missing_pos_mod)]
     input_width_attrs = [f'width: calc(var(--textsize)*{input_width}*0.45)'
                          for input_width in input_widths]

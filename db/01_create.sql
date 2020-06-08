@@ -33,8 +33,8 @@ create table laserpiente.ejercicio
     quiz                varchar not null,
     frase_id            bigint references laserpiente.frase (id),
     palabra_q_falta     integer not null,
-    solucion_infinitivo varchar not null,
-    solucion_sujeto     varchar not null
+    solucion_infinitivo varchar,
+    solucion_sujeto     varchar
 );
 
 create index ejercicio_quiz_index
@@ -144,7 +144,8 @@ values (1, E'Probablemente esté de mal humor.'),
        (89, E'Mi madre me ha ordenado que barra el suelo.'),
        (90, E'Me dejan que vuelva tarde esta noche.'),
        (91, E'No te han prohibido que bebas cerveza durante el trabajo?'),
-       (92, E'Hagas lo que hagas, hazlo con pasión.');
+       (92, E'Hagas lo que hagas, hazlo con pasión.'),
+       (93, E'Igual me quedo en casa esta noche.');
 
 insert into laserpiente.ejercicio (quiz, frase_id, palabra_q_falta, solucion_infinitivo, solucion_sujeto)
 values ('subjuntivo-probabilidad', 1, 2, 'estar', 'singular3'),
@@ -239,4 +240,7 @@ values ('subjuntivo-probabilidad', 1, 2, 'estar', 'singular3'),
        ('subjuntivo-peticion_prohibicion_etc', 90, 4, 'volver', 'singular1'),
        ('subjuntivo-peticion_prohibicion_etc', 91, 6, 'beber', 'singular2'),
        ('subjuntivo-estructuras_fijas', 92, 1, 'hacer', 'singular2'),
-       ('subjuntivo-estructuras_fijas', 92, 4, 'hacer', 'singular2');
+       ('subjuntivo-estructuras_fijas', 92, 4, 'hacer', 'singular2'),
+       ('subjuntivo-probabilidad', 93, 2, null, null),
+       ('subjuntivo-probabilidad', 93, 3, 'quedarse', 'singular1'),
+       ('subjuntivo-probabilidad', 13, 2, null, null);
