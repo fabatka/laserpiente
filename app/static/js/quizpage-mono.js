@@ -1,16 +1,28 @@
 function handleSubmitClickEvent(event) {
-    const answerElement = document.getElementById('answer');
-    const questionFirstElement = document.getElementById('questionFirst');
-    const questionSecondElement = document.getElementById('questionSecond');
-    const questionHintElement = document.getElementById('questionHint');
+    const inputElements = document.getElementsByClassName('form__field');
     const serverResponseParagraph = document.getElementById('result');
 
+    let answers = [];
+    let questionIds = [];
+    for (let inputEl of inputElements) {
+        answers.push(inputEl.value)
+        questionIds.push(inputEl.getAttribute('data-identity'))
+    }
+
     if (serverResponseParagraph.textContent === '') {
-        let requestBody = 'answer=' + answerElement.value +
-            '&questionFirst=' + questionFirstElement.textContent +
-            '&questionSecond=' + questionSecondElement.textContent +
-            '&questionHint=' + questionHintElement.textContent;
-        sendRequest('POST', window.location.pathname + '-submit', requestBody, 'application/x-www-form-urlencoded');
+        $.ajax({
+            type: 'POST',
+            url:  window.location.pathname + '-submit',
+            data: JSON.stringify({
+                'answers': answers,
+                'questionIds': questionIds}),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json'
+        }).done(function (resultMessage, status) {
+            serverResponseParagraph.innerHTML = resultMessage;
+        }).fail(function (xhr, status, error) {
+            serverResponseParagraph.innerHTML += xhr.responseText;
+        })
     } else {
         window.location.href = window.location.pathname
     }

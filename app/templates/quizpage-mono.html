@@ -11,7 +11,8 @@
         {% if not loop.last %}
             <div class="form__group">
                 <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input"
-                       id="answer{{ loop.index }}" style="{{ input_widths[loop.index0] }}"/>
+                       id="answer{{ loop.index }}" style="{{ input_widths[loop.index0] }}"
+                       data-identity="{{ question_ids[loop.index0] }}">
                 <label id="questionHint{{ loop.index }}" for="answer{{ loop.index }}" class="form__label">
                     {{ question_hints[loop.index0] }}
                 </label>
