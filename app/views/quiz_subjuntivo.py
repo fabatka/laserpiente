@@ -50,7 +50,7 @@ def quiz_page(quiz_type: str):
     """
     Displays a mono quiz page with a question that has the quiz type found in the url.
 
-    :param quiz_type: The url defines what kind of quiz to display. This must be one of the quiz values found in the sentences table
+    :param quiz_type: The url defines what kind of quiz to display. This must be one of the quiz values found in the ejercicio table
     :type quiz_type: str
     """
     quiz = 'subjuntivo-' + escape(quiz_type)
@@ -85,6 +85,9 @@ def quiz_page(quiz_type: str):
     def ending(x: Optional[int]): return None if x is None else x - 1
     sentence_parts = [' '.join(sentence_splits_mod[beg:ending(end)]) + ' '
                       for beg, end in zip(text_limits, text_limits[1:])]
+    # prettify sentences
+    # TODO: left align
+    sentence_parts = [prettify(part) for part in sentence_parts]
 
     hints = [f'{inf} ({pronoun_map_db_hr[subj]})'
              for inf, subj in zip(solutions_infinitive, solutions_subject)]
@@ -115,6 +118,12 @@ def handle_punctuations(sentence_splits: List[str], missing_pos: List[int]) -> T
         else:
             sentence_splits_mod.append(word)
     return sentence_splits_mod, missing_pos_mod
+
+
+def prettify(text: str) -> str:
+    for char in punctuations:
+        text = text.replace(f' {char}', char).replace(f'{char} ', char)
+    return text
 
 
 def distinct_subjuntivo_quizzes() -> List[str]:
