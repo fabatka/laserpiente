@@ -61,6 +61,7 @@ def quiz_page(quiz_type: str):
 
     # we query the whole sentence, and lists of positions of the words to be omitted, their inifnite forms and subjects
     question_row = execute_query(raw_query=query_question, query_params={'quiz': quiz})[0]
+    # TODO: handle newlines
     sentence_splits: List[str] = question_row['texto'].split()
     missing_pos: List[Optional[int]] = question_row['palabra_q_falta']
     solutions_infinitive: List[str] = question_row['solucion_infinitivo']
