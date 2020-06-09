@@ -19,7 +19,7 @@ create table laserpiente.verbos
 	plural3 varchar not null
 );
 
-grant select on laserpiente.verbos to dev;
+alter table laserpiente.verbos owner to dev;
 
 create table laserpiente.frase
 (
@@ -28,7 +28,7 @@ create table laserpiente.frase
     texto varchar not null
 );
 
-grant select on laserpiente.frase to dev;
+alter table laserpiente.frase owner to dev;
 
 create table laserpiente.ejercicio
 (
@@ -44,7 +44,7 @@ create table laserpiente.ejercicio
 create index ejercicio_quiz_index
     on laserpiente.ejercicio (quiz);
 
-grant select on laserpiente.ejercicio to dev;
+alter table laserpiente.ejercicio owner to dev;
 
 
 insert into laserpiente.verbos (infinitivo, singular1, singular2, singular3, plural1, plural2, plural3)
