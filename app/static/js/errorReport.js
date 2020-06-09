@@ -1,11 +1,19 @@
 let errorText = document.getElementById('message-text');
-let exercise = document.getElementById('quizbox-task');
+let exerciseElements = document.getElementsByClassName('form__field');
 let answer = document.getElementById('answer');
+
+ids = [];
+answers = [];
+for (let exerciseEl of exerciseElements) {
+    ids.push(exerciseEl.getAttribute('data-identity'));
+    answers.push(exerciseEl.value);
+}
+
 
 function submitError() {
     let requestBody =
-        'exercise=' + exercise.innerText +
-        '&answer=' + answer.value +
+        'exercise=' + ids.join(', ') +
+        '&answer=' + answers.join(', ') +
         '&message=' + errorText.value;
     sendRequest('POST', '/error', requestBody);
     errorText.value = '';

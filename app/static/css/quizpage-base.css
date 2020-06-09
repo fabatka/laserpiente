@@ -153,3 +153,7 @@ body {
 #theoryOverlay .multiple > span:last-child {
   border-bottom: none
 }
+
+.question {
+    white-space: pre-wrap;
+}

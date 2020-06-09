@@ -13,7 +13,8 @@ def not_found(_):
 def server_error(error):
 
     # a quiz-submit requestekre a válasz html, de csak formázott szöveg, és nem egy teljes weboldal
-    if re.search(r'/quiz-.*-submit', request.path):
+    # TODO: kezelni kell ha json valaszt var a kliens
+    if re.search(r'/quiz-.*-submit', request.path) or re.search(r'/error', request.path):
         inline_message = '<strong>Hiba történt!</strong> Az oldal karbantartója értesítve lett, ' \
                          'elnézést a kellemetlenségért'
         return inline_message
