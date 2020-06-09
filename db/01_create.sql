@@ -11,12 +11,12 @@ create table laserpiente.verbos
 	participio varchar,
 	modo varchar,
 	tiempo varchar,
-	singular1 varchar not null,
-	singular2 varchar not null,
-	singular3 varchar not null,
-	plural1 varchar not null,
-	plural2 varchar not null,
-	plural3 varchar not null
+	singular1 varchar,
+	singular2 varchar,
+	singular3 varchar,
+	plural1 varchar,
+	plural2 varchar,
+	plural3 varchar
 );
 
 alter table laserpiente.verbos owner to dev;
