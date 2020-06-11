@@ -38,7 +38,7 @@ def create_app():
     app_instance.register_blueprint(error_bp)
     from app.views.home import bp as home_bp
     app_instance.register_blueprint(home_bp)
-    from app.views.quiz_conj_dual_indicativo_presente import bp as quiz_conj_dual_indicativo_presente_bp
+    from app.views.quiz_conjugacion import bp as quiz_conj_dual_indicativo_presente_bp
     app_instance.register_blueprint(quiz_conj_dual_indicativo_presente_bp)
     from app.views.quiz_subjuntivo import bp as quiz_subjuntivo_bp
     app_instance.register_blueprint(quiz_subjuntivo_bp)
