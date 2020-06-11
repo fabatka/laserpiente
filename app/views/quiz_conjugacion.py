@@ -17,8 +17,10 @@ limit 1'''
 
 query_pronoun_for_verb = '''
 select {pronoun}
-from laserpiente.v_conj_ind_pres
-where infinitivo = %(verb)s'''
+from laserpiente.verbo
+where infinitivo = %(verb)s
+    and tiempo = %(tense)s
+    and modo = %(mood)s'''
 
 
 @bp.route(f'/{path}', methods=['GET'])
@@ -48,13 +50,18 @@ def submit():
     answer: str = request.form.get('answer')
     question: str = request.form.get('question')
     pronoun_hr: str = request.form.get('questionHint')
+    subtitle: str = request.form.get('subtitle')
+    # TODO: put quiz info into hidden element and get it from those
+    subtitle_list = [word.strip().lower() for word in subtitle.split(', ')]
+    mood = subtitle_list[0]
+    tense = subtitle_list[1]
+
     pronoun_db = pronoun_map_hr_db[pronoun_hr]
 
     identifier_params = {'pronoun': pronoun_db}
-    query_params = {'verb': question}
-    solution: str = execute_query(query_pronoun_for_verb,
-                                  identifier_params=identifier_params,
-                                  query_params=query_params)[0].get(pronoun_db)
+    query_params = {'verb': question, 'tense': tense, 'mood': mood}
+    solution: str = execute_query(query_pronoun_for_verb, query_params=query_params,
+                                  identifier_params=identifier_params)[0].get(pronoun_db)
 
     if answer.strip().lower() == solution.strip().lower():
         response_text = '<p> <span class="correct">¡Correcto!</span></p>'
