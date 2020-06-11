@@ -6,19 +6,21 @@
 {% endblock %}
 
 {% block quiztask %}
-    {% for question in questions %}
-        <div id="question{{ loop.index }}" class='question'>{{ question }}</div>
-        {% if not loop.last %}
-            <div class="form__group">
-                <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input"
-                       id="answer{{ loop.index }}" style="{{ input_widths[loop.index0] }}"
-                       data-identity="{{ question_ids[loop.index0] }}">
-                <label id="questionHint{{ loop.index }}" for="answer{{ loop.index }}" class="form__label">
-                    {{ question_hints[loop.index0] }}
-                </label>
-            </div>
-        {% endif %}
-    {% endfor %}
+    <div id="quizbox-task">
+        {% for question in questions %}
+            <div id="question{{ loop.index }}" class='question'>{{ question }}</div>
+            {% if not loop.last %}
+                <div class="form__group">
+                    <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input"
+                           id="answer{{ loop.index }}" style="{{ input_widths[loop.index0] }}"
+                           data-identity="{{ question_ids[loop.index0] }}">
+                    <label id="questionHint{{ loop.index }}" for="answer{{ loop.index }}" class="form__label">
+                        {{ question_hints[loop.index0] }}
+                    </label>
+                </div>
+            {% endif %}
+        {% endfor %}
+    </div>
 {% endblock %}
 
 {% block scripts %}
