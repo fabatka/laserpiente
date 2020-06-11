@@ -2,7 +2,7 @@ create schema laserpiente;
 create user dev with password 'devpass';
 grant all on schema laserpiente to dev;
 
-create table laserpiente.verbos
+create table laserpiente.verbo
 (
 	infinitivo varchar not null
 		constraint v_conj_ind_pres_pk
@@ -19,7 +19,7 @@ create table laserpiente.verbos
 	plural3 varchar
 );
 
-alter table laserpiente.verbos owner to dev;
+alter table laserpiente.verbo owner to dev;
 
 create table laserpiente.frase
 (
@@ -47,10 +47,10 @@ create index ejercicio_quiz_index
 alter table laserpiente.ejercicio owner to dev;
 
 
-insert into laserpiente.verbos (infinitivo, singular1, singular2, singular3, plural1, plural2, plural3)
-values ('comer', 'como', 'comes', 'come', 'comemos', 'coméis', 'comen'),
-       ('ir', 'voy', 'vas', 'va', 'vamos', 'vais', 'van'),
-       ('pedir', 'pido', 'pides', 'pide', 'pedimos', 'pedís', 'piden');
+insert into laserpiente.verbo (infinitivo, gerundio, participio, modo, tiempo, singular1, singular2, singular3, plural1, plural2, plural3)
+values ('comer', 'comiendo', 'comido', 'indicativo', 'presente', 'como', 'comes', 'come', 'comemos', 'coméis', 'comen'),
+       ('ir', 'yendo', 'ido', 'indicativo', 'presente', 'voy', 'vas', 'va', 'vamos', 'vais', 'van'),
+       ('pedir', 'pidiendo', 'pedido', 'indicativo', 'presente', 'pido', 'pides', 'pide', 'pedimos', 'pedís', 'piden');
 
 insert into laserpiente.frase (id, texto)
 values (1, E'Probablemente esté de mal humor.'),
