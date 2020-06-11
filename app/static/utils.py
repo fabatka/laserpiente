@@ -11,9 +11,8 @@ app: Flask
 bp = Blueprint('utils', __name__, template_folder='templates')
 
 
-def execute_query(raw_query: str,
-                  identifier_params: Optional[Dict[str, str]] = None,
-                  query_params: Optional[Union[Dict[str, Union[str, int]], List]] = None) -> List[DictRow]:
+def execute_query(raw_query: str, query_params: Optional[Union[Dict[str, Union[str, int]], List]] = None,
+                  identifier_params: Optional[Dict[str, str]] = None) -> List[DictRow]:
     """
     :param raw_query: str The properly formatted raw query string. Value parameters should be escaped with %(param)s or
         one or more %s, identifier parameters should be escaped with {param}.
