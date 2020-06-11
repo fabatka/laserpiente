@@ -69,9 +69,12 @@ def quiz_page(quiz_type: str):
     ids: List[int] = question_row['id']
 
     # handle newlines
-    text = text.replace('\r\n', ' \r\n ')
+    if re.search(r'\r\n', text):
+        text = text.replace('\r\n', ' \r\n ')
+    elif re.search(r'\n', text):
+        text = text.replace('\n', ' \n ')
     for idx, word in enumerate(text.split(' ')):
-        if re.search(r'\r\n', word):
+        if re.search(r'\r\n', word) or re.search(r'\n', word):
             missing_pos = [pos+1 if pos > idx else pos for pos in missing_pos]
 
     # handle punctuations
