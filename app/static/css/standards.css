@@ -48,3 +48,8 @@
     background-color: var(--color1);
     border-color: var(--color1)
 }
+
+.btn:focus,.btn:active {
+   outline: none !important;
+   box-shadow: none;
+}
