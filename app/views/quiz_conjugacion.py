@@ -1,25 +1,17 @@
-from flask import Blueprint, render_template, make_response, request
+import random
 
+from flask import Blueprint, render_template, make_response, request, abort, current_app
+
+from app.lang import pronoun_map_hr_db
 from app.static.utils import execute_query
-from app.lang import pronoun_map_db_hr, pronoun_map_hr_db
 
 bp = Blueprint('quiz-indicativo-presente', __name__, template_folder='templates')
 
 path = 'quiz-conj-dual-indicativo-presente'
 
-query_which_pronoun = """
-select column_name 
-from information_schema.columns 
-where 1=1
-    and table_name = 'v_conj_ind_pres'
-    and column_name <> 'infinitivo' 
-order by random()
-limit 1
-"""
-
 query_which_verb = '''
-select infinitivo
-from laserpiente.v_conj_ind_pres 
+select infinitivo, modo, tiempo
+from laserpiente.verbo
 order by random() 
 limit 1'''
 
@@ -31,13 +23,24 @@ where infinitivo = %(verb)s'''
 
 @bp.route(f'/{path}', methods=['GET'])
 def quiz():
-    pronoun_db: str = execute_query(query_which_pronoun)[0].get('column_name')
-    verb: str = execute_query(query_which_verb)[0].get('infinitivo')
-    pronoun_hr: str = pronoun_map_db_hr[pronoun_db]
-    input_width = max(len(pronoun_hr), len(verb))
-    input_width_attr = f'width: calc(var(--textsize)*{input_width}*0.7)'
-    return render_template('quizpage-dual.html', question_hint=pronoun_hr, question=verb,
-                           quiz_title='Conjugación - Indicativo, presente', input_width=input_width_attr)
+    try:
+        question = execute_query(query_which_verb)[0]
+        verb: str = question.get('infinitivo')
+        mood: str = question.get('modo')
+        tense: str = question.get('tiempo')
+        possible_pronouns_hr = list(pronoun_map_hr_db.keys())
+        if mood == 'imperativo':
+            possible_pronouns_hr.remove('yo')
+        pronoun_hr: str = random.choice(possible_pronouns_hr)
+        input_width = max(len(pronoun_hr), len(verb))
+        input_width_attr = f'width: calc(var(--textsize)*{input_width}*1)'
+        quiz_subtitle = f'{mood.capitalize()}, {tense}'
+        return render_template('quizpage-dual.html', quiz_subtitle=quiz_subtitle, question_hint=pronoun_hr,
+                               question=verb,
+                               quiz_title='Conjugación', input_width=input_width_attr)
+    except TypeError as e:
+        current_app.logging.error(f'most likely the query failed: {query_which_verb}. {str(e)}')
+        abort(500)
 
 
 @bp.route(f'/{path}-submit', methods=['POST'])
