@@ -12,6 +12,7 @@ path = 'quiz-conjugacion'
 query_which_verb = '''
 select infinitivo, modo, tiempo
 from laserpiente.verbo
+where modo || '_' || tiempo in ({modos_tiempos})
 order by random() 
 limit 1
 '''
@@ -24,7 +25,7 @@ where infinitivo = %(verb)s
     and modo = %(mood)s
 '''
 
-query_moods_tenses = '''
+query_tenses_for_moods = '''
 select modo,
        array_agg(distinct tiempo) as tiempos
 from laserpiente.verbo
@@ -32,11 +33,34 @@ group by modo
 order by modo
 '''
 
+query_moods_tenses = '''
+select distinct modo || '_' || tiempo as mood_tense
+from laserpiente.verbo
+'''
+
 
 @bp.route(f'/{path}', methods=['GET'])
 def quiz():
+    # the options for what kind mood and tense to NOT use are stored in cookies
+    # the cookie format is "mood_tense" without the double quotes
+    # if for a combination there is no cookie, it means that it can be used
+    # a cookie only exists if the given mood-tense pair can't be used
     try:
-        question = execute_query(query_which_verb)[0]
+        # find out what moods and tenses to ask, format query and gen query params
+        moods_tenses = [row['mood_tense'] for row in execute_query(query_moods_tenses)]
+        [moods_tenses.remove(m_t) if request.cookies.get(m_t) else None for m_t in moods_tenses]
+        current_app.logger.debug(f'{moods_tenses=}')
+        if len(moods_tenses) == 0:
+            raise NotImplementedError
+        param_name = 'm_t'
+        param_fmt = f'%({param_name}{{i}})s'
+        m_t_params = ', '.join([param_fmt.format(i=i) for i in range(len(moods_tenses))])
+        query_which_verb_fmt = query_which_verb.format(modos_tiempos=m_t_params)
+        query_params = {f'{param_name}{i}': m_t for i, m_t in enumerate(moods_tenses)}
+
+        current_app.logger.debug(f'{query_which_verb_fmt=}')
+        current_app.logger.debug(f'{query_params=}')
+        question = execute_query(query_which_verb_fmt, query_params=query_params)[0]
         verb: str = question.get('infinitivo')
         mood: str = question.get('modo')
         tense: str = question.get('tiempo')
@@ -47,12 +71,12 @@ def quiz():
         input_width = max(len(pronoun_hr), len(verb))
         input_width_attr = f'width: calc(var(--textsize)*{input_width}*1)'
         quiz_subtitle = f'{mood.capitalize()}, {tense}'
-        moods_tenses = {row['modo'].capitalize(): [tiempo.capitalize() for tiempo in row['tiempos']]
-                        for row in execute_query(query_moods_tenses)}
+        tenses_for_moods = {row['modo'].capitalize(): [tiempo.capitalize() for tiempo in row['tiempos']]
+                            for row in execute_query(query_tenses_for_moods)}
         return render_template('quizpage-dual.html', quiz_subtitle=quiz_subtitle,
                                question_hint=pronoun_hr, question=verb,
                                quiz_title='Conjugación', input_width=input_width_attr,
-                               moods=moods_tenses)
+                               moods=tenses_for_moods)
     except TypeError as e:
         current_app.logger.error(f'most likely one of the queries failed: '
                                  f'{query_which_verb}, {query_tenses_for_moods}'
