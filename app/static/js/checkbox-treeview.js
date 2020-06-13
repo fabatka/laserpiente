@@ -17,8 +17,24 @@ function checkboxTreeview() {
             .removeClass('custom-checked custom-unchecked custom-indeterminate')
             .addClass(checked ? 'custom-checked' : 'custom-unchecked');
 
-    checkSiblings(container, checked);
-  }
+        if (!$this.next().is('ul')) {
+            checked
+                ? setCookie($this.attr('name'), '', -1)
+                : setCookie($this.attr('name'), 'no', 365);
+        } else {
+            if (checked) {
+                for (let chkboxEl of $this.next().find('[type="checkbox"]')) {
+                    setCookie(chkboxEl.name, '', -1);
+                }
+            } else {
+                for (let chkboxEl of $this.next().find('[type="checkbox"]')) {
+                    setCookie(chkboxEl.name, 'no', 365);
+                }
+            }
+        }
+
+        checkSiblings(container, checked);
+    }
 
     function checkSiblings($el, checked) {
         let parent = $el.parent().parent(),
