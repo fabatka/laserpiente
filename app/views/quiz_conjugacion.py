@@ -54,7 +54,9 @@ def quiz():
                                quiz_title='Conjugación', input_width=input_width_attr,
                                moods=moods_tenses)
     except TypeError as e:
-        current_app.logging.error(f'most likely one of the queries failed: {query_which_verb}, {query_moods_tenses}. {str(e)}')
+        current_app.logger.error(f'most likely one of the queries failed: '
+                                 f'{query_which_verb}, {query_tenses_for_moods}'
+                                 f'  {str(e)}')
         abort(500)
 
 
