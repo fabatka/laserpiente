@@ -103,7 +103,7 @@ and on the right side there is the single input field (suitable for no more than
 }
 
 #quizbox-subtitle {
-    display: flex;
+    display: inline;
     align-items: center;
 }
 

@@ -52,8 +52,14 @@ def quiz():
         MoodTenses = [row['moodtense'] for row in execute_query(query_moods_tenses)]
         moods_tenses = [m_t for m_t, MT in zip(moods_tenses, MoodTenses) if not request.cookies.get(MT)]
         current_app.logger.debug(f'{moods_tenses=}')
+        tenses_for_moods = {
+            row['modo'].capitalize(): [tiempo.capitalize() for tiempo in row['tiempos']]
+            for row in execute_query(query_tenses_for_moods)
+        }
         if len(moods_tenses) == 0:
-            raise NotImplementedError
+            return render_template('quizpage-conjugacion.html', moods=tenses_for_moods,
+                                   quiz_subtitle='No ha seleccionado modos y tiempos verbales',
+                                   question_hint='', question=':(', quiz_title='Conjugación', input_width='')
         param_name = 'm_t'
         param_fmt = f'%({param_name}{{i}})s'
         m_t_params = ', '.join([param_fmt.format(i=i) for i in range(len(moods_tenses))])
@@ -73,8 +79,6 @@ def quiz():
         input_width = max(len(pronoun_hr), len(verb))
         input_width_attr = f'width: calc(var(--textsize)*{input_width}*1)'
         quiz_subtitle = f'{mood.capitalize()}, {tense}'
-        tenses_for_moods = {row['modo'].capitalize(): [tiempo.capitalize() for tiempo in row['tiempos']]
-                            for row in execute_query(query_tenses_for_moods)}
         return render_template('quizpage-conjugacion.html', quiz_subtitle=quiz_subtitle,
                                question_hint=pronoun_hr, question=verb,
                                quiz_title='Conjugación', input_width=input_width_attr,
@@ -88,10 +92,14 @@ def quiz():
 def submit():
     answer: str = request.form.get('answer')
     question: str = request.form.get('question')
+    if question == ':(':
+        return make_response(':(', 200)
     pronoun_hr: str = request.form.get('questionHint')
     subtitle: str = request.form.get('subtitle')
+    print(subtitle)
     # TODO: put quiz info into hidden element and get it from those
     subtitle_list = [word.strip().lower() for word in subtitle.split(', ')]
+    print(subtitle_list)
     mood = subtitle_list[0]
     tense = subtitle_list[1]
 
@@ -99,6 +107,9 @@ def submit():
 
     identifier_params = {'pronoun': pronoun_db}
     query_params = {'verb': question, 'tense': tense, 'mood': mood}
+    current_app.logger.debug(f'{query_pronoun_for_verb=}')
+    current_app.logger.debug(f'{query_params=}')
+    current_app.logger.debug(f'{identifier_params=}')
     solution: str = execute_query(query_pronoun_for_verb, query_params=query_params,
                                   identifier_params=identifier_params)[0].get(pronoun_db)
 
