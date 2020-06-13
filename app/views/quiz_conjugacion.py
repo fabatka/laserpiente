@@ -34,7 +34,8 @@ order by modo
 '''
 
 query_moods_tenses = '''
-select distinct modo || '_' || tiempo as mood_tense
+select distinct modo || '_' || tiempo as mood_tense,
+       initcap(modo) || initcap(tiempo) as moodtense
 from laserpiente.verbo
 '''
 
@@ -48,7 +49,8 @@ def quiz():
     try:
         # find out what moods and tenses to ask, format query and gen query params
         moods_tenses = [row['mood_tense'] for row in execute_query(query_moods_tenses)]
-        [moods_tenses.remove(m_t) if request.cookies.get(m_t) else None for m_t in moods_tenses]
+        MoodTenses = [row['moodtense'] for row in execute_query(query_moods_tenses)]
+        moods_tenses = [m_t for m_t, MT in zip(moods_tenses, MoodTenses) if not request.cookies.get(MT)]
         current_app.logger.debug(f'{moods_tenses=}')
         if len(moods_tenses) == 0:
             raise NotImplementedError
