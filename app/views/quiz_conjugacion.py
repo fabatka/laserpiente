@@ -73,7 +73,7 @@ def quiz():
         quiz_subtitle = f'{mood.capitalize()}, {tense}'
         tenses_for_moods = {row['modo'].capitalize(): [tiempo.capitalize() for tiempo in row['tiempos']]
                             for row in execute_query(query_tenses_for_moods)}
-        return render_template('quizpage-dual.html', quiz_subtitle=quiz_subtitle,
+        return render_template('quizpage-conjugacion.html', quiz_subtitle=quiz_subtitle,
                                question_hint=pronoun_hr, question=verb,
                                quiz_title='Conjugación', input_width=input_width_attr,
                                moods=tenses_for_moods)
