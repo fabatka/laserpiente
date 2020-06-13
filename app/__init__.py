@@ -1,13 +1,11 @@
 import logging
 import os
 from logging.handlers import RotatingFileHandler, SMTPHandler
-from flask_bootstrap import Bootstrap
 from flask import Flask
 from flask_mail import Mail
 
 from app.config import parse_config
 
-bootstrap = Bootstrap()
 mail = Mail()
 
 env_loglevel_map = {
@@ -30,7 +28,6 @@ def create_app():
     app_instance.config['MAIL_DOMAIN'] = cnf['email']['domain']
     app_instance.config['MAIL_RECIPIENT'] = cnf['email']['recipient']
 
-    bootstrap.init_app(app_instance)
     mail.init_app(app_instance)
     from app.views.error_handlers import bp as error_handlers_bp
     app_instance.register_blueprint(error_handlers_bp)
