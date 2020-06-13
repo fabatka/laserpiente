@@ -65,8 +65,3 @@ $(function() {
     }
   }
 });
-
-
-$(document).on('click', '#settingsDropdown.dropdown-menu', function (e) {
-  e.stopPropagation();
-});

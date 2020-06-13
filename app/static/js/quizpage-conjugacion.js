@@ -15,3 +15,7 @@ function handleSubmitClickEvent(event) {
         window.location.href = window.location.pathname
     }
 }
+
+$(document).on('click', '#settingsDropdown.dropdown-menu', function (e) {
+  e.stopPropagation();
+});
