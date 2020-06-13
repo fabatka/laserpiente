@@ -19,13 +19,13 @@
                 <ul class="treeview">
                     {% for mood, tenses in moods.items() %}
                         <li>
-                            <label for="{{ mood }}" class=" custom-unchecked noselect">{{ mood }}</label>
-                            <input class='chkbox noselect' type="checkbox" name="{{ mood }}" id="{{ mood }}">
+                            <label for="{{ mood }}" class=" custom-checked noselect">{{ mood }}</label>
+                            <input class='chkbox noselect' type="checkbox" name="{{ mood }}" id="{{ mood }}" checked>
                             <ul>
                                 {% for tense in tenses %}
                                     <li>
-                                        <label for="{{ mood + tense }}" class=" custom-unchecked noselect">{{ tense }}</label>
-                                        <input class='chkbox noselect' type="checkbox" name="{{ mood + tense }}" id="{{ mood + tense }}">
+                                        <label for="{{ mood + tense }}" class=" custom-checked noselect">{{ tense }}</label>
+                                        <input class='chkbox noselect' type="checkbox" name="{{ mood + tense }}" id="{{ mood + tense }}" checked>
                                     </li>
                                 {% endfor %}
                             </ul>
@@ -47,6 +47,6 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="/static/js/quizpage-dual.js"></script>
+    <script src="/static/js/quizpage-conjugacion.js"></script>
     <script src="/static/js/checkbox-treeview.js"></script>
 {% endblock %}
