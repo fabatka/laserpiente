@@ -13,14 +13,24 @@ query_which_verb = '''
 select infinitivo, modo, tiempo
 from laserpiente.verbo
 order by random() 
-limit 1'''
+limit 1
+'''
 
 query_pronoun_for_verb = '''
 select {pronoun}
 from laserpiente.verbo
 where infinitivo = %(verb)s
     and tiempo = %(tense)s
-    and modo = %(mood)s'''
+    and modo = %(mood)s
+'''
+
+query_moods_tenses = '''
+select modo,
+       array_agg(distinct tiempo) as tiempos
+from laserpiente.verbo
+group by modo
+order by modo
+'''
 
 
 @bp.route(f'/{path}', methods=['GET'])
@@ -37,11 +47,14 @@ def quiz():
         input_width = max(len(pronoun_hr), len(verb))
         input_width_attr = f'width: calc(var(--textsize)*{input_width}*1)'
         quiz_subtitle = f'{mood.capitalize()}, {tense}'
-        return render_template('quizpage-dual.html', quiz_subtitle=quiz_subtitle, question_hint=pronoun_hr,
-                               question=verb,
-                               quiz_title='Conjugación', input_width=input_width_attr)
+        moods_tenses = {row['modo'].capitalize(): [tiempo.capitalize() for tiempo in row['tiempos']]
+                        for row in execute_query(query_moods_tenses)}
+        return render_template('quizpage-dual.html', quiz_subtitle=quiz_subtitle,
+                               question_hint=pronoun_hr, question=verb,
+                               quiz_title='Conjugación', input_width=input_width_attr,
+                               moods=moods_tenses)
     except TypeError as e:
-        current_app.logging.error(f'most likely the query failed: {query_which_verb}. {str(e)}')
+        current_app.logging.error(f'most likely one of the queries failed: {query_which_verb}, {query_moods_tenses}. {str(e)}')
         abort(500)
 
 

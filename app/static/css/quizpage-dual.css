@@ -113,3 +113,15 @@ and on the right side there is the single input field (suitable for no more than
     width: calc(var(--textsize) * 1.5);
     border-radius: calc(var(--textsize) / 2);
 }
+
+.dropdown-item {
+    display: inline;
+}
+
+#settingsDropdown {
+    width: 300px;
+}
+
+.chkbox {
+    margin-left: -25px;
+}
