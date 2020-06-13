@@ -17,5 +17,24 @@ function handleSubmitClickEvent(event) {
 }
 
 $(document).on('click', '#settingsDropdown.dropdown-menu', function (e) {
-  e.stopPropagation();
+    e.stopPropagation();
 });
+
+
+function checkChkboxCookies() {
+    let inputEls = $('.treeview input[type="checkbox"]')
+    for (let inputEl of inputEls) {
+        if (inputEl.parentElement.children.length === 2) {
+            if (getCookie(inputEl.name) !== null) {
+                const $inputEl = $(`[name=${inputEl.name}]`);
+                $inputEl.prop('checked', false);
+                $inputEl.trigger('change');
+            }
+        }
+    }
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    checkboxTreeview()
+    checkChkboxCookies();
+}, false);

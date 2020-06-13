@@ -1,4 +1,4 @@
-$(function() {
+function checkboxTreeview() {
 
   $('input[type="checkbox"]').change(checkboxChanged);
 
@@ -64,4 +64,4 @@ $(function() {
       .addClass('custom-indeterminate');
     }
   }
-});
+};
