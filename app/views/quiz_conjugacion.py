@@ -7,7 +7,7 @@ from app.static.utils import execute_query
 
 bp = Blueprint('quiz-indicativo-presente', __name__, template_folder='templates')
 
-path = 'quiz-conj-dual-indicativo-presente'
+path = 'quiz-conjugacion'
 
 query_which_verb = '''
 select infinitivo, modo, tiempo
