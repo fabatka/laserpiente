@@ -4,9 +4,7 @@ grant all on schema laserpiente to dev;
 
 create table laserpiente.verbo
 (
-	infinitivo varchar not null
-		constraint v_conj_ind_pres_pk
-			primary key,
+	infinitivo varchar not null,
 	gerundio varchar,
 	participio varchar,
 	modo varchar,
@@ -16,7 +14,9 @@ create table laserpiente.verbo
 	singular3 varchar,
 	plural1 varchar,
 	plural2 varchar,
-	plural3 varchar
+	plural3 varchar,
+	constraint verbos_pk
+		unique (infinitivo, modo, tiempo)
 );
 
 alter table laserpiente.verbo owner to dev;
