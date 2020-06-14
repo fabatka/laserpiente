@@ -1,5 +1,3 @@
-let inputEls = $('[name="answer_input"]');
-
 function getKeyboardEventCode(event) {
     let code;
 
@@ -13,7 +11,7 @@ function getKeyboardEventCode(event) {
     return code;
 }
 
-for (let inputEl of inputEls) {
+function submitOnEnter(inputEl) {
     inputEl.addEventListener("keyup", function (event) {
         let code = getKeyboardEventCode(event);
 
@@ -22,4 +20,9 @@ for (let inputEl of inputEls) {
             document.getElementById('submit').click()
         }
     });
+}
+
+let inputEls = $('[name="answer_input"]');
+for (let inputEl of inputEls) {
+    submitOnEnter(inputEl);
 }
