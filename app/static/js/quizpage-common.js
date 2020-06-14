@@ -11,7 +11,7 @@ xhr.onload = function () {
     const serverResponseParagraph = document.getElementById('result');
     serverResponseParagraph.innerHTML = this.responseText;
     const button = document.getElementById('submit')
-    button.innerText = 'Következő'
+    button.innerText = 'Siguiente'
 };
 
 
@@ -24,14 +24,15 @@ window.onload = function () {
 
 // TODO: create a common 'handleClickEvent' function that gets a list/map as a parameter
 
+const $tooltipEls = $('[data-toggle="tooltip"]');
 $('#infobutton').hover(function (e) {
-    $('[data-toggle="tooltip"]').tooltip('enable');
-    $('[data-toggle="tooltip"]').tooltip('toggle');
+    $tooltipEls.tooltip('enable');
+    $tooltipEls.tooltip('toggle');
     $(this).attr('src', '/static/img/info-color1-color3.svg');
 }, function () {
-    $('[data-toggle="tooltip"]').tooltip('toggle');
+    $tooltipEls.tooltip('toggle');
     $(this).attr('src', '/static/img/info-color1-color4.svg');
-    $('[data-toggle="tooltip"]').tooltip('disable');
+    $tooltipEls.tooltip('disable');
 });
 
 // from https://www.w3schools.com/js/js_cookies.asp, with minimal modifications

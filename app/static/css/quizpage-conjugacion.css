@@ -120,7 +120,9 @@ and on the right side there is the single input field (suitable for no more than
 }
 
 #settingsDropdown {
-    width: 300px;
+    width: 340px;
+    background-color: var(--color2);
+    border: 1px solid black;
 }
 
 .chkbox {

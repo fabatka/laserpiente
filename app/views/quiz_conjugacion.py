@@ -1,6 +1,6 @@
 import random
 
-from flask import Blueprint, render_template, make_response, request, abort, current_app
+from flask import Blueprint, render_template, make_response, request, abort, current_app, jsonify
 
 from app.lang import pronoun_map_hr_db
 from app.static.utils import execute_query
@@ -40,7 +40,7 @@ from laserpiente.verbo
 '''
 
 
-@bp.route(f'/{path}', methods=['GET'])
+@bp.route(f'/{path}', methods=['GET', 'POST'])
 def quiz():
     # the options for what kind mood and tense to NOT use are stored in cookies
     # the cookie format is "mood_tense" without the double quotes
@@ -79,6 +79,10 @@ def quiz():
         input_width = max(len(verb), 7) + 6
         input_width_attr = f'width: calc(var(--textsize)*{input_width} * 0.5'
         quiz_subtitle = f'{mood.capitalize()}, {tense}'
+        if request.method == 'POST':
+            resp_data = {'hint': pronoun_hr, 'verb': verb, 'subtitle': quiz_subtitle}
+            return make_response(jsonify(resp_data), 200)
+
         return render_template('quizpage-conjugacion.html', quiz_subtitle=quiz_subtitle,
                                question_hint=pronoun_hr, question=verb,
                                quiz_title='Conjugación', input_width=input_width_attr,

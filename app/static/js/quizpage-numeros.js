@@ -8,6 +8,17 @@ function handleSubmitClickEvent(event) {
             '&question=' + questionElement.textContent;
         sendRequest('POST', window.location.pathname + '-submit', requestBody, 'application/x-www-form-urlencoded');
     } else {
-        window.location.href = window.location.pathname
+         newQuestion()
     }
+}
+
+function getRandomInt(max) {
+  return Math.floor(Math.random() * Math.floor(max));
+}
+
+function newQuestion() {
+    $('#question').text(getRandomInt(1e4))
+    $('#answer').prop('value', '')
+    $('#submit').text('Comprobar'); // reset button text
+    $('#result').text(''); // reset prev result
 }

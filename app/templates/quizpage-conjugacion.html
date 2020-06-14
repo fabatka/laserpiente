@@ -16,8 +16,10 @@
                         aria-haspopup="true" aria-expanded="false">
                     <img id='quiz-settings-img' src="/static/img/gear.svg" alt="" title="Settings">
                 </button>
-                <div id='settingsDropdown' class="dropdown-menu dropdown-menu-right"
+                <div id='settingsDropdown' class="dropdown-menu dropdown-menu-right shadow-lg rounded"
                      aria-labelledby="dropdownMenuButton">
+                    <h5 style='margin-left: 3rem'>Modos y tiempos para usar</h5>
+                    <hr>
                     <ul class="treeview">
                         {% for mood, tenses in moods.items() %}
                             <li>
@@ -53,7 +55,7 @@
         </div>
         <div class='card-footer rounded-bottom'>
             <div id="quizbox-result">
-                <button id="submit" class="btn btn-lg btn-default rounded">Ellenőrzés</button>
+                <button id="submit" class="btn btn-lg btn-default rounded">Comprobar</button>
                 <div id="result" class="response"></div>
             </div>
         </div>
