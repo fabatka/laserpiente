@@ -1,0 +1,52 @@
+{% extends "quizpage-base.html" %}
+
+{% block styles %}
+    {{ super() }}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage-conjugacion.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/checkbox-treeview.css') }}">
+{% endblock %}
+
+{% block quiztask %}
+    <div>
+        <div id='quizbox-subtitle'>{{ quiz_subtitle }}</div>
+        <div class="dropdown">
+            <button class="btn btn-secondary" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false">
+                <img id='quiz-settings-img' src="/static/img/gear.svg" alt="" title="Settings">
+            </button>
+            <div id='settingsDropdown' class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                <ul class="treeview">
+                    {% for mood, tenses in moods.items() %}
+                        <li>
+                            <label for="{{ mood }}" class=" custom-checked noselect">{{ mood }}</label>
+                            <input class='chkbox noselect' type="checkbox" name="{{ mood }}" id="{{ mood }}" checked>
+                            <ul>
+                                {% for tense in tenses %}
+                                    <li>
+                                        <label for="{{ mood + tense }}" class=" custom-checked noselect">{{ tense }}</label>
+                                        <input class='chkbox noselect' type="checkbox" name="{{ mood + tense }}" id="{{ mood + tense }}" checked>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="quizbox-task">
+        <div id="question" class="question">{{ question }}</div>
+        <div class="form__group">
+            <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input" id="answer"
+                   style="{{ input_width }}"/>
+            <label id="questionHint" for="answer" class="form__label">{{ question_hint }}</label>
+        </div>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    <script src="/static/js/quizpage-conjugacion.js"></script>
+    <script src="/static/js/checkbox-treeview.js"></script>
+{% endblock %}

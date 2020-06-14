@@ -24,7 +24,7 @@
 
         <div id="quizbox-description">{{ quiz_title }}</div>
 
-        <div id="quizbox-task">{% block quiztask %}{% endblock %}</div>
+        {% block quiztask %}{% endblock %}
 
         <div id="quizbox-result">
             <button id="submit" class="btn btn-lg btn-default">Ellenőrzés</button>

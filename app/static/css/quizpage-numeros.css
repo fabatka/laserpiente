@@ -1,0 +1,12 @@
+#numeros-quizarea {
+    display: flex;
+    align-items: center;
+}
+
+#recordButton {
+    height: calc(var(--textsize) * 2);
+}
+
+#numeros-quizarea > * {
+    margin: 0 var(--textsize);
+}

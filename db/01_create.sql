@@ -2,20 +2,24 @@ create schema laserpiente;
 create user dev with password 'devpass';
 grant all on schema laserpiente to dev;
 
-create table laserpiente.v_conj_ind_pres
+create table laserpiente.verbo
 (
-    infinitivo varchar not null
-        constraint v_conj_ind_pres_pk
-            primary key,
-    singular1  varchar not null,
-    singular2  varchar not null,
-    singular3  varchar not null,
-    plural1    varchar not null,
-    plural2    varchar not null,
-    plural3    varchar not null
+	infinitivo varchar not null
+		constraint v_conj_ind_pres_pk
+			primary key,
+	gerundio varchar,
+	participio varchar,
+	modo varchar,
+	tiempo varchar,
+	singular1 varchar,
+	singular2 varchar,
+	singular3 varchar,
+	plural1 varchar,
+	plural2 varchar,
+	plural3 varchar
 );
 
-grant select on laserpiente.v_conj_ind_pres to dev;
+alter table laserpiente.verbo owner to dev;
 
 create table laserpiente.frase
 (
@@ -24,7 +28,7 @@ create table laserpiente.frase
     texto varchar not null
 );
 
-grant select on laserpiente.frase to dev;
+alter table laserpiente.frase owner to dev;
 
 create table laserpiente.ejercicio
 (
@@ -40,13 +44,13 @@ create table laserpiente.ejercicio
 create index ejercicio_quiz_index
     on laserpiente.ejercicio (quiz);
 
-grant select on laserpiente.ejercicio to dev;
+alter table laserpiente.ejercicio owner to dev;
 
 
-insert into laserpiente.v_conj_ind_pres (infinitivo, singular1, singular2, singular3, plural1, plural2, plural3)
-values ('comer', 'como', 'comes', 'come', 'comemos', 'coméis', 'comen'),
-       ('ir', 'voy', 'vas', 'va', 'vamos', 'vais', 'van'),
-       ('pedir', 'pido', 'pides', 'pide', 'pedimos', 'pedís', 'piden');
+insert into laserpiente.verbo (infinitivo, gerundio, participio, modo, tiempo, singular1, singular2, singular3, plural1, plural2, plural3)
+values ('comer', 'comiendo', 'comido', 'indicativo', 'presente', 'como', 'comes', 'come', 'comemos', 'coméis', 'comen'),
+       ('ir', 'yendo', 'ido', 'indicativo', 'presente', 'voy', 'vas', 'va', 'vamos', 'vais', 'van'),
+       ('pedir', 'pidiendo', 'pedido', 'indicativo', 'presente', 'pido', 'pides', 'pide', 'pedimos', 'pedís', 'piden');
 
 insert into laserpiente.frase (id, texto)
 values (1, E'Probablemente esté de mal humor.'),

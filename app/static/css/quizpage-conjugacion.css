@@ -92,7 +92,36 @@ and on the right side there is the single input field (suitable for no more than
 
 /*End of form css*/
 
-#recordButton {
-    width: calc(var(--textsize)*2);
-    padding: calc(var(--textsize)*0.5);
+.dropdown {
+    display: inline-block;
+    margin-left: calc(var(--textsize) / 2);
+}
+
+#quiz-settings-img {
+    width: var(--textsize);
+    max-width: 100%;
+}
+
+#quizbox-subtitle {
+    display: inline;
+    align-items: center;
+}
+
+#dropdownMenuButton {
+    padding: calc(var(--textsize) / 3);
+    font-size: 0;
+    width: calc(var(--textsize) * 1.5);
+    border-radius: calc(var(--textsize) / 2);
+}
+
+.dropdown-item {
+    display: inline;
+}
+
+#settingsDropdown {
+    width: 300px;
+}
+
+.chkbox {
+    margin-left: -25px;
 }
