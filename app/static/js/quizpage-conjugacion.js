@@ -12,8 +12,32 @@ function handleSubmitClickEvent(event) {
             '&subtitle=' + subtitleElement.textContent;
         sendRequest('POST', window.location.pathname + '-submit', requestBody, 'application/x-www-form-urlencoded');
     } else {
-        window.location.href = window.location.pathname
+        $.ajax({
+            type: 'POST',
+            url: window.location.pathname,
+            data: JSON.stringify({}),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json'
+        }).done(function (response) {
+            const {hint, verb, subtitle} = response;
+            newQuestion(subtitle, hint, verb);
+        }).fail(function (xhr, status, error) {
+            // TODO
+        })
     }
+}
+
+function newQuestion(subtitle, hint, verb) {
+    $('#quizbox-subtitle').text(subtitle); // set subtitle
+    $('#questionHint').text(hint); // set hint
+    $('#question').text(verb); // set question
+    $('#result').text(''); // reset prev result
+    let inputWidth = Math.max(verb.length, 7) + 6
+    const answerEl = $('#answer');
+    answerEl.attr('style', `width: calc(var(--textsize)*${inputWidth}*0.5`); // set new input size
+    answerEl.prop('value', ''); // reset prev input
+    $('#submit').text('Ellenőrzés') // reset button text
+    answerEl.focus() // focus on input field
 }
 
 $(document).on('click', '#settingsDropdown.dropdown-menu', function (e) {
