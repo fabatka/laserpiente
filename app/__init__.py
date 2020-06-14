@@ -59,6 +59,7 @@ def create_app():
         app_instance.logger.setLevel(logging.DEBUG)
         app_instance.env = 'development'
         app_instance.logger.debug('Debug mode active')
+        app_instance.debug = True
     elif app_instance.config['file']['env']['env'] == 'prod':
         app_instance.logger.setLevel(logging.INFO)
         app_instance.env = 'production'
