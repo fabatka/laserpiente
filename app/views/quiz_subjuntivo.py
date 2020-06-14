@@ -154,9 +154,9 @@ def submit(_quiz_type: str):
             results.append(answer_clean == solution_clean)
 
         if all(results):
-            response_text = '<p> <span class="correct">¡Correcto!</span></p>'
+            response_text = '<span> <span class="correct">¡Correcto!</span></span>'
         else:
-            response_text = f'<p> <span class="false">¡Incorrecto! </span>La solución: {", ".join(solutions)}</p>'
+            response_text = f'<span> <span class="false">¡Incorrecto! </span>La solución: {", ".join(solutions)}</span>'
         return make_response(jsonify(response_text), 200)
     except pg.Error as e:
         return make_response(jsonify(e), 500)

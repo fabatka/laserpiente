@@ -7,40 +7,55 @@
 {% endblock %}
 
 {% block quiztask %}
-    <div>
-        <div id='quizbox-subtitle'>{{ quiz_subtitle }}</div>
-        <div class="dropdown">
-            <button class="btn btn-secondary" type="button" id="dropdownMenuButton"
-                    data-toggle="dropdown"
-                    aria-haspopup="true" aria-expanded="false">
-                <img id='quiz-settings-img' src="/static/img/gear.svg" alt="" title="Settings">
-            </button>
-            <div id='settingsDropdown' class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
-                <ul class="treeview">
-                    {% for mood, tenses in moods.items() %}
-                        <li>
-                            <label for="{{ mood }}" class=" custom-checked noselect">{{ mood }}</label>
-                            <input class='chkbox noselect' type="checkbox" name="{{ mood }}" id="{{ mood }}" checked>
-                            <ul>
-                                {% for tense in tenses %}
-                                    <li>
-                                        <label for="{{ mood + tense }}" class=" custom-checked noselect">{{ tense }}</label>
-                                        <input class='chkbox noselect' type="checkbox" name="{{ mood + tense }}" id="{{ mood + tense }}" checked>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </li>
-                    {% endfor %}
-                </ul>
+    <div class='card rounded shadow-lg'>
+        <div class='card-header rounded-top'>
+            <div id='quizbox-subtitle'>{{ quiz_subtitle }}</div>
+            <div class="dropdown">
+                <button class="btn btn-secondary" type="button" id="dropdownMenuButton"
+                        data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                    <img id='quiz-settings-img' src="/static/img/gear.svg" alt="" title="Settings">
+                </button>
+                <div id='settingsDropdown' class="dropdown-menu dropdown-menu-right"
+                     aria-labelledby="dropdownMenuButton">
+                    <ul class="treeview">
+                        {% for mood, tenses in moods.items() %}
+                            <li>
+                                <label for="{{ mood }}" class=" custom-checked noselect">{{ mood }}</label>
+                                <input class='chkbox noselect' type="checkbox" name="{{ mood }}" id="{{ mood }}"
+                                       checked>
+                                <ul>
+                                    {% for tense in tenses %}
+                                        <li>
+                                            <label for="{{ mood + tense }}"
+                                                   class=" custom-checked noselect">{{ tense }}</label>
+                                            <input class='chkbox noselect' type="checkbox" name="{{ mood + tense }}"
+                                                   id="{{ mood + tense }}" checked>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
-    </div>
-    <div id="quizbox-task">
-        <div id="question" class="question">{{ question }}</div>
-        <div class="form__group">
-            <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input" id="answer"
-                   style="{{ input_width }}"/>
-            <label id="questionHint" for="answer" class="form__label">{{ question_hint }}</label>
+        <div class='card-body'>
+            <div id="quizbox-task">
+                <div id="question" class="question">{{ question }}</div>
+                <div class="form__group">
+                    <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input"
+                           id="answer"
+                           style="{{ input_width }}"/>
+                    <label id="questionHint" for="answer" class="form__label">{{ question_hint }}</label>
+                </div>
+            </div>
+        </div>
+        <div class='card-footer rounded-bottom'>
+            <div id="quizbox-result">
+                <button id="submit" class="btn btn-lg btn-default rounded">Ellenőrzés</button>
+                <div id="result" class="response"></div>
+            </div>
         </div>
     </div>
 {% endblock %}
