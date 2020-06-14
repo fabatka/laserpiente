@@ -45,7 +45,7 @@ where quiz like 'subjuntivo%'
 '''
 
 
-@bp.route(f'/quiz-subjuntivo-<quiz_type>', methods=['GET'])
+@bp.route(f'/quiz-subjuntivo-<quiz_type>', methods=['GET', 'POST'])
 def quiz_page(quiz_type: str):
     """
     Displays a mono quiz page with a question that has the quiz type found in the url.
@@ -99,6 +99,9 @@ def quiz_page(quiz_type: str):
                     for idx, missing_pos_mod in enumerate(missing_pos_mod)]
     input_width_attrs = [f'width: calc(var(--textsize)*{input_width}*0.45)'
                          for input_width in input_widths]
+    if request.method == 'POST':
+        resp_data = {'texts': sentence_parts, 'hints': hints, 'ids': ids, 'widths': input_width_attrs}
+        return make_response(jsonify(resp_data), 200)
 
     return render_template(page,
                            questions=sentence_parts,
