@@ -96,10 +96,8 @@ def submit():
         return make_response(':(', 200)
     pronoun_hr: str = request.form.get('questionHint')
     subtitle: str = request.form.get('subtitle')
-    print(subtitle)
     # TODO: put quiz info into hidden element and get it from those
     subtitle_list = [word.strip().lower() for word in subtitle.split(', ')]
-    print(subtitle_list)
     mood = subtitle_list[0]
     tense = subtitle_list[1]
 
