@@ -36,7 +36,7 @@ function newQuestion(subtitle, hint, verb) {
     const answerEl = $('#answer');
     answerEl.attr('style', `width: calc(var(--textsize)*${inputWidth}*0.5`); // set new input size
     answerEl.prop('value', ''); // reset prev input
-    $('#submit').text('Ellenőrzés') // reset button text
+    $('#submit').text('Comprobar') // reset button text
     answerEl.focus() // focus on input field
 }
 
