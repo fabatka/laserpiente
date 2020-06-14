@@ -76,8 +76,8 @@ def quiz():
         if mood == 'imperativo':
             possible_pronouns_hr.remove('yo')
         pronoun_hr: str = random.choice(possible_pronouns_hr)
-        input_width = max(len(pronoun_hr), len(verb))
-        input_width_attr = f'width: calc(var(--textsize)*{input_width}*1)'
+        input_width = max(len(verb), 7) + 6
+        input_width_attr = f'width: calc(var(--textsize)*{input_width} * 0.5'
         quiz_subtitle = f'{mood.capitalize()}, {tense}'
         return render_template('quizpage-conjugacion.html', quiz_subtitle=quiz_subtitle,
                                question_hint=pronoun_hr, question=verb,
@@ -112,7 +112,7 @@ def submit():
                                   identifier_params=identifier_params)[0].get(pronoun_db)
 
     if answer.strip().lower() == solution.strip().lower():
-        response_text = '<p> <span class="correct">¡Correcto!</span></p>'
+        response_text = '<span> <span class="correct">¡Correcto!</span></span>'
     else:
-        response_text = f'<p> <span class="false">¡Incorrecto! </span>La solución: {solution}</p>'
+        response_text = f'<span> <span class="false">¡Incorrecto! </span>La solución: {solution}</span>'
     return make_response(response_text, 200)

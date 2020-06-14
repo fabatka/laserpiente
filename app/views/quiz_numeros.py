@@ -55,9 +55,9 @@ def submit():
     question: str = request.form.get('question')
     solution = translate_int_en_es(int(question))
     if answer.strip().lower() == solution.strip().lower():
-        response_text = '<p> <span class="correct">¡Correcto!</span></p>'
+        response_text = '<span> <span class="correct">¡Correcto!</span></span>'
     else:
-        response_text = f'<p> <span class="false">¡Incorrecto! </span>La solución: {solution}</p>'
+        response_text = f'<span> <span class="false">¡Incorrecto! </span>La solución: {solution}</span>'
     return make_response(response_text, 200)
 
 
