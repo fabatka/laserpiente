@@ -33,3 +33,16 @@
     background-color: var(--color2);
     border: 1px solid black;
 }
+
+th {
+    text-align: center;
+}
+
+.radioLabel {
+    display: flex;
+    justify-content: space-between;
+}
+
+table.table.table-responsive {
+    margin: 0 3rem;
+}

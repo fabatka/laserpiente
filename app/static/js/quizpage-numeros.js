@@ -27,3 +27,8 @@ function newQuestion() {
 $(document).ready(function(){
     $('#question').text(getRandomInt(1e4))
 });
+
+// to not collapse dropdown when clicked inside
+$(document).on('click', '#settingsDropdown.dropdown-menu', function (e) {
+    e.stopPropagation();
+});
