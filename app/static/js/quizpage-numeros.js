@@ -22,3 +22,8 @@ function newQuestion() {
     $('#submit').text('Comprobar'); // reset button text
     $('#result').text(''); // reset prev result
 }
+
+// generate random number when page loads
+$(document).ready(function(){
+    $('#question').text(getRandomInt(1e4))
+});

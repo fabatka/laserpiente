@@ -45,8 +45,7 @@ def translate_int_en_es(number: int) -> str:
 
 @bp.route(f'/{path}', methods=['GET'])
 def quiz():
-    question = randrange(0, 1e4)
-    return render_template('quizpage-numeros.html', question=str(question), quiz_title='Práctica de números')
+    return render_template('quizpage-numeros.html', quiz_title='Práctica de números')
 
 
 @bp.route(f'/{path}-submit', methods=['POST'])
