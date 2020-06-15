@@ -10,6 +10,18 @@
     <div class='card rounded shadow-lg'>
         <div class='card-body rounded-top'>
             <div id='numeros-quizarea'>
+                <div id='settings'>
+                    <button class="btn btn-secondary" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        <img id='quiz-settings-img' src="/static/img/gear.svg" alt="" title="Settings">
+                    </button>
+                    <div id='settingsDropdown' class="dropdown-menu dropdown-menu-right shadow-lg rounded"
+                         aria-labelledby="dropdownMenuButton">
+                        <h5 id='dropdownTitle'>Rango de números</h5>
+                        <hr>
+                    </div>
+                </div>
                 <div id="question" class="question numeros"></div>
                 <img id="recordButton" class="recordingStopped" alt="MIC" src="/static/img/mic-color1.svg"
                      data-toggle="tooltip"
