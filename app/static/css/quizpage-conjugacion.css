@@ -128,3 +128,7 @@ and on the right side there is the single input field (suitable for no more than
 .chkbox {
     margin-left: -25px;
 }
+
+#dropdownTitle {
+    margin-left: 3rem;
+}
