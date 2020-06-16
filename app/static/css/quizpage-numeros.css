@@ -10,3 +10,39 @@
 #numeros-quizarea > * {
     margin: 0 var(--textsize);
 }
+
+#dropdownTitle {
+    margin: 0 3rem;
+}
+
+#quiz-settings-img {
+    width: var(--textsize);
+    max-width: 100%;
+}
+
+#dropdownMenuButton {
+    padding: calc(var(--textsize) / 3);
+    font-size: 0;
+    width: calc(var(--textsize) * 1.5);
+    border-radius: calc(var(--textsize) / 2);
+    background-color: var(--color5);
+    border: 0px solid black;
+}
+
+#settingsDropdown {
+    background-color: var(--color2);
+    border: 1px solid black;
+}
+
+th {
+    text-align: center;
+}
+
+.radioLabel {
+    display: flex;
+    justify-content: space-between;
+}
+
+table.table.table-responsive {
+    margin: 0 3rem;
+}

@@ -40,6 +40,7 @@ function newQuestion(subtitle, hint, verb) {
     answerEl.focus(); // focus on input field
 }
 
+// to not collapse dropdown when clicked inside
 $(document).on('click', '#settingsDropdown.dropdown-menu', function (e) {
     e.stopPropagation();
 });

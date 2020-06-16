@@ -10,7 +10,101 @@
     <div class='card rounded shadow-lg'>
         <div class='card-body rounded-top'>
             <div id='numeros-quizarea'>
-                <div id="question" class="question numeros">{{ question }}</div>
+                <div id='settings'>
+                    <button class="btn btn-secondary" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        <img id='quiz-settings-img' src="/static/img/gear.svg" alt="" title="Settings">
+                    </button>
+                    <div id='settingsDropdown' class="dropdown-menu dropdown-menu-right shadow-lg rounded"
+                         aria-labelledby="dropdownMenuButton">
+                        <h5 id='dropdownTitle'>Rango de números</h5>
+                        <hr>
+                        <table class="table table-responsive">
+                            <thead>
+                            <tr>
+                                <th>de</th>
+                                <th>a</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>
+                                    <div class="radio">
+                                        <label class="radioLabel"><input type="radio" name='numFrom' num='0'>0</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="radiotext">
+                                        <label class="radioLabel"><input type="radio" name='numTo' num='10'>10</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="radio">
+                                        <label class="radioLabel"><input type="radio" name='numFrom' num='10'>10</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="radiotext">
+                                        <label class="radioLabel"><input type="radio" name='numTo' num='20'>20</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="radio">
+                                        <label class="radioLabel"><input type="radio" name='numFrom' num='20'>20</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="radiotext">
+                                        <label class="radioLabel"><input type="radio" name='numTo' num='100'>100</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="radio">
+                                        <label class="radioLabel"><input type="radio" name='numFrom' num='100'>100</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="radiotext">
+                                        <label class="radioLabel"><input type="radio" name='numTo' num='1000'>1'000</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="radio">
+                                        <label class="radioLabel"><input type="radio" name='numFrom' num='1000'>1'000</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="radiotext">
+                                        <label class="radioLabel"><input type="radio" name='numTo' num='10000'>10'000</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <div class="radio">
+                                        <label class="radioLabel"><input type="radio" name='numFrom' num='10000'>10'000</label>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="radiotext">
+                                        <label class="radioLabel"><input type="radio" name='numTo' num='100000'>100'000</label>
+                                    </div>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div id="question" class="question numeros"></div>
                 <img id="recordButton" class="recordingStopped" alt="MIC" src="/static/img/mic-color1.svg"
                      data-toggle="tooltip"
                      data-html="true" data-placement="top" data-original-title="A szám diktálásához klikkelj a
