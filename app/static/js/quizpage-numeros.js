@@ -8,16 +8,16 @@ function handleSubmitClickEvent(event) {
             '&question=' + questionElement.textContent;
         sendRequest('POST', window.location.pathname + '-submit', requestBody, 'application/x-www-form-urlencoded');
     } else {
-         newQuestion()
+        newQuestion()
     }
 }
 
 function getRandomInt(max) {
-  return Math.floor(Math.random() * Math.floor(max));
+    return Math.floor(Math.random() * Math.floor(max));
 }
 
 function newQuestion() {
-    $('#question').text(getRandomInt(1e4))
+    generateNum()
     $('#answer').prop('value', '')
     $('#submit').text('Comprobar'); // reset button text
     $('#result').text(''); // reset prev result
@@ -26,11 +26,11 @@ function newQuestion() {
 function generateNum() {
     let numFrom = parseInt(getCookie('numFrom'));
     let numTo = parseInt(getCookie('numTo'));
-    const randomNum = getRandomInt(numTo-numFrom) + numFrom;
+    const randomNum = getRandomInt(numTo - numFrom) + numFrom;
     $('#question').text(randomNum)
 }
 
-$(document).ready(function(){
+$(document).ready(function () {
     // set up triggers for radio buttons
     $('[name="numFrom"]').change(function () {
         setCookie('numFrom', $(this).attr('num'));
