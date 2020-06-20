@@ -106,6 +106,7 @@ and on the right side there is the single input field (suitable for no more than
     align-items: center;
 }
 
+#flipButton,
 #dropdownMenuButton {
     padding: calc(var(--textsize) / 3);
     font-size: 0;
@@ -113,6 +114,12 @@ and on the right side there is the single input field (suitable for no more than
     border-radius: calc(var(--textsize) / 2);
     background-color: var(--color5);
     border: 0px solid black;
+}
+
+#flipButton {
+    position: absolute;
+    top: 1rem;
+    left: 2rem;
 }
 
 .dropdown-item {
@@ -131,4 +138,26 @@ and on the right side there is the single input field (suitable for no more than
 
 #dropdownTitle {
     margin-left: 3rem;
+}
+
+.card-container {
+    perspective: 1500px;
+}
+
+.card-flip, .card-container {
+    transform-style: preserve-3d;
+    transition: all 1s ease;
+}
+
+.card-flip div {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.back {
+    transform: rotateY(-180deg);
+}
+
+.card-container .card-flip.flipped {
+    transform: rotateY(180deg);
 }

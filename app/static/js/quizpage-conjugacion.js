@@ -59,6 +59,11 @@ function checkChkboxCookies() {
     }
 }
 
+// flip card on flip button click
+$('#flipButton').click(function () {
+   $('.card-flip').toggleClass('flipped')
+});
+
 document.addEventListener('DOMContentLoaded', function () {
     checkboxTreeview()
     checkChkboxCookies();
