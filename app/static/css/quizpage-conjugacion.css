@@ -107,6 +107,7 @@ and on the right side there is the single input field (suitable for no more than
 }
 
 #flipButton,
+#flipBackButton,
 #dropdownMenuButton {
     padding: calc(var(--textsize) / 3);
     font-size: 0;
@@ -116,7 +117,8 @@ and on the right side there is the single input field (suitable for no more than
     border: 0px solid black;
 }
 
-#flipButton {
+#flipButton,
+#flipBackButton {
     position: absolute;
     top: 1rem;
     left: 2rem;
@@ -142,6 +144,7 @@ and on the right side there is the single input field (suitable for no more than
 
 .card-container {
     perspective: 1500px;
+    display: grid;
 }
 
 .card-flip, .card-container {
@@ -160,4 +163,20 @@ and on the right side there is the single input field (suitable for no more than
 
 .card-container .card-flip.flipped {
     transform: rotateY(180deg);
+}
+
+.card-flip {
+    display: grid; grid-template: 1fr / 1fr;
+    grid-template-areas: "frontAndBack";
+    transform-style: preserve-3d;
+    transition: all 0.7s ease;
+}
+
+.front {
+    grid-area: frontAndBack;
+}
+
+.back {
+    grid-area: frontAndBack;
+    transform: rotateY(-180deg);
 }

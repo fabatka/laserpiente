@@ -63,6 +63,9 @@ function checkChkboxCookies() {
 $('#flipButton').click(function () {
    $('.card-flip').toggleClass('flipped')
 });
+$('#flipBackButton').click(function () {
+   $('.card-flip').toggleClass('flipped')
+});
 
 document.addEventListener('DOMContentLoaded', function () {
     checkboxTreeview()
