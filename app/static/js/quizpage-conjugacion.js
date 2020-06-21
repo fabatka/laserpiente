@@ -23,9 +23,11 @@ function handleSubmitClickEvent(event) {
             serverResponseParagraph.innerHTML = message;
             const button = document.getElementById('submit')
             button.innerText = 'Siguiente'
-            if (!correct) {
-                console.log('hibás megoldás')
-            }
+            // tracking errors
+            let moodTense = subtitleElement.textContent.toLowerCase().split(', ')
+            let mood = moodTense[0]
+            let tense = moodTense[1]
+            changeVerbPoints(questionElement.textContent, mood, tense, correct)
         }).fail(function (xhr, status, error) {
             // TODO
         })
@@ -43,6 +45,32 @@ function handleSubmitClickEvent(event) {
             // TODO
         })
     }
+}
+
+const incrementUnit = 0.5;
+
+function changeVerbPoints(verb, mood, tense, correct) {
+    let verbs = JSON.parse(localStorage.getItem('verbos'));
+    if (verbs === null) {
+        verbs = {}
+    }
+    if (correct) {
+        if (verbs[verb] && verbs[verb][mood] && verbs[verb][mood][tense]) {
+
+            verbs[verb][mood][tense] += incrementUnit;
+            if (verbs[verb][mood][tense] === 0) {
+                // we only delete the topmost layer
+                delete verbs[verb][mood][tense];
+            }
+        }
+    } else {
+        if (verbs[verb] && verbs[verb][mood] && verbs[verb][mood][tense]) {
+            verbs[verb][mood][tense] -= 1;
+        } else {
+            verbs[verb] = {[mood]: {[tense]: -1}};
+        }
+    }
+    localStorage.setItem('verbos', JSON.stringify(verbs))
 }
 
 function newQuestion(subtitle, hint, verb) {
