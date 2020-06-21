@@ -117,11 +117,17 @@ and on the right side there is the single input field (suitable for no more than
     border: 0px solid black;
 }
 
-#flipButton,
-#flipBackButton {
+#flipButtonContainer,
+#flipBackButtonContainer {
     position: absolute;
-    top: 1rem;
-    left: 2rem;
+    top: 0.5rem;
+    left: 3rem;
+}
+
+#dropdownMenuButtonContainer {
+    position: absolute;
+    top: 0.5rem;
+    right: 3rem;
 }
 
 .dropdown-item {

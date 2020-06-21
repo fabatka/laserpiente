@@ -11,42 +11,7 @@
         <div class='card rounded shadow-lg card-flip'>
             <div class='front'>
                 <div class='card-header rounded-top'>
-                    <button class="btn btn-secondary" type="button" id="flipButton">
-                        <img id='quiz-flip-img' src="/static/img/sync-alt-solid.svg" alt="" title="Flip">
-                    </button>
                     <div id='quizbox-subtitle'>{{ quiz_subtitle }}</div>
-                    <div class="dropdown">
-                        <button class="btn btn-secondary" type="button" id="dropdownMenuButton"
-                                data-toggle="dropdown"
-                                aria-haspopup="true" aria-expanded="false">
-                            <img id='quiz-settings-img' src="/static/img/gear.svg" alt="" title="Settings">
-                        </button>
-                        <div id='settingsDropdown' class="dropdown-menu dropdown-menu-right shadow-lg rounded"
-                             aria-labelledby="dropdownMenuButton">
-                            <h5 id='dropdownTitle'>Modos y tiempos para usar</h5>
-                            <hr>
-                            <ul class="treeview">
-                                {% for mood, tenses in moods.items() %}
-                                    <li>
-                                        <label for="{{ mood }}" class=" custom-checked noselect">{{ mood }}</label>
-                                        <input class='chkbox noselect' type="checkbox" name="{{ mood }}" id="{{ mood }}"
-                                               checked>
-                                        <ul>
-                                            {% for tense in tenses %}
-                                                <li>
-                                                    <label for="{{ mood + tense }}"
-                                                           class=" custom-checked noselect">{{ tense }}</label>
-                                                    <input class='chkbox noselect' type="checkbox"
-                                                           name="{{ mood + tense }}"
-                                                           id="{{ mood + tense }}" checked>
-                                                </li>
-                                            {% endfor %}
-                                        </ul>
-                                    </li>
-                                {% endfor %}
-                            </ul>
-                        </div>
-                    </div>
                 </div>
                 <div class='card-body'>
                     <div id="quizbox-task">
@@ -65,11 +30,50 @@
                         <div id="result" class="response"></div>
                     </div>
                 </div>
+                <div id='flipButtonContainer'>
+                    <button class="btn btn-secondary" type="button" id="flipButton">
+                        <img id='quiz-flip-img' src="/static/img/sync-alt-solid.svg" alt="" title="Flip">
+                    </button>
+                </div>
+                <div class="dropdown" id='dropdownMenuButtonContainer'>
+                    <button class="btn btn-secondary" type="button" id="dropdownMenuButton"
+                            data-toggle="dropdown"
+                            aria-haspopup="true" aria-expanded="false">
+                        <img id='quiz-settings-img' src="/static/img/gear.svg" alt="" title="Settings">
+                    </button>
+                    <div id='settingsDropdown' class="dropdown-menu dropdown-menu-right shadow-lg rounded"
+                         aria-labelledby="dropdownMenuButton">
+                        <h5 id='dropdownTitle'>Modos y tiempos para usar</h5>
+                        <hr>
+                        <ul class="treeview">
+                            {% for mood, tenses in moods.items() %}
+                                <li>
+                                    <label for="{{ mood }}" class=" custom-checked noselect">{{ mood }}</label>
+                                    <input class='chkbox noselect' type="checkbox" name="{{ mood }}" id="{{ mood }}"
+                                           checked>
+                                    <ul>
+                                        {% for tense in tenses %}
+                                            <li>
+                                                <label for="{{ mood + tense }}"
+                                                       class=" custom-checked noselect">{{ tense }}</label>
+                                                <input class='chkbox noselect' type="checkbox"
+                                                       name="{{ mood + tense }}"
+                                                       id="{{ mood + tense }}" checked>
+                                            </li>
+                                        {% endfor %}
+                                    </ul>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
             </div>
             <div class='back'>
-                <button class="btn btn-secondary" type="button" id="flipBackButton">
-                    <img id='quiz-flip-img' src="/static/img/sync-alt-solid.svg" alt="" title="Flip">
-                </button>
+                <div id='flipBackButtonContainer'>
+                    <button class="btn btn-secondary" type="button" id="flipBackButton">
+                        <img id='quiz-flip-img' src="/static/img/sync-alt-solid.svg" alt="" title="Flip">
+                    </button>
+                </div>
             </div>
         </div>
     </div>
