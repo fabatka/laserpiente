@@ -94,12 +94,13 @@ def quiz():
 
 @bp.route(f'/{path}-submit', methods=['POST'])
 def submit():
-    answer: str = request.form.get('answer')
-    question: str = request.form.get('question')
+    data = request.get_json()
+    answer: str = data['answer']
+    question: str = data['question']
     if question == ':(':
         return make_response(':(', 200)
-    pronoun_hr: str = request.form.get('questionHint')
-    subtitle: str = request.form.get('subtitle')
+    pronoun_hr: str = data['questionHint']
+    subtitle: str = data['subtitle']
     # TODO: put quiz info into hidden element and get it from those
     subtitle_list = [word.strip().lower() for word in subtitle.split(', ')]
     mood = subtitle_list[0]
@@ -117,6 +118,9 @@ def submit():
 
     if answer.strip().lower() == solution.strip().lower():
         response_text = '<span> <span class="correct">¡Correcto!</span></span>'
+        correct = 1
     else:
         response_text = f'<span> <span class="false">¡Incorrecto! </span>La solución: {solution}</span>'
-    return make_response(response_text, 200)
+        correct = 0
+    resp_data = {'message': response_text, 'correct': correct}
+    return make_response(jsonify(resp_data), 200)

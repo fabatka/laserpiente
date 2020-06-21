@@ -6,11 +6,29 @@ function handleSubmitClickEvent(event) {
     const serverResponseParagraph = document.getElementById('result');
 
     if (serverResponseParagraph.textContent === '') {
-        let requestBody = 'answer=' + answerElement.value +
-            '&question=' + questionElement.textContent +
-            '&questionHint=' + questionHintElement.textContent +
-            '&subtitle=' + subtitleElement.textContent;
-        sendRequest('POST', window.location.pathname + '-submit', requestBody, 'application/x-www-form-urlencoded');
+        $.ajax({
+            type: 'POST',
+            url: window.location.pathname + '-submit',
+            data: JSON.stringify({
+                'answer': answerElement.value,
+                'question': questionElement.textContent,
+                'questionHint': questionHintElement.textContent,
+                'subtitle': subtitleElement.textContent
+            }),
+            contentType: 'application/json; charset=utf-8',
+            dataType: 'json'
+        }).done(function (response) {
+            const {message, correct} = response;
+            const serverResponseParagraph = document.getElementById('result');
+            serverResponseParagraph.innerHTML = message;
+            const button = document.getElementById('submit')
+            button.innerText = 'Siguiente'
+            if (!correct) {
+                console.log('hibás megoldás')
+            }
+        }).fail(function (xhr, status, error) {
+            // TODO
+        })
     } else {
         $.ajax({
             type: 'POST',
@@ -61,10 +79,10 @@ function checkChkboxCookies() {
 
 // flip card on flip button click
 $('#flipButton').click(function () {
-   $('.card-flip').toggleClass('flipped')
+    $('.card-flip').toggleClass('flipped')
 });
 $('#flipBackButton').click(function () {
-   $('.card-flip').toggleClass('flipped')
+    $('.card-flip').toggleClass('flipped')
 });
 
 document.addEventListener('DOMContentLoaded', function () {
