@@ -56,21 +56,26 @@ function changeVerbPoints(verb, mood, tense, correct) {
     }
     if (correct) {
         if (verbs[verb] && verbs[verb][mood] && verbs[verb][mood][tense]) {
-
+            // edit html table accordingly
             verbs[verb][mood][tense] += incrementUnit;
             if (verbs[verb][mood][tense] === 0) {
+                // edit html table accordingly
                 // we only delete the topmost layer
                 delete verbs[verb][mood][tense];
             }
         }
     } else {
         if (verbs[verb] && verbs[verb][mood] && verbs[verb][mood][tense]) {
+            // edit html table accordingly
             verbs[verb][mood][tense] -= 1;
         } else {
+            // edit html table accordingly
             verbs[verb] = {[mood]: {[tense]: -1}};
         }
     }
     localStorage.setItem('verbos', JSON.stringify(verbs))
+    // check if localStorage and html table are in sync
+    // if not, redraw html table from localStorage
 }
 
 function newQuestion(subtitle, hint, verb) {
@@ -91,7 +96,7 @@ $(document).on('click', '#settingsDropdown.dropdown-menu', function (e) {
     e.stopPropagation();
 });
 
-
+// uncheck checkboxes that are found among cookies
 function checkChkboxCookies() {
     let inputEls = $('.treeview input[type="checkbox"]')
     for (let inputEl of inputEls) {
@@ -116,4 +121,5 @@ $('#flipBackButton').click(function () {
 document.addEventListener('DOMContentLoaded', function () {
     checkboxTreeview()
     checkChkboxCookies();
+    // draw error html table based on localStorage
 }, false);
