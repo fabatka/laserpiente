@@ -172,7 +172,8 @@ and on the right side there is the single input field (suitable for no more than
 }
 
 .card-flip {
-    display: grid; grid-template: 1fr / 1fr;
+    display: grid;
+    grid-template: 1fr / 1fr;
     grid-template-areas: "frontAndBack";
     transform-style: preserve-3d;
     transition: all 0.7s ease;
@@ -185,4 +186,25 @@ and on the right side there is the single input field (suitable for no more than
 .back {
     grid-area: frontAndBack;
     transform: rotateY(-180deg);
+}
+
+/* use perfect-scrollbar? https://github.com/mdbootstrap/perfect-scrollbar */
+#errorTable {
+    font-size: calc(var(--textsize) / 2);
+    position: relative;
+    width: 100%;
+    /*overflow-y: scroll;*/
+    /*overflow-x: hidden;*/
+}
+
+.table-wrapper-scroll-y {
+    display: block;
+    margin: 4.5rem 3rem 0 3rem;
+    /*overflow-y: hidden;*/
+    /*overflow-x: hidden;*/
+}
+
+.table-responsive {
+    max-height: 32vmin;
+    width: auto;
 }
