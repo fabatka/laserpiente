@@ -52,27 +52,37 @@ const incrementUnit = 0.5;
 function changeVerbPoints(verb, mood, tense, correct) {
     let verbs = JSON.parse(localStorage.getItem('verbos'));
     if (verbs === null) {
-        verbs = {}
+        verbs = [];
     }
+
     if (correct) {
-        if (verbs[verb] && verbs[verb][mood] && verbs[verb][mood][tense]) {
-            // edit html table accordingly
-            verbs[verb][mood][tense] += incrementUnit;
-            if (verbs[verb][mood][tense] === 0) {
+        for (let error of verbs) {
+            if (error['verb'] === verb && error['mood'] === mood && error['tense'] === tense) {
                 // edit html table accordingly
-                // we only delete the topmost layer
-                delete verbs[verb][mood][tense];
+                error['points'] += incrementUnit;
+                break;
             }
         }
     } else {
-        if (verbs[verb] && verbs[verb][mood] && verbs[verb][mood][tense]) {
-            // edit html table accordingly
-            verbs[verb][mood][tense] -= 1;
-        } else {
+        let found = false;
+        for (let error of verbs) {
+            if (error['verb'] === verb && error['mood'] === mood && error['tense'] === tense) {
+                // edit html table accordingly
+                error['points'] -= 1;
+                found = true;
+            }
+        }
+        if (!found) {
             // edit html table accordingly
             verbs[verb] = {[mood]: {[tense]: -1}};
+            verbs.push({'verb': verb, 'mood': mood, 'tense': tense, 'points': -1})
         }
     }
+    // remove words that have 0 points
+    verbs = verbs.filter(function (el) {
+        return el['points'] !== 0;
+    });
+    // write back into localStorage
     localStorage.setItem('verbos', JSON.stringify(verbs))
     // check if localStorage and html table are in sync
     // if not, redraw html table from localStorage
