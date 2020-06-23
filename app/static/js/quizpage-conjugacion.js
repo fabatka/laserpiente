@@ -84,8 +84,9 @@ function changeVerbPoints(verb, mood, tense, correct) {
     });
     // write back into localStorage
     localStorage.setItem('verbos', JSON.stringify(verbs))
-    // check if localStorage and html table are in sync
-    // if not, redraw html table from localStorage
+    // redraw html table
+    destroyErrorTable();
+    constructErrorTable()
 }
 
 function newQuestion(subtitle, hint, verb) {
@@ -120,6 +121,57 @@ function checkChkboxCookies() {
     }
 }
 
+function destroyErrorTable() {
+    let errorTable = document.getElementById('errorTable');
+    while (errorTable.firstChild) {
+        errorTable.removeChild(errorTable.firstChild)
+    }
+}
+
+function constructErrorTable() {
+    let errors = JSON.parse(localStorage.getItem('verbos')) || []
+    constructTable(errors, '#errorTable')
+}
+
+// from https://www.geeksforgeeks.org/how-to-convert-json-data-to-a-html-table-using-javascript-jquery/
+// with some changes
+function constructTable(list, selector) {
+    // Getting all column names
+    const cols = tableHeaders(list, selector);
+    // Traversing the JSON data
+    for (let i = 0; i < list.length; i++) {
+        const row = $('<tr/>');
+        for (let colIndex = 0; colIndex < cols.length; colIndex++) {
+            let val = list[i][cols[colIndex]];
+            // If there is any key, which is matching
+            // with the column name
+            if (val == null) val = "";
+            row.append($('<td/>').html(val));
+        }
+        // Adding each row to the table
+        $(selector).append(row);
+    }
+}
+// this is from https://www.geeksforgeeks.org/how-to-convert-json-data-to-a-html-table-using-javascript-jquery/
+// with some changes
+function tableHeaders(list, selector) {
+    const columns = [];
+    const header = $('<tr/>');
+    for (let i = 0; i < list.length; i++) {
+        const row = list[i];
+        for (const k in row) {
+            if ($.inArray(k, columns) === -1) {
+                columns.push(k);
+                // Creating the header
+                header.append($('<th/>').html(k));
+            }
+        }
+    }
+    // Appending the header to the table
+    $(selector).append(header);
+    return columns;
+}
+
 // flip card on flip button click
 $('#flipButton').click(function () {
     $('.card-flip').toggleClass('flipped')
@@ -131,5 +183,5 @@ $('#flipBackButton').click(function () {
 document.addEventListener('DOMContentLoaded', function () {
     checkboxTreeview()
     checkChkboxCookies();
-    // draw error html table based on localStorage
+    constructErrorTable()
 }, false);
