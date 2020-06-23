@@ -138,6 +138,7 @@ function constructErrorTable() {
 function constructTable(list, selector) {
     // Getting all column names
     const cols = tableHeaders(list, selector);
+    $(selector).append($('<tbody>'))
     // Traversing the JSON data
     for (let i = 0; i < list.length; i++) {
         const row = $('<tr/>');
@@ -149,7 +150,7 @@ function constructTable(list, selector) {
             row.append($('<td/>').html(val));
         }
         // Adding each row to the table
-        $(selector).append(row);
+        $(selector+' tbody').append(row);
     }
 }
 // this is from https://www.geeksforgeeks.org/how-to-convert-json-data-to-a-html-table-using-javascript-jquery/
@@ -168,7 +169,7 @@ function tableHeaders(list, selector) {
         }
     }
     // Appending the header to the table
-    $(selector).append(header);
+    $(selector).append($('<thead>').append(header));
     return columns;
 }
 
