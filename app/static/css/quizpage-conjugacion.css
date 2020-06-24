@@ -205,7 +205,7 @@ and on the right side there is the single input field (suitable for no more than
 }
 
 .table-responsive {
-    max-height: 24.3vmin;
+    height: 24.3vmin;
     width: auto;
 }
 
