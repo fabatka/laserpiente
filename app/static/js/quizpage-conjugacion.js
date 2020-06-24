@@ -197,6 +197,12 @@ $('#flipBackButton').click(function () {
     $('.card-flip').toggleClass('flipped')
 });
 
+// reset errors on button click
+$('#reset').click(function () {
+    localStorage.removeItem('verbos')
+    destroyErrorTable()
+})
+
 document.addEventListener('DOMContentLoaded', function () {
     checkboxTreeview()
     checkChkboxCookies();
