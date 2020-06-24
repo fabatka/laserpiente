@@ -101,11 +101,13 @@ and on the right side there is the single input field (suitable for no more than
     max-width: 100%;
 }
 
-#quizbox-subtitle {
+.card-title {
     display: inline;
     align-items: center;
 }
 
+#flipButton,
+#flipBackButton,
 #dropdownMenuButton {
     padding: calc(var(--textsize) / 3);
     font-size: 0;
@@ -113,6 +115,19 @@ and on the right side there is the single input field (suitable for no more than
     border-radius: calc(var(--textsize) / 2);
     background-color: var(--color5);
     border: 0px solid black;
+}
+
+#flipButtonContainer,
+#flipBackButtonContainer {
+    position: absolute;
+    top: 0.5rem;
+    left: 3rem;
+}
+
+#dropdownMenuButtonContainer {
+    position: absolute;
+    top: 0.5rem;
+    right: 3rem;
 }
 
 .dropdown-item {
@@ -131,4 +146,90 @@ and on the right side there is the single input field (suitable for no more than
 
 #dropdownTitle {
     margin-left: 3rem;
+}
+
+.card-container {
+    perspective: 1500px;
+    display: grid;
+}
+
+.card-flip, .card-container {
+    transform-style: preserve-3d;
+    transition: all 1s ease;
+}
+
+.card-flip div {
+    backface-visibility: hidden;
+    transform-style: preserve-3d;
+}
+
+.back {
+    transform: rotateY(-180deg);
+}
+
+.card-container .card-flip.flipped {
+    transform: rotateY(180deg);
+}
+
+.card-flip {
+    display: grid;
+    grid-template: 1fr / 1fr;
+    grid-template-areas: "frontAndBack";
+    transform-style: preserve-3d;
+    transition: all 0.7s ease;
+}
+
+.front {
+    grid-area: frontAndBack;
+}
+
+.back {
+    grid-area: frontAndBack;
+    transform: rotateY(-180deg);
+    background-color: var(--color1);
+}
+
+.back .card-body {
+    background-color: var(--color2);
+}
+
+/* use perfect-scrollbar? https://github.com/mdbootstrap/perfect-scrollbar */
+#errorTable {
+    font-size: calc(var(--textsize) / 2);
+    position: relative;
+    width: 100%;
+    /*overflow-y: scroll;*/
+    /*overflow-x: hidden;*/
+}
+
+.table-wrapper-scroll-y {
+    /*display: block;*/
+    /*margin: 4.5rem 3rem 0 3rem;*/
+    /*overflow-y: hidden;*/
+    /*overflow-x: hidden;*/
+}
+
+.table-responsive {
+    height: 24.3vmin;
+    width: auto;
+}
+
+#reset {
+    font-size: var(--textsize);
+    width: calc(var(--textsize) * 8);
+    background-color: var(--color5);
+    color: var(--color2);
+}
+
+.back .card-body {
+    padding: 0.75rem 1.25rem;
+}
+
+.error3 {background-color: var(--color3);}
+.error2 {background-color: #C97050;}
+.error1 {background-color: #D79C6F;}
+
+.table-dark {
+    color: var(--color2);
+    background-color: var(--color1);
 }
