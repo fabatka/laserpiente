@@ -11,7 +11,7 @@
         <div class='card rounded shadow-lg card-flip'>
             <div class='front'>
                 <div class='card-header rounded-top'>
-                    <div id='quizbox-subtitle'>{{ quiz_subtitle }}</div>
+                    <div id='quizbox-subtitle' class='card-title'>{{ quiz_subtitle }}</div>
                 </div>
                 <div class='card-body'>
                     <div id="quizbox-task">
@@ -69,13 +69,23 @@
                 </div>
             </div>
             <div class='back'>
+                <div class='card-header rounded-top'>
+                    <div class='card-title'>Errores</div>
+                </div>
+                <div class='card-body'>
+                    <div class='table-responsive table-wrapper-scroll-y'>
+                        <table id='errorTable' class='table table-hover table-sm'></table>
+                    </div>
+                </div>
+                <div class='card-footer rounded-bottom'>
+                    <div>
+                        <button id="reset" class="btn btn-lg btn-default rounded">Reiniciar</button>
+                    </div>
+                </div>
                 <div id='flipBackButtonContainer'>
                     <button class="btn btn-secondary" type="button" id="flipBackButton">
                         <img id='quiz-flip-img' src="/static/img/sync-alt-solid.svg" alt="" title="Flip">
                     </button>
-                </div>
-                <div class='table-responsive table-wrapper-scroll-y'>
-                    <table id='errorTable' class='table table-hover table-sm'></table>
                 </div>
             </div>
         </div>

@@ -101,7 +101,7 @@ and on the right side there is the single input field (suitable for no more than
     max-width: 100%;
 }
 
-#quizbox-subtitle {
+.card-title {
     display: inline;
     align-items: center;
 }
@@ -198,13 +198,24 @@ and on the right side there is the single input field (suitable for no more than
 }
 
 .table-wrapper-scroll-y {
-    display: block;
-    margin: 4.5rem 3rem 0 3rem;
+    /*display: block;*/
+    /*margin: 4.5rem 3rem 0 3rem;*/
     /*overflow-y: hidden;*/
     /*overflow-x: hidden;*/
 }
 
 .table-responsive {
-    max-height: 32vmin;
+    max-height: 24.3vmin;
     width: auto;
+}
+
+#reset {
+    font-size: var(--textsize);
+    width: calc(var(--textsize) * 8);
+    background-color: var(--color5);
+    color: var(--color2);
+}
+
+.back .card-body {
+    padding: 0.75rem 1.25rem;
 }
