@@ -219,3 +219,12 @@ and on the right side there is the single input field (suitable for no more than
 .back .card-body {
     padding: 0.75rem 1.25rem;
 }
+
+.error3 {background-color: var(--color3);}
+.error2 {background-color: #C97050;}
+.error1 {background-color: #D79C6F;}
+
+.table-dark {
+    color: var(--color2);
+    background-color: var(--color1);
+}

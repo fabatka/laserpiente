@@ -141,6 +141,12 @@ function compareErrors(e1, e2) {
     return 0;
 }
 
+function points2colorClass(point) {
+    if (point <= -4) return 'error3'
+    if (point <= -2) return 'error2'
+    return 'error1'
+}
+
 // from https://www.geeksforgeeks.org/how-to-convert-json-data-to-a-html-table-using-javascript-jquery/
 // with some changes
 function constructTable(list, selector) {
@@ -149,7 +155,7 @@ function constructTable(list, selector) {
     $(selector).append($('<tbody>'))
     // Traversing the JSON data
     for (let i = 0; i < list.length; i++) {
-        const row = $('<tr/>');
+        const row = $('<tr/>').addClass(points2colorClass(list[i]['points']));
         for (let colIndex = 0; colIndex < cols.length; colIndex++) {
             let val = list[i][cols[colIndex]];
             // If there is any key, which is matching
