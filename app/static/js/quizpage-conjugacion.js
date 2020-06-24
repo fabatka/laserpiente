@@ -130,7 +130,15 @@ function destroyErrorTable() {
 
 function constructErrorTable() {
     let errors = JSON.parse(localStorage.getItem('verbos')) || []
-    constructTable(errors, '#errorTable')
+    constructTable(errors.sort(compareErrors), '#errorTable')
+}
+
+function compareErrors(e1, e2) {
+    if (e1['points'] > e2['points']) return 1;
+    if (e1['points'] < e2['points']) return -1;
+    if (e1['verb'] > e2['verb']) return 1;
+    if (e1['verb'] < e2['verb']) return -1;
+    return 0;
 }
 
 // from https://www.geeksforgeeks.org/how-to-convert-json-data-to-a-html-table-using-javascript-jquery/
