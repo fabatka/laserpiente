@@ -51,7 +51,7 @@ const incrementUnit = 0.5;
 
 function changeVerbPoints(verb, mood, tense, correct) {
     let verbs = JSON.parse(localStorage.getItem('verbos'));
-    if (verbs === null) {
+    if (verbs === null || verbs === undefined) {
         verbs = [];
     }
 
@@ -150,6 +150,8 @@ function points2colorClass(point) {
 // from https://www.geeksforgeeks.org/how-to-convert-json-data-to-a-html-table-using-javascript-jquery/
 // with some changes
 function constructTable(list, selector) {
+    // don't even create basic structure if list is empty
+    if (list.length === 0) return
     // Getting all column names
     const cols = tableHeaders(list, selector);
     $(selector).append($('<tbody>'))
