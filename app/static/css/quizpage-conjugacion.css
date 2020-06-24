@@ -186,6 +186,11 @@ and on the right side there is the single input field (suitable for no more than
 .back {
     grid-area: frontAndBack;
     transform: rotateY(-180deg);
+    background-color: var(--color1);
+}
+
+.back .card-body {
+    background-color: var(--color2);
 }
 
 /* use perfect-scrollbar? https://github.com/mdbootstrap/perfect-scrollbar */
