@@ -1,3 +1,12 @@
+const pronouns = [
+    'yo',
+    'tú',
+    'él/ella/Ud.',
+    'nosotros',
+    'vosotros',
+    'ellos/ellas/Uds.'
+]
+
 function handleSubmitClickEvent(event) {
     const answerElement = document.getElementById('answer');
     const questionElement = document.getElementById('question');
@@ -5,7 +14,8 @@ function handleSubmitClickEvent(event) {
     const subtitleElement = document.getElementById('quizbox-subtitle');
     const serverResponseParagraph = document.getElementById('result');
 
-    if (serverResponseParagraph.textContent === '') {
+    let noResponse = serverResponseParagraph.textContent === '';
+    if (noResponse) {
         $.ajax({
             type: 'POST',
             url: window.location.pathname + '-submit',
@@ -32,20 +42,41 @@ function handleSubmitClickEvent(event) {
             // TODO
         })
     } else {
-        $.ajax({
-            type: 'POST',
-            url: window.location.pathname,
-            data: JSON.stringify({}),
-            contentType: 'application/json; charset=utf-8',
-            dataType: 'json'
-        }).done(function (response) {
-            const {hint, verb, subtitle} = response;
-            newQuestion(subtitle, hint, verb);
-        }).fail(function (xhr, status, error) {
-            // TODO
-        })
+        let errors = JSON.parse(localStorage.getItem('verbos'));
+        let numOfErrors = Math.abs(sumErrorPoints(errors))
+        let prob = numOfErrors > 10 ? 0.99 : Math.tanh(numOfErrors ** (3 / 2) * 0.0475);
+
+        if (Math.random() > prob) {
+            $.ajax({
+                type: 'POST',
+                url: window.location.pathname,
+                data: JSON.stringify({}),
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json'
+            }).done(function (response) {
+                const {hint, verb, subtitle} = response;
+                newQuestion(subtitle, hint, verb);
+            }).fail(function (xhr, status, error) {
+                // TODO
+            })
+        } else {
+            console.log('TRY AGAIN, DUMMY')
+            let error = errors[Math.floor(Math.random() * errors.length)];
+            let hint = pronouns[Math.floor(Math.random() * pronouns.length)];
+            let subtitle = `${error['mood'].charAt(0).toUpperCase() + error['mood'].slice(1)}, ${error['tense']}`
+            newQuestion(subtitle, hint, error['verb'])
+        }
     }
 }
+
+function sumErrorPoints(errors) {
+    let sum = 0;
+    for (let error of errors) {
+        sum += error['points'];
+    }
+    return sum
+}
+
 
 const incrementUnit = 0.5;
 
@@ -166,9 +197,10 @@ function constructTable(list, selector) {
             row.append($('<td/>').html(val));
         }
         // Adding each row to the table
-        $(selector+' tbody').append(row);
+        $(selector + ' tbody').append(row);
     }
 }
+
 // this is from https://www.geeksforgeeks.org/how-to-convert-json-data-to-a-html-table-using-javascript-jquery/
 // with some changes
 function tableHeaders(list, selector) {
