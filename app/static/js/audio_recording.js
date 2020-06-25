@@ -108,10 +108,10 @@ function stopRec() {
                 // write response into textarea
                 // maybe return a non-200 status code and based on that write an output stating there was an error
                 // in speech recognition?
-                ansTextBox.textContent += data;
+                ansTextBox.value += data;
             }).fail(function (xhr, status, error) {
                 // write error message into textarea
-                ansTextBox.textContent += xhr.responseText;
+                ansTextBox.value += xhr.responseText;
             }).always(function () {
                 recBtn.className = 'recordingStopped';
             });
