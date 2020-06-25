@@ -120,14 +120,14 @@ and on the right side there is the single input field (suitable for no more than
 #flipButtonContainer,
 #flipBackButtonContainer {
     position: absolute;
-    top: 0.5rem;
-    left: 3rem;
+    top: calc(var(--textsize)*0.5);
+    left: calc(var(--textsize)*1.5);
 }
 
 #dropdownMenuButtonContainer {
     position: absolute;
-    top: 0.5rem;
-    right: 3rem;
+    top: calc(var(--textsize)*0.5);
+    right: calc(var(--textsize)*1.5);
 }
 
 .dropdown-item {
@@ -135,7 +135,7 @@ and on the right side there is the single input field (suitable for no more than
 }
 
 #settingsDropdown {
-    width: 340px;
+    width: 250px;
     background-color: var(--color2);
     border: 1px solid black;
 }
@@ -181,12 +181,14 @@ and on the right side there is the single input field (suitable for no more than
 
 .front {
     grid-area: frontAndBack;
+    max-width: 100vw;
 }
 
 .back {
     grid-area: frontAndBack;
     transform: rotateY(-180deg);
     background-color: var(--color1);
+    max-width: 100vw;
 }
 
 .back .card-body {
@@ -210,7 +212,7 @@ and on the right side there is the single input field (suitable for no more than
 }
 
 .table-responsive {
-    height: 24.3vmin;
+    height: calc(var(--textsize)*6);
     width: auto;
 }
 
@@ -232,4 +234,11 @@ and on the right side there is the single input field (suitable for no more than
 .table-dark {
     color: var(--color2);
     background-color: var(--color1);
+}
+
+@media (min-width: 768px) {
+    .front,
+    .back {
+        max-width: calc(95vw - 250px);
+    }
 }

@@ -6,7 +6,11 @@
     --color5: rgba(65, 123, 90, 1);
     --color6: rgba(85, 40, 111, 1);
 
-    --textsize: 4vmin;
+    --textsize: calc(1.1rem + 1vmin);
+}
+
+html {
+    font-size: 100%;
 }
 
 .icon {
@@ -18,15 +22,11 @@
 }
 
 .icon-book {
-    background-image: url('/static/img/book-color1.svg');
+    background-image: url('/static/img/book-reader-solid.svg');
 }
 
 .icon-sidebar {
     background-image: url("/static/img/sidebar-color1.svg");
-}
-
-.icon-information {
-    background-image: url("/static/img/info-color1.svg");
 }
 
 .icon-exclamation {
