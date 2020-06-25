@@ -135,7 +135,7 @@ and on the right side there is the single input field (suitable for no more than
 }
 
 #settingsDropdown {
-    width: 340px;
+    width: 250px;
     background-color: var(--color2);
     border: 1px solid black;
 }
