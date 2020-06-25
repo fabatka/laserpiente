@@ -239,6 +239,6 @@ and on the right side there is the single input field (suitable for no more than
 @media (min-width: 768px) {
     .front,
     .back {
-        max-width: calc(100vw - 250px);
+        max-width: calc(95vw - 250px);
     }
 }
