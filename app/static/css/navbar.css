@@ -142,6 +142,7 @@ ul ul a {
     background-color: var(--color2);
     width: 80px;
     height: 52px;
+    padding: 0;
 }
 
 #sidebar .submenu a {
