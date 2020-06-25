@@ -6,7 +6,11 @@
     --color5: rgba(65, 123, 90, 1);
     --color6: rgba(85, 40, 111, 1);
 
-    --textsize: 4vmin;
+    --textsize: calc(1.1rem + 1vmin);
+}
+
+html {
+    font-size: 100%;
 }
 
 .icon {
