@@ -1,6 +1,8 @@
 #numeros-quizarea {
     display: flex;
     align-items: center;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 #recordButton {
@@ -8,7 +10,12 @@
 }
 
 #numeros-quizarea > * {
-    margin: 0 var(--textsize);
+    margin: 0 calc(var(--textsize) / 2);
+}
+
+#numeros-quizarea textarea.numeros.form__group {
+    flex-grow: 1;
+    margin-top: 10px;
 }
 
 #dropdownTitle {
