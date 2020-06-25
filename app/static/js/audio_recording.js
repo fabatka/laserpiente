@@ -51,9 +51,17 @@ $(recBtn).mousedown(function () {
     startRec()
 });
 
+$(recBtn).on('touchstart', function () {
+    startRec()
+})
+
 $(recBtn).mouseup(function () {
     stopRec()
 });
+
+$(recBtn).on('touchend', function () {
+    stopRec()
+})
 
 document.addEventListener("keydown", function (event) {
     let code = getKeyboardEventCode(event);
@@ -83,6 +91,7 @@ function startRec() {
 
 function stopRec() {
     if (recBtn.className === 'recordingStarted') {
+        console.log('Stop recording')
         rec.stop();
         recBtn.className = 'recordingAnalyze';
         rec.exportWAV(function (blob) {
