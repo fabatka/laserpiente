@@ -2,8 +2,6 @@
 The general layout of the quizbox, which most of the quiz types can use.
 */
 
-@import "standards.css";
-
 body {
     position: absolute;
     margin: 0;
