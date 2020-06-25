@@ -2,7 +2,7 @@
 
 const constraints = {audio: true, video: false};
 
-const recBtn = document.querySelector("img#recordButton");
+const recBtn = document.querySelector("div#recordButton");
 const ansTextBox = document.getElementById('answer');
 
 let rec;
@@ -51,9 +51,17 @@ $(recBtn).mousedown(function () {
     startRec()
 });
 
+$(recBtn).on('touchstart', function () {
+    startRec()
+})
+
 $(recBtn).mouseup(function () {
     stopRec()
 });
+
+$(recBtn).on('touchend', function () {
+    stopRec()
+})
 
 document.addEventListener("keydown", function (event) {
     let code = getKeyboardEventCode(event);
@@ -76,7 +84,6 @@ function startRec() {
         } else {
             rec.record();
             recBtn.className = 'recordingStarted';
-            recBtn.src = '/static/img/mic-color3.svg';
             console.log('Start recording...');
         }
     }
@@ -84,14 +91,13 @@ function startRec() {
 
 function stopRec() {
     if (recBtn.className === 'recordingStarted') {
+        console.log('Stop recording')
         rec.stop();
-        recBtn.className = 'recordingStopped';
-        recBtn.src = '/static/img/mic-color6.svg';
+        recBtn.className = 'recordingAnalyze';
         rec.exportWAV(function (blob) {
             let form = new FormData();
             form.append('file', blob, 'filename.wav');
             $.ajax({
-
                 type: 'POST',
                 url: '/audio',
                 data: form,
@@ -102,12 +108,12 @@ function stopRec() {
                 // write response into textarea
                 // maybe return a non-200 status code and based on that write an output stating there was an error
                 // in speech recognition?
-                ansTextBox.textContent += data;
+                ansTextBox.value += data;
             }).fail(function (xhr, status, error) {
                 // write error message into textarea
-                ansTextBox.textContent += xhr.responseText;
+                ansTextBox.value += xhr.responseText;
             }).always(function () {
-                recBtn.src = '/static/img/mic-color1.svg';
+                recBtn.className = 'recordingStopped';
             });
         });
         rec.clear();
