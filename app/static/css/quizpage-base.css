@@ -94,7 +94,7 @@ body {
 
 #quizbox-result {
     align-items: center;
-    height: calc(var(--textsize) * 4);
+    min-height: calc(var(--textsize) * 4);
     display: flex;
 }
 
