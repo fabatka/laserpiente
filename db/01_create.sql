@@ -49,6 +49,11 @@ alter table laserpiente.ejercicio owner to dev;
 
 insert into laserpiente.verbo (infinitivo, gerundio, participio, modo, tiempo, singular1, singular2, singular3, plural1, plural2, plural3)
 values ('comer', 'comiendo', 'comido', 'indicativo', 'presente', 'como', 'comes', 'come', 'comemos', 'coméis', 'comen'),
+       ('comer', 'comiendo', 'comido', 'indicativo', 'indefinido', 'comí', 'comiste', 'comió', 'comimos', 'comisteis', 'comieron'),
+       ('comer', 'comiendo', 'comido', 'indicativo', 'imperfecto', 'comía', 'comías', 'comía', 'comíamos', 'comíais', 'comían'),
+       ('comer', 'comiendo', 'comido', 'imperativo', 'negativo', null, 'comas', 'coma', 'comamos', 'comáis', 'coman'),
+       ('comer', 'comiendo', 'comido', 'imperativo', 'afirmativo', null, 'come', 'coma', 'comamos', 'comed', 'coman'),
+       ('comer', 'comiendo', 'comido', 'subjuntivo', 'presente', 'coma', 'comas', 'coma', 'comamos', 'comáis', 'coman'),
        ('ir', 'yendo', 'ido', 'indicativo', 'presente', 'voy', 'vas', 'va', 'vamos', 'vais', 'van'),
        ('pedir', 'pidiendo', 'pedido', 'indicativo', 'presente', 'pido', 'pides', 'pide', 'pedimos', 'pedís', 'piden');
 

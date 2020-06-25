@@ -24,17 +24,6 @@ window.onload = function () {
 
 // TODO: create a common 'handleClickEvent' function that gets a list/map as a parameter
 
-const $tooltipEls = $('[data-toggle="tooltip"]');
-$('#infobutton').hover(function (e) {
-    $tooltipEls.tooltip('enable');
-    $tooltipEls.tooltip('toggle');
-    $(this).attr('src', '/static/img/info-color1-color3.svg');
-}, function () {
-    $tooltipEls.tooltip('toggle');
-    $(this).attr('src', '/static/img/info-color1-color4.svg');
-    $tooltipEls.tooltip('disable');
-});
-
 // from https://www.w3schools.com/js/js_cookies.asp, with minimal modifications
 function getCookie(cname) {
     const name = cname + "=";

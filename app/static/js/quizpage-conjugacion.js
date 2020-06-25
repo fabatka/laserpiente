@@ -43,6 +43,7 @@ function handleSubmitClickEvent(event) {
         })
     } else {
         let errors = JSON.parse(localStorage.getItem('errores'));
+        errors = errors ? errors : []
         let numOfErrors = Math.abs(sumErrorPoints(errors))
         let prob = numOfErrors > 10 ? 0.99 : Math.tanh(numOfErrors ** (3 / 2) * 0.0475);
 
@@ -60,7 +61,6 @@ function handleSubmitClickEvent(event) {
                 // TODO
             })
         } else {
-            console.log('TRY AGAIN, DUMMY')
             let error = errors[Math.floor(Math.random() * errors.length)];
             let hint = pronouns[Math.floor(Math.random() * pronouns.length)];
             let subtitle = `${error['modo'].charAt(0).toUpperCase() + error['modo'].slice(1)}, ${error['tiempo']}`
