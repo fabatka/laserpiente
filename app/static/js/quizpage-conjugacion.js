@@ -43,6 +43,7 @@ function handleSubmitClickEvent(event) {
         })
     } else {
         let errors = JSON.parse(localStorage.getItem('errores'));
+        errors = errors ? errors : []
         let numOfErrors = Math.abs(sumErrorPoints(errors))
         let prob = numOfErrors > 10 ? 0.99 : Math.tanh(numOfErrors ** (3 / 2) * 0.0475);
 
