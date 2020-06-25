@@ -7,6 +7,21 @@
 
 #recordButton {
     height: calc(var(--textsize) * 2);
+    width: calc(var(--textsize) * 1.25);
+    background-size: calc(var(--textsize) * 1.2);
+    background-repeat: no-repeat;
+}
+
+.recordingStopped {
+    background-image: url('/static/img/mic-color1.svg');
+}
+
+.recordingStarted {
+    background-image: url('/static/img/mic-color3.svg');
+}
+
+.recordingAnalyze {
+    background-image: url('/static/img/mic-color6.svg');
 }
 
 #numeros-quizarea > * {

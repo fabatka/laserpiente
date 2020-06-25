@@ -2,7 +2,7 @@
 
 const constraints = {audio: true, video: false};
 
-const recBtn = document.querySelector("img#recordButton");
+const recBtn = document.querySelector("div#recordButton");
 const ansTextBox = document.getElementById('answer');
 
 let rec;
@@ -76,7 +76,6 @@ function startRec() {
         } else {
             rec.record();
             recBtn.className = 'recordingStarted';
-            recBtn.src = '/static/img/mic-color3.svg';
             console.log('Start recording...');
         }
     }
@@ -85,13 +84,11 @@ function startRec() {
 function stopRec() {
     if (recBtn.className === 'recordingStarted') {
         rec.stop();
-        recBtn.className = 'recordingStopped';
-        recBtn.src = '/static/img/mic-color6.svg';
+        recBtn.className = 'recordingAnalyze';
         rec.exportWAV(function (blob) {
             let form = new FormData();
             form.append('file', blob, 'filename.wav');
             $.ajax({
-
                 type: 'POST',
                 url: '/audio',
                 data: form,
@@ -107,7 +104,7 @@ function stopRec() {
                 // write error message into textarea
                 ansTextBox.textContent += xhr.responseText;
             }).always(function () {
-                recBtn.src = '/static/img/mic-color1.svg';
+                recBtn.className = 'recordingStopped';
             });
         });
         rec.clear();
