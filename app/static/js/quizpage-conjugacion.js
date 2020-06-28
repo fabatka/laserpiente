@@ -63,6 +63,9 @@ function handleSubmitClickEvent(event) {
         } else {
             let error = errors[Math.floor(Math.random() * errors.length)];
             let hint = pronouns[Math.floor(Math.random() * pronouns.length)];
+            if (error['modo'] === 'imperativo') {
+                hint = pronouns.slice(1, 5)[Math.floor(Math.random() * pronouns.slice(1, 5).length)];
+            }
             let subtitle = `${error['modo'].charAt(0).toUpperCase() + error['modo'].slice(1)}, ${error['tiempo']}`
             newQuestion(subtitle, hint, error['verbo'])
         }
