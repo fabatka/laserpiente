@@ -62,4 +62,5 @@ def add_security_headers(resp, nonce):
         f"object-src 'none'; "
         f"base-uri 'self'; "
         f"img-src *")
+    resp.headers['X-Frame-Options'] = 'SAMEORIGIN'
     return resp
