@@ -2,8 +2,8 @@
 
 {% block styles %}
     {{ super() }}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage-conjugacion.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/checkbox-treeview.css') }}">
+    <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage-conjugacion.css') }}">
+    <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/checkbox-treeview.css') }}">
 {% endblock %}
 
 {% block quiztask %}
@@ -94,6 +94,6 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="/static/js/quizpage-conjugacion.js"></script>
-    <script src="/static/js/checkbox-treeview.js"></script>
+    <script nonce='{{ nonce }}' src="/static/js/quizpage-conjugacion.js"></script>
+    <script nonce='{{ nonce }}' src="/static/js/checkbox-treeview.js"></script>
 {% endblock %}

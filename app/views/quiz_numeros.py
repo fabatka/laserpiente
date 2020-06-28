@@ -1,12 +1,14 @@
 import json
 import os
+import secrets
 from datetime import datetime
-from random import randrange
 from requests import post, exceptions
 from flask import Blueprint, render_template, make_response, request, current_app
 from app.lang import numbers_map
 
 from werkzeug.datastructures import FileStorage
+
+from app.static.utils import add_security_headers
 
 
 bp = Blueprint('quiz-numeros', __name__, template_folder='templates')
@@ -45,7 +47,10 @@ def translate_int_en_es(number: int) -> str:
 
 @bp.route(f'/{path}', methods=['GET'])
 def quiz():
-    return render_template('quizpage-numeros.html', quiz_title='Práctica de números')
+    nonce = secrets.token_urlsafe()
+    response = make_response(render_template('quizpage-numeros.html', quiz_title='Práctica de números', nonce=nonce))
+    response = add_security_headers(response, nonce)
+    return response
 
 
 @bp.route(f'/{path}-submit', methods=['POST'])
