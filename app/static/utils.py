@@ -58,10 +58,11 @@ def add_security_headers(resp, nonce):
     resp.headers['Content-Security-Policy'] = (
         f"default-src 'nonce-{nonce}'; "
         f"style-src 'self' 'nonce-{nonce}'; "
-        f"script-src 'nonce-{nonce}' 'unsafe-inline'; "
+        f"script-src 'nonce-{nonce}' 'unsafe-inline' blob:; "
         f"object-src 'none'; "
         f"base-uri 'self'; "
         f"img-src *; "
-        f"connect-src 'self'")
+        f"connect-src 'self'; "
+        f"worker-src blob: 'nonce-{nonce}'; ")
     resp.headers['X-Frame-Options'] = 'SAMEORIGIN'
     return resp
