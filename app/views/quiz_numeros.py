@@ -48,13 +48,14 @@ def translate_int_en_es(number: int) -> str:
 @bp.route(f'/{path}', methods=['GET'])
 def quiz():
     nonce = secrets.token_urlsafe()
-    response = make_response(render_template('quizpage-numeros.html', quiz_title='Práctica de números', nonce=nonce))
-    response = add_security_headers(response, nonce)
+    template = render_template('quizpage-numeros.html', quiz_title='Práctica de números', nonce=nonce)
+    response = add_security_headers(make_response(template, 200), nonce)
     return response
 
 
 @bp.route(f'/{path}-submit', methods=['POST'])
 def submit():
+    nonce = secrets.token_urlsafe()
     answer: str = request.form.get('answer')
     question: str = request.form.get('question')
     solution = translate_int_en_es(int(question))
@@ -62,11 +63,12 @@ def submit():
         response_text = '<span> <span class="correct">¡Correcto!</span></span>'
     else:
         response_text = f'<span> <span class="false">¡Incorrecto! </span>La solución: {solution}</span>'
-    return make_response(response_text, 200)
+    return add_security_headers(make_response(response_text, 200), nonce)
 
 
 @bp.route('/audio', methods=['POST'])
 def speech2text():
+    nonce = secrets.token_urlsafe()
     raw_audio: FileStorage = request.files.get('file')
     audio: bytes = raw_audio.read()
 
@@ -94,18 +96,18 @@ def speech2text():
             current_app.logger.info('Speech recognition request successful')
             response = json.loads(speech2text_req.text)
             speech2text_result = response['NBest'][0]['Lexical']
-            return make_response(speech2text_result, 200)
+            return add_security_headers(make_response(speech2text_result, 200), nonce)
         else:
             current_app.logger.error(f'Speect-to-text request unsuccessful. '
                                      f'Status code:{speech2text_req.status_code} '
                                      f'Reason:{speech2text_req.reason}')
-            return make_response(error_response_text, 500)
+            return add_security_headers(make_response(error_response_text, 500), nonce)
     except exceptions.MissingSchema as err:
         current_app.logger.error(f'Unable to send speech-to-text request'
                                  f'Error: {err}')
-        return make_response(error_response_text, 500)
+        return add_security_headers(make_response(error_response_text, 500), nonce)
     except KeyError as err:
         # e.g. when there is only silence in the recording
         current_app.logger.error(f'Unable to process speech-to-text response'
                                  f'Error: {err}')
-        return make_response(error_response_text, 500)
+        return add_security_headers(make_response(error_response_text, 500), nonce)
