@@ -4,6 +4,9 @@
     {{ super() }}
     <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage-conjugacion.css') }}">
     <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/checkbox-treeview.css') }}">
+    <style nonce='{{ nonce }}'>
+        #answer { {{ input_width }} }
+    </style>
 {% endblock %}
 
 {% block quiztask %}
@@ -18,8 +21,7 @@
                         <div id="question" class="question">{{ question }}</div>
                         <div class="form__group">
                             <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input"
-                                   id="answer"
-                                   style="{{ input_width }}"/>
+                                   id="answer"/>
                             <label id="questionHint" for="answer" class="form__label">{{ question_hint }}</label>
                         </div>
                     </div>
