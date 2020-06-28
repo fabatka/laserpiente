@@ -52,3 +52,14 @@ def execute_query(raw_query: str, query_params: Optional[Union[Dict[str, Union[s
     finally:
         cursor.close()
         conn.close()
+
+
+def add_security_headers(resp, nonce):
+    resp.headers['Content-Security-Policy'] = (
+        f"default-src 'nonce-{nonce}'; "
+        f"style-src 'self' *.bootstrapcdn.com 'nonce-{nonce}'; "
+        f"script-src 'nonce-{nonce}' 'unsafe-inline'; "
+        f"object-src 'none'; "
+        f"base-uri 'self'; "
+        f"img-src *")
+    return resp
