@@ -61,7 +61,7 @@ def quiz():
         if len(moods_tenses) == 0:
             template = render_template('quizpage-conjugacion.html', moods=tenses_for_moods,
                                        quiz_subtitle='No ha seleccionado modos y tiempos verbales', question_hint='',
-                                       question=':(', quiz_title='Conjugación', input_width='')
+                                       question=':(', quiz_title='Conjugación', input_width='', nonce=nonce)
             response = add_security_headers(make_response(template, 200), nonce)
             return response
         param_name = 'm_t'
