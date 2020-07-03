@@ -87,6 +87,8 @@ def create_app():
         response.cache_control.max_age = 60 * 60 * 24 * 250
         # to prevent clickjacking
         response.headers["X-Frame-Options"] = "SAMEORIGIN"
+        # to prevent mime sniffing
+        response.headers["X-Content-Type-Options"] = "nosniff"
         return response
 
     @app_instance.route('/robots.txt')
