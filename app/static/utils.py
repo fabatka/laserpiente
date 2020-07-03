@@ -63,5 +63,4 @@ def add_security_headers(resp, nonce):
         f"img-src *; "
         f"connect-src 'self'; "
         f"worker-src blob: 'nonce-{nonce}'; ")
-    resp.headers['X-Frame-Options'] = 'SAMEORIGIN'
     return resp
