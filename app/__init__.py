@@ -30,6 +30,11 @@ def create_app():
     app_instance.config['MAIL_USE_SSL'] = cnf['email']['ssl'].lower() == 'true'
     app_instance.config['MAIL_DOMAIN'] = cnf['email']['domain']
     app_instance.config['MAIL_RECIPIENT'] = cnf['email']['recipient']
+    app_instance.config.update(
+        SESSION_COOKIE_SECURE=True,
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SAMESITE='Lax',
+    )
 
     mail.init_app(app_instance)
     asset_env = Environment(app_instance)
