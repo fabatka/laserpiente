@@ -91,6 +91,8 @@ def create_app():
         response.headers["X-Content-Type-Options"] = "nosniff"
         # xss protection for older browsers
         response.headers['X-XSS-Protection'] = '1; mode=block'
+        # convert all http requests to https, to prevent MITM attacks
+        response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
         return response
 
     @app_instance.route('/robots.txt')
