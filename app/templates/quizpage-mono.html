@@ -2,7 +2,9 @@
 
 {% block styles %}
     {{ super() }}
-    <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage-mono.css') }}">
+    {% assets 'quizpage_mono_css' %}
+        <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
     <style nonce='{{ nonce }}'>
         {% for question in questions %}
             {% if not loop.last %}
@@ -41,5 +43,7 @@
 
 {% block scripts %}
     {{ super() }}
-    <script nonce='{{ nonce }}' src="/static/js/quizpage-mono.js"></script>
+    {% assets 'quizpage_mono_js' %}
+        <script nonce='{{ nonce }}' src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 {% endblock %}

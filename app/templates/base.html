@@ -11,8 +11,6 @@
               integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
               crossorigin="anonymous">
         <link nonce='{{ nonce }}'  rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
-        <link nonce='{{ nonce }}'  rel="stylesheet" href="{{ url_for('static', filename='css/standards.css') }}">
-        <link nonce='{{ nonce }}'  rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
     {%- endblock styles %}
 
 </head>
@@ -101,7 +99,9 @@
     <script nonce='{{ nonce }}' src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
             integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
             crossorigin="anonymous"></script>
-    <script nonce='{{ nonce }}' src="/static/js/navbar.js"></script>
+    {% assets 'base_js' %}
+        <script nonce='{{ nonce }}' src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 {%- endblock scripts %}
 
 </body>

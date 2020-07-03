@@ -3,7 +3,9 @@
 
 {% block styles %}
     {{ super() }}
-    <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage-numeros.css') }}">
+    {% assets 'quizpage_numeros_css' %}
+        <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
 {% endblock %}
 
 {% block quiztask %}
@@ -178,10 +180,7 @@
 
 {% block scripts %}
     {{ super() }}
-    <script nonce='{{ nonce }}' src="/static/js/quizpage-numeros.js"></script>
-    <script nonce='{{ nonce }}' src="/static/js/texarea_cant_copy.js"></script>
-    <script nonce='{{ nonce }}' src="/static/js/textarea_auto_height.js"></script>
-    <script nonce='{{ nonce }}' src="/static/js/textarea_disable_newline.js"></script>
-    <script nonce='{{ nonce }}' src="/static/js/lib/recorder.js"></script>
-    <script nonce='{{ nonce }}' src="/static/js/audio_recording.js"></script>
+    {% assets 'quizpage_numeros_js' %}
+        <script nonce='{{ nonce }}' src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 {% endblock %}

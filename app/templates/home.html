@@ -2,7 +2,9 @@
 
 {% block styles %}
     {{ super() }}
-    <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+    {% assets 'home_css' %}
+        <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
 {% endblock %}
 
 {% block content %}
