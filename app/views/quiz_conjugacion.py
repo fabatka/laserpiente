@@ -60,8 +60,8 @@ def quiz():
         }
         if len(moods_tenses) == 0:
             template = render_template('quizpage-conjugacion.html', moods=tenses_for_moods,
-                                       quiz_subtitle='No ha seleccionado modos y tiempos verbales', question_hint='',
-                                       question=':(', quiz_title='Conjugación', input_width='', nonce=nonce)
+                                       quiz_subtitle=':(', question_hint='',
+                                       question='No ha seleccionado modos y tiempos verbales', quiz_title='Conjugación', input_width='', nonce=nonce)
             response = add_security_headers(make_response(template, 200), nonce)
             return response
         param_name = 'm_t'
@@ -103,7 +103,7 @@ def submit():
     data = request.get_json()
     answer: str = data['answer']
     question: str = data['question']
-    if question == ':(':
+    if question == 'No ha seleccionado modos y tiempos verbales':
         return make_response(':(', 200)
     pronoun_hr: str = data['questionHint']
     subtitle: str = data['subtitle']
