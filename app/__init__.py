@@ -2,7 +2,7 @@ import logging
 import os
 from datetime import datetime as dt, timedelta as td
 from logging.handlers import RotatingFileHandler, SMTPHandler
-from flask import Flask
+from flask import Flask, send_from_directory, request
 from flask_mail import Mail
 from flask_assets import Environment
 
@@ -18,7 +18,7 @@ env_loglevel_map = {
 
 
 def create_app():
-    app_instance = Flask(__name__)
+    app_instance = Flask(__name__, static_folder='static')
 
     cnf = parse_config()
     app_instance.config['file'] = cnf
@@ -88,5 +88,10 @@ def create_app():
         # to prevent clickjacking
         response.headers["X-Frame-Options"] = "SAMEORIGIN"
         return response
+
+    @app_instance.route('/robots.txt')
+    @app_instance.route('/sitemap.xml')
+    def static_from_root():
+        return send_from_directory(app_instance.static_folder, request.path[1:])
 
     return app_instance
