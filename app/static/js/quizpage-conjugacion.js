@@ -7,6 +7,12 @@ const pronouns = [
     'ellos/ellas/Uds.'
 ]
 
+// errors in localStorage are stored in a list of objects with the following keys
+const verbKey = 'verbo';
+const moodKey = 'modo';
+const tenseKey = 'tiempo';
+const pointsKey = 'puntos';
+
 function handleSubmitClickEvent(event) {
     const answerElement = document.getElementById('answer');
     const questionElement = document.getElementById('question');
@@ -63,12 +69,12 @@ function handleSubmitClickEvent(event) {
         } else {
             let error = errors[Math.floor(Math.random() * errors.length)];
             let hint = pronouns[Math.floor(Math.random() * pronouns.length)];
-            if (error['modo'] === 'imperativo') {
+            if (error[moodKey] === 'imperativo') {
                 hint = pronouns.slice(1, 5)[Math.floor(Math.random() * pronouns.slice(1, 5).length)];
             }
             // jsmin strips spaces inside backtick strings
-            let subtitle = `${error['modo'].charAt(0).toUpperCase() + error['modo'].slice(1)}` + ', ' + `${error['tiempo']}`;
-            newQuestion(subtitle, hint, error['verbo'])
+            let subtitle = `${error[moodKey].charAt(0).toUpperCase() + error[moodKey].slice(1)}` + ', ' + `${error[tenseKey]}`;
+            newQuestion(subtitle, hint, error[verbKey])
         }
     }
 }
@@ -76,7 +82,7 @@ function handleSubmitClickEvent(event) {
 function sumErrorPoints(errors) {
     let sum = 0;
     for (let error of errors) {
-        sum += error['puntos'];
+        sum += error[pointsKey];
     }
     return sum
 }
@@ -92,30 +98,26 @@ function changeVerbPoints(verb, mood, tense, correct) {
 
     if (correct) {
         for (let error of verbs) {
-            if (error['verbo'] === verb && error['modo'] === mood && error['tiempo'] === tense) {
-                // edit html table accordingly
-                error['puntos'] += incrementUnit;
+            if (error[verbKey] === verb && error[moodKey] === mood && error[tenseKey] === tense) {
+                error[pointsKey] += incrementUnit;
                 break;
             }
         }
     } else {
         let found = false;
         for (let error of verbs) {
-            if (error['verbo'] === verb && error['modo'] === mood && error['tiempo'] === tense) {
-                // edit html table accordingly
-                error['puntos'] -= 1;
+            if (error[verbKey] === verb && error[moodKey] === mood && error[tenseKey] === tense) {
+                error[pointsKey] -= 1;
                 found = true;
             }
         }
         if (!found) {
-            // edit html table accordingly
-            verbs[verb] = {[mood]: {[tense]: -1}};
-            verbs.push({'verbo': verb, 'modo': mood, 'tiempo': tense, 'puntos': -1})
+            verbs.push({[verbKey]: verb, [moodKey]: mood, [tenseKey]: tense, [pointsKey]: -1})
         }
     }
     // remove words that have 0 points
     verbs = verbs.filter(function (el) {
-        return el['puntos'] !== 0;
+        return el[pointsKey] !== 0;
     });
     // write back into localStorage
     localStorage.setItem('errores', JSON.stringify(verbs))
@@ -169,10 +171,10 @@ function constructErrorTable() {
 }
 
 function compareErrors(e1, e2) {
-    if (e1['puntos'] > e2['puntos']) return 1;
-    if (e1['puntos'] < e2['puntos']) return -1;
-    if (e1['verbo'] > e2['verbo']) return 1;
-    if (e1['verbo'] < e2['verbo']) return -1;
+    if (e1[pointsKey] > e2[pointsKey]) return 1;
+    if (e1[pointsKey] < e2[pointsKey]) return -1;
+    if (e1[verbKey] > e2[verbKey]) return 1;
+    if (e1[verbKey] < e2[verbKey]) return -1;
     return 0;
 }
 
@@ -186,14 +188,18 @@ function points2colorClass(point) {
 // with some changes
 function constructTable(list, selector) {
     // don't even create basic structure if list is empty
-    if (list.length === 0) return
+    if (list.length === 0) {
+        let dummyList = [{[verbKey]: '', [moodKey]: '', [tenseKey]: '', [pointsKey]: ''}]
+        tableHeaders(dummyList, selector)
+        return
+    }
     // Getting all column names
     const cols = tableHeaders(list, selector);
     $(selector).append($('<tbody>'))
     // Traversing the JSON data
     let rows = [];
     for (let i = 0; i < list.length; i++) {
-        const row = $('<tr/>').addClass(points2colorClass(list[i]['puntos']));
+        const row = $('<tr/>').addClass(points2colorClass(list[i][pointsKey]));
         for (let colIndex = 0; colIndex < cols.length; colIndex++) {
             let val = list[i][cols[colIndex]];
             // If there is any key, which is matching
@@ -239,6 +245,7 @@ $('#flipBackButton').click(function () {
 $('#reset').click(function () {
     localStorage.removeItem('errores')
     destroyErrorTable()
+    constructErrorTable()
 })
 
 document.addEventListener('DOMContentLoaded', function () {
