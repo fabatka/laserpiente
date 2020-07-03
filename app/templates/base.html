@@ -15,16 +15,19 @@
 
 </head>
 <body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="/"><h1>La Serpiente</h1></a>
+    <div class='empty-space'></div>
+    {% block navbar_items %}{% endblock %}
+</nav>
+
 <div class="wrapper">
 
     <nav id="sidebar">
 
         <div id="dismiss">
             <img class="dismiss-img" alt="X" src="/static/img/x-color4.svg">
-        </div>
-
-        <div class="sidebar-header">
-            <h3>La Serpiente</h3>
         </div>
 
         <ul class="list-unstyled components">
@@ -99,9 +102,6 @@
     <script nonce='{{ nonce }}' src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
             integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"></script>
-    {% assets 'base_js' %}
-        <script nonce='{{ nonce }}' src="{{ ASSET_URL }}"></script>
-    {% endassets %}
 {%- endblock scripts %}
 
 </body>

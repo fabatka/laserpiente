@@ -1,12 +1,15 @@
 {% extends "base.html" %}
 
+{% block navbar_items %}
+    <button id="theoryButton" class="btn">
+        <i class="icon icon-book"></i></button>
+    <button id='errorButton' type="button" class="btn" data-toggle="modal" data-target="#errorModal">
+        <i class='icon icon-exclamation'></i></button>
+{% endblock %}
+
 {% block content %}
     {{ super() }}
     <div class="quizbox">
-        <button id="theoryButton" class="btn" data-toggle="button">
-            <i class="icon icon-book"></i></button>
-        <button id='errorButton' type="button" class="btn" data-toggle="modal" data-target="#errorModal">
-            <i class='icon icon-exclamation'></i></button>
 
         <div id="theoryOverlay">
             {% block theory %}
