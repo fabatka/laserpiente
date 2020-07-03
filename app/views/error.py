@@ -20,6 +20,7 @@ def error_report():
     msg.body = f"üzenet: {message} \n\n" \
                f"gyakorlat: {exercise} \n\n" \
                f"válasz: {answer}"
+    current_app.logger.debug(f'Error message to be sent: {msg.body}')
     mail.send(msg)
     current_app.logger.info(f'Error report sent to {recipient}')
 

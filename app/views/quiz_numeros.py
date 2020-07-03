@@ -106,6 +106,6 @@ def speech2text():
         return make_response(error_response_text, 500)
     except KeyError as err:
         # e.g. when there is only silence in the recording
-        current_app.logger.error(f'Unable to process speech-to-text response'
+        current_app.logger.error(f'Unable to process speech-to-text response '
                                  f'Error: {err}')
         return make_response(error_response_text, 500)
