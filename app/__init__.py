@@ -81,10 +81,12 @@ def create_app():
         app_instance.logger.addHandler(mail_handler)
 
     @app_instance.after_request
-    def add_cache_headers(response):
+    def add_headers(response):
         expiry_time = dt.utcnow() + td(days=250)
         response.headers["Expires"] = expiry_time.strftime("%a, %d %b %Y %H:%M:%S GMT")
         response.cache_control.max_age = 60 * 60 * 24 * 250
+        # to prevent clickjacking
+        response.headers["X-Frame-Options"] = "SAMEORIGIN"
         return response
 
     return app_instance
