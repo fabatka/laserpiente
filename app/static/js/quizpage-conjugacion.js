@@ -191,6 +191,7 @@ function constructTable(list, selector) {
     const cols = tableHeaders(list, selector);
     $(selector).append($('<tbody>'))
     // Traversing the JSON data
+    let rows = [];
     for (let i = 0; i < list.length; i++) {
         const row = $('<tr/>').addClass(points2colorClass(list[i]['puntos']));
         for (let colIndex = 0; colIndex < cols.length; colIndex++) {
@@ -201,8 +202,9 @@ function constructTable(list, selector) {
             row.append($('<td/>').html(val));
         }
         // Adding each row to the table
-        $(selector + ' tbody').append(row);
+        rows.push(row);
     }
+    $(selector + ' tbody').append(rows);
 }
 
 // this is from https://www.geeksforgeeks.org/how-to-convert-json-data-to-a-html-table-using-javascript-jquery/
