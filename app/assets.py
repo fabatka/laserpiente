@@ -20,6 +20,7 @@ quizpage_conjugacion_js = ['js/quizpage-conjugacion.js', 'js/checkbox-treeview.j
 
 bundles = {
     'base_css': Bundle(*base_css, filters='cssmin', output='dist/base.min.css'),
+    'base_js': Bundle(*base_js, filters='jsmin', output='dist/base.min.js'),
     'home_css': Bundle(*base_css, *home_css, filters='cssmin',
                        output='dist/home.css'),
     'home_js': Bundle(*base_js, *home_js,
