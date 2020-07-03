@@ -3,8 +3,10 @@ import os
 from logging.handlers import RotatingFileHandler, SMTPHandler
 from flask import Flask
 from flask_mail import Mail
+from flask_assets import Environment
 
 from app.config import parse_config
+from app.assets import bundles
 
 mail = Mail()
 
@@ -29,6 +31,8 @@ def create_app():
     app_instance.config['MAIL_RECIPIENT'] = cnf['email']['recipient']
 
     mail.init_app(app_instance)
+    asset_env = Environment(app_instance)
+    asset_env.register(bundles)
     from app.views.error_handlers import bp as error_handlers_bp
     app_instance.register_blueprint(error_handlers_bp)
     from app.views.error import bp as error_bp
