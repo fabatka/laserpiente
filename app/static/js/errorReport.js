@@ -9,7 +9,6 @@ for (let exerciseEl of exerciseElements) {
     answers.push(exerciseEl.value);
 }
 
-
 function submitError() {
     let requestBody =
         'exercise=' + ids.join(', ') +
@@ -20,3 +19,9 @@ function submitError() {
 
     $('#errorModal').modal('toggle');
 }
+
+$(document).ready(function () {
+    $("#submitError").on("click", function () {
+        submitError()
+    });
+});
