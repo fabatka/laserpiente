@@ -89,6 +89,8 @@ def create_app():
         response.headers["X-Frame-Options"] = "SAMEORIGIN"
         # to prevent mime sniffing
         response.headers["X-Content-Type-Options"] = "nosniff"
+        # xss protection for older browsers
+        response.headers['X-XSS-Protection'] = '1; mode=block'
         return response
 
     @app_instance.route('/robots.txt')
