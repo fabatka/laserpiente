@@ -1,5 +1,6 @@
 import logging
 import os
+from datetime import datetime as dt, timedelta as td
 from logging.handlers import RotatingFileHandler, SMTPHandler
 from flask import Flask
 from flask_mail import Mail
@@ -78,5 +79,12 @@ def create_app():
             secure=() if app_instance.config['MAIL_USE_TLS'] else None)
         mail_handler.setLevel(logging.ERROR)
         app_instance.logger.addHandler(mail_handler)
+
+    @app_instance.after_request
+    def add_cache_headers(response):
+        expiry_time = dt.utcnow() + td(days=250)
+        response.headers["Expires"] = expiry_time.strftime("%a, %d %b %Y %H:%M:%S GMT")
+        response.cache_control.max_age = 60 * 60 * 24 * 250
+        return response
 
     return app_instance
