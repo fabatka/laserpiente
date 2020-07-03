@@ -85,7 +85,7 @@ def quiz():
         quiz_subtitle = f'{mood.capitalize()}, {tense}'
         if request.method == 'POST':
             resp_data = {'hint': pronoun_hr, 'verb': verb, 'subtitle': quiz_subtitle}
-            response = add_security_headers(make_response(jsonify(resp_data), 200), nonce)
+            response = make_response(jsonify(resp_data), 200)
             return response
 
         template = render_template('quizpage-conjugacion.html', quiz_subtitle=quiz_subtitle, question_hint=pronoun_hr,
@@ -129,5 +129,5 @@ def submit():
         response_text = f'<span> <span class="false">¡Incorrecto! </span>La solución: {solution}</span>'
         correct = 0
     resp_data = {'message': response_text, 'correct': correct}
-    response = add_security_headers(make_response(jsonify(resp_data), 200), nonce='fdgsfdgsdfv')
+    response = make_response(jsonify(resp_data), 200)
     return response
