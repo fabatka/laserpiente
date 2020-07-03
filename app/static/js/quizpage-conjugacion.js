@@ -66,7 +66,8 @@ function handleSubmitClickEvent(event) {
             if (error['modo'] === 'imperativo') {
                 hint = pronouns.slice(1, 5)[Math.floor(Math.random() * pronouns.slice(1, 5).length)];
             }
-            let subtitle = `${error['modo'].charAt(0).toUpperCase() + error['modo'].slice(1)}, ${error['tiempo']}`
+            // jsmin strips spaces inside backtick strings
+            let subtitle = `${error['modo'].charAt(0).toUpperCase() + error['modo'].slice(1)}` + ', ' + `${error['tiempo']}`;
             newQuestion(subtitle, hint, error['verbo'])
         }
     }
