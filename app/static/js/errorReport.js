@@ -10,6 +10,7 @@ for (let exerciseEl of exerciseElements) {
 }
 
 function submitError() {
+    // TODO: handle other types of quiz pages as well
     let requestBody =
         'exercise=' + ids.join(', ') +
         '&answer=' + answers.join(', ') +
