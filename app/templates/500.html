@@ -18,3 +18,10 @@
         </div>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {% assets 'error_js' %}
+        <script nonce='{{ nonce }}' src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+{% endblock %}

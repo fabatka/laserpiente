@@ -21,3 +21,10 @@
         </p>
     </div>
 {% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {% assets 'home_js' %}
+        <script nonce='{{ nonce }}' src="{{ ASSET_URL }}"></script>
+    {% endassets %}
+{% endblock %}
