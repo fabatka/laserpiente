@@ -59,61 +59,64 @@ def quiz_page(quiz_type: str):
     page = f'{quiz}.html'
     title = quiz.replace('-', ' - ').replace('_', ' ').capitalize()
 
-    if quiz not in distinct_subjuntivo_quizzes():
-        abort(404)
+    try:
+        if quiz not in distinct_subjuntivo_quizzes():
+            abort(404)
 
-    # we query the whole sentence, and lists of positions of the words to be omitted, their inifnite forms and subjects
-    question_row = execute_query(raw_query=query_question, query_params={'quiz': quiz})[0]
-    text: str = question_row['texto']
-    missing_pos: List[Optional[int]] = question_row['palabra_q_falta']
-    solutions_infinitive: List[str] = question_row['solucion_infinitivo']
-    solutions_subject: List[str] = question_row['solucion_sujeto']
-    ids: List[int] = question_row['id']
+        # we query the whole sentence, and lists of positions of the words to be omitted, their inifnite forms and subjects
+        question_row = execute_query(raw_query=query_question, query_params={'quiz': quiz})[0]
+        text: str = question_row['texto']
+        missing_pos: List[Optional[int]] = question_row['palabra_q_falta']
+        solutions_infinitive: List[str] = question_row['solucion_infinitivo']
+        solutions_subject: List[str] = question_row['solucion_sujeto']
+        ids: List[int] = question_row['id']
 
-    # handle newlines
-    if re.search(r'\r\n', text):
-        text = text.replace('\r\n', ' \r\n ')
-    elif re.search(r'\n', text):
-        text = text.replace('\n', ' \n ')
-    for idx, word in enumerate(text.split(' ')):
-        if re.search(r'\r\n', word) or re.search(r'\n', word):
-            missing_pos = [pos+1 if pos > idx else pos for pos in missing_pos]
+        # handle newlines
+        if re.search(r'\r\n', text):
+            text = text.replace('\r\n', ' \r\n ')
+        elif re.search(r'\n', text):
+            text = text.replace('\n', ' \n ')
+        for idx, word in enumerate(text.split(' ')):
+            if re.search(r'\r\n', word) or re.search(r'\n', word):
+                missing_pos = [pos+1 if pos > idx else pos for pos in missing_pos]
 
-    # handle punctuations
-    sentence_splits: List[str] = text.split(' ')
-    sentence_splits_mod, missing_pos_mod = handle_punctuations(sentence_splits, missing_pos)
+        # handle punctuations
+        sentence_splits: List[str] = text.split(' ')
+        sentence_splits_mod, missing_pos_mod = handle_punctuations(sentence_splits, missing_pos)
 
-    # we create a list of the sentence parts between the solutions (and omit them)
-    # the template will iterate over these and create html elements with the
-    # appropriate attributes and content
-    text_limits = [None] + missing_pos_mod + [None]
-    def ending(x: Optional[int]): return None if x is None else x - 1
-    sentence_parts = [' '.join(sentence_splits_mod[beg:ending(end)]) + ' '
-                      for beg, end in zip(text_limits, text_limits[1:])]
-    # prettify sentences
-    # TODO: left align
-    sentence_parts = [prettify(part) for part in sentence_parts]
+        # we create a list of the sentence parts between the solutions (and omit them)
+        # the template will iterate over these and create html elements with the
+        # appropriate attributes and content
+        text_limits = [None] + missing_pos_mod + [None]
+        def ending(x: Optional[int]): return None if x is None else x - 1
+        sentence_parts = [' '.join(sentence_splits_mod[beg:ending(end)]) + ' '
+                          for beg, end in zip(text_limits, text_limits[1:])]
+        # prettify sentences
+        # TODO: left align
+        sentence_parts = [prettify(part) for part in sentence_parts]
 
-    hints = ['' if (inf is None) or (subj is None)
-             else f'{inf} ({pronoun_map_db_hr[subj]})'
-             for inf, subj in zip(solutions_infinitive, solutions_subject)]
-    input_widths = [max(len(sentence_splits_mod[missing_pos_mod - 1])+3, len(hints[idx]))
-                    for idx, missing_pos_mod in enumerate(missing_pos_mod)]
-    input_width_attrs = [f'width: calc(var(--textsize)*{input_width}*0.45)'
-                         for input_width in input_widths]
-    if request.method == 'POST':
-        resp_data = {'texts': sentence_parts, 'hints': hints, 'ids': ids, 'widths': input_width_attrs}
-        return make_response(jsonify(resp_data), 200)
+        hints = ['' if (inf is None) or (subj is None)
+                 else f'{inf} ({pronoun_map_db_hr[subj]})'
+                 for inf, subj in zip(solutions_infinitive, solutions_subject)]
+        input_widths = [max(len(sentence_splits_mod[missing_pos_mod - 1])+3, len(hints[idx]))
+                        for idx, missing_pos_mod in enumerate(missing_pos_mod)]
+        input_width_attrs = [f'width: calc(var(--textsize)*{input_width}*0.45)'
+                             for input_width in input_widths]
+        if request.method == 'POST':
+            resp_data = {'texts': sentence_parts, 'hints': hints, 'ids': ids, 'widths': input_width_attrs}
+            return make_response(jsonify(resp_data), 200)
 
-    return add_security_headers(
-        make_response(
-            render_template(page,
-                            questions=sentence_parts,
-                            input_widths=input_width_attrs,
-                            question_hints=hints,
-                            question_ids=ids,
-                            quiz_title=title,
-                            nonce=nonce), 200), nonce=nonce)
+        return add_security_headers(
+            make_response(
+                render_template(page,
+                                questions=sentence_parts,
+                                input_widths=input_width_attrs,
+                                question_hints=hints,
+                                question_ids=ids,
+                                quiz_title=title,
+                                nonce=nonce), 200), nonce=nonce)
+    except pg.OperationalError as e:
+        abort(500)
 
 
 def handle_punctuations(sentence_splits: List[str], missing_pos: List[int]) -> Tuple[List[str], List[Optional[int]]]:

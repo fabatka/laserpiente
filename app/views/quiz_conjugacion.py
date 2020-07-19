@@ -1,6 +1,7 @@
 import random
 import secrets
 
+import psycopg2 as pg
 from flask import Blueprint, render_template, make_response, request, abort, current_app, jsonify
 
 from app.lang import pronoun_map_hr_db
@@ -95,6 +96,8 @@ def quiz():
         return response
     except TypeError as e:
         current_app.logger.error(f'most likely one of the queries failed... {str(e)}')
+        abort(500)
+    except pg.OperationalError as e:
         abort(500)
 
 
