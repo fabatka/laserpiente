@@ -5,7 +5,7 @@ error_css = ['css/error.css']
 home_css = ['css/home.css']
 quizpage_base_css = ['css/quizpage-base.css']
 quizpage_numeros_css = ['css/quizpage-numeros.css']
-quizpage_mono_css = ['css/quizpage-mono.css']
+quizpage_mono_css = ['css/quizpage-subjuntivo.css']
 quizpage_conjugacion_css = ['css/quizpage-conjugacion.css', 'css/checkbox-treeview.css']
 
 base_js = ['js/navbar.js']
