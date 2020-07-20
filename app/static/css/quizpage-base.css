@@ -56,8 +56,6 @@ body {
     justify-content: center;
     flex-direction: column;
     font-size: var(--textsize);
-    position: relative;
-    background-color: var(--color4);
 }
 
 #quizbox-description {

@@ -80,6 +80,24 @@ html {
     flex-grow: 1;
 }
 
+.quizbox {
+    position: relative;
+    overflow: hidden;
+}
+
+.quizbox::before {
+    content: "";
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    z-index: -1;
+    background: url('/static/img/bgpattern_tablecloth.svg') 0 0 repeat;
+    background-size: 200px;
+    transform: rotate(30deg);
+}
+
 /* card-related stuff */
 
 .card-header {

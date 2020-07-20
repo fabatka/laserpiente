@@ -8,7 +8,6 @@ body {
 }
 
 .quizbox {
-    background-color: var(--color4);
     padding: calc(var(--textsize)*2);
     text-align: justify;
 }
