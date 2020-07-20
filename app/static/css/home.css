@@ -18,3 +18,25 @@ p .icon {
     height: var(--textsize);
     margin-bottom: calc(var(--textsize)*-0.2);
 }
+
+.card-header {
+    text-align: left;
+    color: var(--color1);
+    background-color: var(--color2);
+    border: 0;
+}
+
+.card-header h2 {
+    margin: calc(var(--textsize)*0.5);
+}
+
+.card-footer {
+    color: var(--color1);
+    background-color: var(--color2);
+    border: 0;
+}
+
+.card-footer p {
+    margin: calc(var(--textsize)*0.5);
+    margin-bottom: var(--textsize);
+}

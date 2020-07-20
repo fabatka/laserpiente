@@ -79,3 +79,43 @@ html {
 .navbar .empty-space {
     flex-grow: 1;
 }
+
+/* card-related stuff */
+
+.card-header {
+    text-align: center;
+    background-color: var(--color1);
+    color: var(--color2);
+}
+
+.card {
+    background-color: var(--color2);
+    max-width: 100vw;
+}
+
+.card-footer {
+    background-color: var(--color1);
+}
+
+.rounded-top {
+    border-top-left-radius: calc(var(--textsize) * 2) !important;
+    border-top-right-radius: calc(var(--textsize) * 2) !important;
+}
+
+.rounded {
+    border-radius: calc(var(--textsize) * 2) !important;
+    border: 0 solid black;
+}
+
+.rounded-bottom {
+    border-bottom-right-radius: calc(var(--textsize) * 2) !important;
+    border-bottom-left-radius: calc(var(--textsize) * 2) !important;
+}
+
+.shadow-lg {
+    box-shadow: 2rem 2rem 1rem rgba(0, 0, 0, .4) !important;
+}
+
+.flipped.shadow-lg {
+    box-shadow: -2rem 2rem 1rem rgba(0, 0, 0, .4) !important;
+}
