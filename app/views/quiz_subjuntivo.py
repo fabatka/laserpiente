@@ -78,10 +78,10 @@ def quiz_page(quiz_type: str):
             text = text.replace('\n', ' \n ')
         for idx, word in enumerate(text.split(' ')):
             if re.search(r'\r\n', word) or re.search(r'\n', word):
-                missing_pos = [pos+1 if pos > idx else pos for pos in missing_pos]
+                missing_pos = [pos+1 if pos >= idx else pos for pos in missing_pos]
 
         # handle punctuations
-        sentence_splits: List[str] = text.split(' ')
+        sentence_splits: List[str] = [word for word in text.split(' ') if len(word) > 0]
         sentence_splits_mod, missing_pos_mod = handle_punctuations(sentence_splits, missing_pos)
 
         # we create a list of the sentence parts between the solutions (and omit them)
