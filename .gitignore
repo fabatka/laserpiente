@@ -2,3 +2,5 @@
 logs
 audio
 __pycache__
+app/static/.webassets-cache
+app/static/dist

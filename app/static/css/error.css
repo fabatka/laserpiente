@@ -1,13 +1,14 @@
 body {
     position: absolute;
     margin: 0;
-    background-color: var(--color4);
+    background-color: var(--color1);
     color: var(--color1);
     top: 0;
     bottom: 0;
 }
 
 #httpErrorContainer {
+    background-color: var(--color4);
     width: 100%;
     display: flex;
     justify-content: center;

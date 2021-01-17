@@ -1,31 +1,33 @@
 <!DOCTYPE html>
-<html{% block html_attribs %}{% endblock html_attribs %}>
+<html lang='es' {% block html_attribs %}{% endblock html_attribs %}>
 <head>
     <title>La Serpiente</title>
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name='description' content='Exercises to practice spanish conjugation, numbers (both text and speech), and use of subjuntivo.'>
 
     {%- block styles %}
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-              integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+        <link nonce='{{ nonce }}'  rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+              integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk"
               crossorigin="anonymous">
-        <link rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/standards.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/navbar.css') }}">
+        <link nonce='{{ nonce }}'  rel="shortcut icon" href="{{ url_for('static', filename='img/favicon.ico') }}">
     {%- endblock styles %}
 
 </head>
 <body>
+
+<nav class="navbar">
+    <a class="navbar-brand" href="/"><h1>La Serpiente</h1></a>
+    <div class='empty-space'></div>
+    {% block navbar_items %}{% endblock %}
+</nav>
+
 <div class="wrapper">
 
     <nav id="sidebar">
 
         <div id="dismiss">
             <img class="dismiss-img" alt="X" src="/static/img/x-color4.svg">
-        </div>
-
-        <div class="sidebar-header">
-            <h3>La Serpiente</h3>
         </div>
 
         <ul class="list-unstyled components">
@@ -91,16 +93,16 @@
 
 </div>
 {% block scripts %}
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+    <noscript>It looks like JavaScript is disabled or not supported by your browser. Unfortunately almost all functionalities are written in JS, so you won't be able to use this webpage.</noscript>
+    <script nonce='{{ nonce }}' src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha384-vk5WoKIaW/vJyUAd9n/wmopsmNhiy+L2Z+SBxGYnUkunIxVxAv/UtMOhba/xskxh"
             crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
+    <script nonce='{{ nonce }}' src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"
             integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
             crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-            integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+    <script nonce='{{ nonce }}' src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+            integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
             crossorigin="anonymous"></script>
-    <script src="/static/js/navbar.js"></script>
 {%- endblock scripts %}
 
 </body>

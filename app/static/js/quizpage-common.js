@@ -20,6 +20,10 @@ xhr.onload = function () {
 window.onload = function () {
     const submitButton = document.getElementById('submit');
     submitButton.addEventListener('click', handleSubmitClickEvent);
+
+    $('#theoryButton').click(function () {
+        $('#theoryOverlay').toggleClass('active')
+    })
 };
 
 // TODO: create a common 'handleClickEvent' function that gets a list/map as a parameter
@@ -48,3 +52,6 @@ function setCookie(cname, cvalue, exdays) {
     const expires = "expires=" + d.toUTCString();
     document.cookie = cname + "=" + cvalue + ";" + expires + "; SameSite=Strict" + ";path=/";
 }
+
+// toggle theory overlay
+

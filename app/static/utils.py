@@ -52,3 +52,15 @@ def execute_query(raw_query: str, query_params: Optional[Union[Dict[str, Union[s
     finally:
         cursor.close()
         conn.close()
+
+
+def add_security_headers(resp, nonce):
+    resp.headers['Content-Security-Policy'] = (
+        f"style-src * 'unsafe-inline'; "
+        f"script-src 'nonce-{nonce}' 'unsafe-inline' blob:; "
+        f"object-src 'none'; "
+        f"base-uri 'self'; "
+        f"img-src *; "
+        f"connect-src 'self'; "
+        f"worker-src blob: 'nonce-{nonce}'; ")
+    return resp

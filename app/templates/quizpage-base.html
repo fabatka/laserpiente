@@ -1,21 +1,19 @@
 {% extends "base.html" %}
 
-{% block styles %}
-    {{ super() }}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage-base.css') }}">
+{% block navbar_items %}
+    <button id="theoryButton" class="btn">
+        <i class="icon icon-book"></i></button>
+    <button id='errorButton' type="button" class="btn" data-toggle="modal" data-target="#errorModal">
+        <i class='icon icon-exclamation'></i></button>
 {% endblock %}
 
 {% block content %}
     {{ super() }}
     <div class="quizbox">
-        <button id="theoryButton" class="btn" data-toggle="button">
-            <i class="icon icon-book"></i></button>
-        <button id='errorButton' type="button" class="btn" data-toggle="modal" data-target="#errorModal">
-            <i class='icon icon-exclamation'></i></button>
 
         <div id="theoryOverlay">
             {% block theory %}
-                <h1>Ehhez az oldalhoz nem készült elméleti összefoglaló</h1>
+                <div lang='hu'><h1>Ehhez az oldalhoz nem készült elméleti összefoglaló</h1></div>
             {% endblock %}
         </div>
 
@@ -29,32 +27,25 @@
          aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="errorModalLabel">Hibajelentés</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
+                <form>
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="errorModalLabel">Hibajelentés</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Üzenet:</label>
                             <textarea class="form-control" id="message-text"></textarea>
                         </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
-                    <button type="button" class="btn btn-primary" onclick='submitError()'>Küldés</button>
-                </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Mégse</button>
+                        <input id='submitError' type="submit" class="btn btn-primary" value='Küldés'>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-{% endblock %}
-
-{% block scripts %}
-    {{ super() }}
-    <script src="/static/js/enter.js"></script>
-    <script src="/static/js/quizpage-common.js"></script>
-    <script src='/static/js/errorReport.js'></script>
 {% endblock %}

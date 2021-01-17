@@ -6,7 +6,7 @@
     --color5: rgba(65, 123, 90, 1);
     --color6: rgba(85, 40, 111, 1);
 
-    --textsize: calc(1.1rem + 1vmin);
+    --textsize: calc(1.1rem - -1vmin);
 }
 
 html {
@@ -19,6 +19,7 @@ html {
     background-size: contain;
     width: inherit;
     height: inherit;
+    background-position: top left;
 }
 
 .icon-book {
@@ -62,4 +63,19 @@ html {
         -ms-user-select: none; /* Internet Explorer/Edge */
             user-select: none; /* Non-prefixed version, currently
                                   supported by Chrome, Edge, Opera and Firefox */
+}
+
+.navbar {
+    color: var(--color2);
+    height: calc(var(--textsize) * 3);
+    flex-wrap: nowrap;
+    max-width: 100vw;
+}
+
+.navbar h1 {
+    font-size: calc(var(--textsize) * 1.5);
+}
+
+.navbar .empty-space {
+    flex-grow: 1;
 }
