@@ -15,7 +15,7 @@ services:
 
   app:
     build: .
-    command: gunicorn "la_serpiente:create_app()" -b 0.0.0.0:80 --log-level=INFO
+    command: gunicorn "la_serpiente:create_app()" -b 0.0.0.0:80 --log-level=ERROR --reload --log-file ./logs/gunicorn.log
     ports:
       - "80:80"
     environment:
