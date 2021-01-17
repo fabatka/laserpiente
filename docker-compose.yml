@@ -25,6 +25,9 @@ services:
       - DB_USER=${DB_USER}
       - DB_PASS=${DB_PASS}
       - DB_DB=${POSTGRES_DB}
+    volumes:
+      - ./logs:/app/logs
+      - ./app:/app/app
 
 volumes:
   laserpiente-db: {}
