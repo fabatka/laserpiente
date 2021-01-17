@@ -1,4 +1,4 @@
-FROM postgres:12.2
+FROM postgres:12
 
 ENV POSTGRES_PASSWORD=devpass \
     POSTGRES_DB=laserpiente
