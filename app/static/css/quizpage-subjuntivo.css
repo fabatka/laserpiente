@@ -62,3 +62,10 @@ which misses a word and where the input field is.
 .question {
     display: inline;
 }
+
+/* theory pages styling */
+
+.otras_conjunciones > table > tbody > tr > td:nth-child(1),
+.otras_conjunciones > table > tbody > tr > td:nth-child(2) {
+    white-space: nowrap;
+}
