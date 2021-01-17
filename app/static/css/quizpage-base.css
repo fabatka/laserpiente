@@ -11,16 +11,13 @@ body {
     bottom: 0;
 }
 
-#theoryButton {
-    display: block;
-    position: absolute;
-    top: var(--textsize);
-    right: max(calc(var(--textsize) * 3), 60px);
-    border: 0;
+#theoryButton,
+#errorButton {
+    background-color: var(--color5);
+    margin: 0 calc(var(--textsize) * 0.3);
     padding: 0;
-    background: transparent;
-    width: max(calc(var(--textsize) * 2), 45px);
-    height: max(calc(var(--textsize) * 1.75), 45px);
+    width: calc(var(--textsize) * 2.05);
+    height: calc(var(--textsize) * 2);
     z-index: 2;
 }
 
@@ -43,20 +40,8 @@ body {
     z-index: 1;
 }
 
-#theoryButton.active ~ #theoryOverlay {
+#theoryOverlay.active {
     display: block;
-}
-
-#errorButton {
-    display: block;
-    position: absolute;
-    top: calc(var(--textsize) * 1);
-    right: max(calc(var(--textsize) * 6), 130px);
-    border: 0;
-    padding: 0;
-    background: transparent;
-    width: max(calc(var(--textsize) * 2), 45px);
-    height: max(calc(var(--textsize) * 1.75), 45px);
 }
 
 #submit {

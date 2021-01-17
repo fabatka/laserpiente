@@ -2,7 +2,16 @@
 
 {% block styles %}
     {{ super() }}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage-mono.css') }}">
+    {% assets 'quizpage_mono_css' %}
+        <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+    <style nonce='{{ nonce }}'>
+        {% for question in questions %}
+            {% if not loop.last %}
+                #answer{{ loop.index }} { {{ input_widths[loop.index0] }} }
+            {% endif %}
+        {% endfor %}
+    </style>
 {% endblock %}
 
 {% block quiztask %}
@@ -14,8 +23,7 @@
                     {% if not loop.last %}
                         <div class="form__group">
                             <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input"
-                                   id="answer{{ loop.index }}" style="{{ input_widths[loop.index0] }}"
-                                   data-identity="{{ question_ids[loop.index0] }}">
+                                   id="answer{{ loop.index }}" data-identity="{{ question_ids[loop.index0] }}">
                             <label id="questionHint{{ loop.index }}" for="answer{{ loop.index }}" class="form__label">
                                 {{ question_hints[loop.index0] }}
                             </label>
@@ -35,5 +43,7 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="/static/js/quizpage-mono.js"></script>
+    {% assets 'quizpage_mono_js' %}
+        <script nonce='{{ nonce }}' src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 {% endblock %}

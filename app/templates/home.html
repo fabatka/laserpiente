@@ -2,20 +2,28 @@
 
 {% block styles %}
     {{ super() }}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css') }}">
+    {% assets 'home_css' %}
+        <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
 {% endblock %}
 
 {% block content %}
     {{ super() }}
-    <div class="quizbox">
-        <h1>La Serpiente</h1>
+    <div lang='hu' class="quizbox">
+        <h2>Página principal</h2>
         <p>
             Ez az oldal néhány spanyol nyelvtani gyakorlatot tartalmaz. A bal oldali menüben lehet az egyes kvízekhez
-            navigálni, a jobb felső sarokban levő <i class='icon icon-information'></i> ikonra víve plusz információhoz
-            lehet jutni néhány oldalon, a <i class='icon icon-book'></i> ikonra kattintva az adott kvízhez
+            navigálni, a <i class='icon icon-book'></i> ikonra kattintva az adott kvízhez
             tartozó elméleti összefoglaló érhető el, a <i class='icon icon-exclamation'></i> ikonra kattintva
             hibajelentést/visszajelzést lehet küldeni az oldal karbantartójának (akár az adott feladattal, akár az
             oldal működésével kapcsolatban).
         </p>
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+    {% assets 'home_js' %}
+        <script nonce='{{ nonce }}' src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 {% endblock %}

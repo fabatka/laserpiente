@@ -1,9 +1,10 @@
 import random
+import secrets
 
 from flask import Blueprint, render_template, make_response, request, abort, current_app, jsonify
 
 from app.lang import pronoun_map_hr_db
-from app.static.utils import execute_query
+from app.static.utils import execute_query, add_security_headers
 
 bp = Blueprint('quiz-indicativo-presente', __name__, template_folder='templates')
 
@@ -42,6 +43,7 @@ from laserpiente.verbo
 
 @bp.route(f'/{path}', methods=['GET', 'POST'])
 def quiz():
+    nonce = secrets.token_urlsafe()
     # the options for what kind mood and tense to NOT use are stored in cookies
     # the cookie format is "mood_tense" without the double quotes
     # if for a combination there is no cookie, it means that it can be used
@@ -57,9 +59,11 @@ def quiz():
             for row in execute_query(query_tenses_for_moods)
         }
         if len(moods_tenses) == 0:
-            return render_template('quizpage-conjugacion.html', moods=tenses_for_moods,
-                                   quiz_subtitle='No ha seleccionado modos y tiempos verbales',
-                                   question_hint='', question=':(', quiz_title='Conjugación', input_width='')
+            template = render_template('quizpage-conjugacion.html', moods=tenses_for_moods,
+                                       quiz_subtitle=':(', question_hint='',
+                                       question='No ha seleccionado modos y tiempos verbales', quiz_title='Conjugación', input_width='', nonce=nonce)
+            response = add_security_headers(make_response(template, 200), nonce)
+            return response
         param_name = 'm_t'
         param_fmt = f'%({param_name}{{i}})s'
         m_t_params = ', '.join([param_fmt.format(i=i) for i in range(len(moods_tenses))])
@@ -77,16 +81,18 @@ def quiz():
             possible_pronouns_hr.remove('yo')
         pronoun_hr: str = random.choice(possible_pronouns_hr)
         input_width = max(len(verb), 7) + 6
-        input_width_attr = f'width: calc(var(--textsize)*{input_width} * 0.5'
+        input_width_attr = f'width: calc(var(--textsize)*{input_width} * 0.5)'
         quiz_subtitle = f'{mood.capitalize()}, {tense}'
         if request.method == 'POST':
             resp_data = {'hint': pronoun_hr, 'verb': verb, 'subtitle': quiz_subtitle}
-            return make_response(jsonify(resp_data), 200)
+            response = make_response(jsonify(resp_data), 200)
+            return response
 
-        return render_template('quizpage-conjugacion.html', quiz_subtitle=quiz_subtitle,
-                               question_hint=pronoun_hr, question=verb,
-                               quiz_title='Conjugación', input_width=input_width_attr,
-                               moods=tenses_for_moods)
+        template = render_template('quizpage-conjugacion.html', quiz_subtitle=quiz_subtitle, question_hint=pronoun_hr,
+                                   question=verb, quiz_title='Conjugación', input_width=input_width_attr,
+                                   moods=tenses_for_moods, nonce=nonce)
+        response = add_security_headers(make_response(template, 200), nonce)
+        return response
     except TypeError as e:
         current_app.logger.error(f'most likely one of the queries failed... {str(e)}')
         abort(500)
@@ -97,7 +103,7 @@ def submit():
     data = request.get_json()
     answer: str = data['answer']
     question: str = data['question']
-    if question == ':(':
+    if question == 'No ha seleccionado modos y tiempos verbales':
         return make_response(':(', 200)
     pronoun_hr: str = data['questionHint']
     subtitle: str = data['subtitle']
@@ -123,4 +129,5 @@ def submit():
         response_text = f'<span> <span class="false">¡Incorrecto! </span>La solución: {solution}</span>'
         correct = 0
     resp_data = {'message': response_text, 'correct': correct}
-    return make_response(jsonify(resp_data), 200)
+    response = make_response(jsonify(resp_data), 200)
+    return response

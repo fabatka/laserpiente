@@ -1,10 +1,13 @@
 import logging
 import os
+from datetime import datetime as dt, timedelta as td
 from logging.handlers import RotatingFileHandler, SMTPHandler
-from flask import Flask
+from flask import Flask, send_from_directory, request
 from flask_mail import Mail
+from flask_assets import Environment
 
 from app.config import parse_config
+from app.assets import bundles
 
 mail = Mail()
 
@@ -15,7 +18,7 @@ env_loglevel_map = {
 
 
 def create_app():
-    app_instance = Flask(__name__)
+    app_instance = Flask(__name__, static_folder='static')
 
     cnf = parse_config()
     app_instance.config['file'] = cnf
@@ -27,8 +30,15 @@ def create_app():
     app_instance.config['MAIL_USE_SSL'] = cnf['email']['ssl'].lower() == 'true'
     app_instance.config['MAIL_DOMAIN'] = cnf['email']['domain']
     app_instance.config['MAIL_RECIPIENT'] = cnf['email']['recipient']
+    app_instance.config.update(
+        SESSION_COOKIE_SECURE=True,
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SAMESITE='Lax',
+    )
 
     mail.init_app(app_instance)
+    asset_env = Environment(app_instance)
+    asset_env.register(bundles)
     from app.views.error_handlers import bp as error_handlers_bp
     app_instance.register_blueprint(error_handlers_bp)
     from app.views.error import bp as error_bp
@@ -74,5 +84,25 @@ def create_app():
             secure=() if app_instance.config['MAIL_USE_TLS'] else None)
         mail_handler.setLevel(logging.ERROR)
         app_instance.logger.addHandler(mail_handler)
+
+    @app_instance.after_request
+    def add_headers(response):
+        expiry_time = dt.utcnow() + td(days=250)
+        response.headers["Expires"] = expiry_time.strftime("%a, %d %b %Y %H:%M:%S GMT")
+        response.cache_control.max_age = 60 * 60 * 24 * 250
+        # to prevent clickjacking
+        response.headers["X-Frame-Options"] = "SAMEORIGIN"
+        # to prevent mime sniffing
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        # xss protection for older browsers
+        response.headers['X-XSS-Protection'] = '1; mode=block'
+        # convert all http requests to https, to prevent MITM attacks
+        response.headers['Strict-Transport-Security'] = 'max-age=31536000; includeSubDomains'
+        return response
+
+    @app_instance.route('/robots.txt')
+    @app_instance.route('/sitemap.xml')
+    def static_from_root():
+        return send_from_directory(app_instance.static_folder, request.path[1:])
 
     return app_instance

@@ -2,8 +2,12 @@
 
 {% block styles %}
     {{ super() }}
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/quizpage-conjugacion.css') }}">
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/checkbox-treeview.css') }}">
+    {% assets 'quizpage_conjugacion_css' %}
+        <link nonce='{{ nonce }}'  rel="stylesheet" type="text/css" href="{{ ASSET_URL }}">
+    {% endassets %}
+    <style nonce='{{ nonce }}'>
+        #answer { {{ input_width }} }
+    </style>
 {% endblock %}
 
 {% block quiztask %}
@@ -18,8 +22,7 @@
                         <div id="question" class="question">{{ question }}</div>
                         <div class="form__group">
                             <input type="text" class="form__field" placeholder="dummy placeholder" name="answer_input"
-                                   id="answer"
-                                   style="{{ input_width }}"/>
+                                   id="answer"/>
                             <label id="questionHint" for="answer" class="form__label">{{ question_hint }}</label>
                         </div>
                     </div>
@@ -32,7 +35,7 @@
                 </div>
                 <div id='flipButtonContainer'>
                     <button class="btn btn-secondary" type="button" id="flipButton">
-                        <img id='quiz-flip-img' src="/static/img/sync-alt-solid.svg" alt="" title="Flip">
+                        <img src="/static/img/sync-alt-solid.svg" alt="" title="Flip">
                     </button>
                 </div>
                 <div class="dropdown" id='dropdownMenuButtonContainer'>
@@ -84,7 +87,7 @@
                 </div>
                 <div id='flipBackButtonContainer'>
                     <button class="btn btn-secondary" type="button" id="flipBackButton">
-                        <img id='quiz-flip-img' src="/static/img/sync-alt-solid.svg" alt="" title="Flip">
+                        <img src="/static/img/sync-alt-solid.svg" alt="" title="Flip">
                     </button>
                 </div>
             </div>
@@ -94,6 +97,7 @@
 
 {% block scripts %}
     {{ super() }}
-    <script src="/static/js/quizpage-conjugacion.js"></script>
-    <script src="/static/js/checkbox-treeview.js"></script>
+    {% assets 'quizpage_conjugacion_js' %}
+        <script nonce='{{ nonce }}' src="{{ ASSET_URL }}"></script>
+    {% endassets %}
 {% endblock %}

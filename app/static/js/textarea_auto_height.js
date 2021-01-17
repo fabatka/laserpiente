@@ -1,7 +1,7 @@
 // https://stackoverflow.com/a/25621277
 
 $('textarea#answer').each(function () {
-  this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;');
+  this.style.height = this.scrollHeight + 'px;overflow-y:hidden;'
 }).on('input', function () {
   this.style.height = 'auto';
   this.style.height = (this.scrollHeight) + 'px';

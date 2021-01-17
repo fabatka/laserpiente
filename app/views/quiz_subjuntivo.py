@@ -1,4 +1,5 @@
 import re
+import secrets
 from typing import List, Optional, Tuple
 
 import psycopg2 as pg
@@ -6,7 +7,7 @@ from flask import Blueprint, render_template, make_response, request, abort, jso
 from markupsafe import escape
 
 from app.lang import pronoun_map_db_hr
-from app.static.utils import execute_query
+from app.static.utils import execute_query, add_security_headers
 
 punctuations = '-–.,:?'
 
@@ -53,6 +54,7 @@ def quiz_page(quiz_type: str):
     :param quiz_type: The url defines what kind of quiz to display. This must be one of the quiz values found in the ejercicio table
     :type quiz_type: str
     """
+    nonce = secrets.token_urlsafe()
     quiz = 'subjuntivo-' + escape(quiz_type)
     page = f'{quiz}.html'
     title = quiz.replace('-', ' - ').replace('_', ' ').capitalize()
@@ -103,12 +105,15 @@ def quiz_page(quiz_type: str):
         resp_data = {'texts': sentence_parts, 'hints': hints, 'ids': ids, 'widths': input_width_attrs}
         return make_response(jsonify(resp_data), 200)
 
-    return render_template(page,
-                           questions=sentence_parts,
-                           input_widths=input_width_attrs,
-                           question_hints=hints,
-                           question_ids=ids,
-                           quiz_title=title)
+    return add_security_headers(
+        make_response(
+            render_template(page,
+                            questions=sentence_parts,
+                            input_widths=input_width_attrs,
+                            question_hints=hints,
+                            question_ids=ids,
+                            quiz_title=title,
+                            nonce=nonce), 200), nonce=nonce)
 
 
 def handle_punctuations(sentence_splits: List[str], missing_pos: List[int]) -> Tuple[List[str], List[Optional[int]]]:

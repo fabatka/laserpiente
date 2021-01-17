@@ -9,8 +9,8 @@ for (let exerciseEl of exerciseElements) {
     answers.push(exerciseEl.value);
 }
 
-
 function submitError() {
+    // TODO: handle other types of quiz pages as well
     let requestBody =
         'exercise=' + ids.join(', ') +
         '&answer=' + answers.join(', ') +
@@ -20,3 +20,9 @@ function submitError() {
 
     $('#errorModal').modal('toggle');
 }
+
+$(document).ready(function () {
+    $("#submitError").on("click", function () {
+        submitError()
+    });
+});

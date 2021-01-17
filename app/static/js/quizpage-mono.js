@@ -48,14 +48,12 @@ inputTemplate = (width, id, identifier, text) => `
            data-identity="${identifier}">
     <label id="questionHint${id}" for="answer${id}" class="form__label">${text}</label>
     </div>
-`
+`;
 
 function newQuestion(texts, hints, ids, inputWidths) {
-    console.log(texts)
     for (let index = 0, id = 1; index < texts.length; index++, id++) {
         if ($(`#question${id}`).length === 0) {
             // no need to fill in details, we'll do it anyway
-            console.log(`adding new question template: question${id}`)
             $(`#answer${id-1}`).parent().after(questionTemplate(id, ''))
         }
         const $currQuestionEl = $(`#question${id}`);
