@@ -9,13 +9,13 @@ def parse_config() -> Dict:
     conf_file.read(config_file_path)
     config = {
         'postgresql': dict(
-            host=os.environ.get('db_host') or conf_file['postgresql']['host'],
-            port=5432,
-            user=os.environ.get('db_user') or conf_file['postgresql']['user'],
-            password=os.environ.get('db_password') or conf_file['postgresql']['password'],
-            database=os.environ.get('db_database') or conf_file['postgresql']['database']),
+            host=os.environ.get('DB_HOST'),
+            port=os.environ.get('DB_PORT'),
+            user=os.environ.get('DB_USER'),
+            password=os.environ.get('DB_PASS'),
+            database=os.environ.get('DB_DB')),
         'env': dict(
-            env=os.environ.get('env_env') or conf_file['env']['env']),
+            env=os.environ.get('ENV')),
         'azure': dict(
             key=os.environ.get('azure_key') or conf_file['azure']['key'],
             host=os.environ.get('azure_host') or conf_file['azure']['host']),

@@ -5,6 +5,11 @@ services:
     build: ./db
     ports:
       - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_DB=${POSTGRES_DB}
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
     volumes:
       - laserpiente-db:/var/lib/postgresql/data
 
@@ -13,6 +18,13 @@ services:
     command: gunicorn "la_serpiente:create_app()" -b 0.0.0.0:80 --log-level=INFO
     ports:
       - "80:80"
+    environment:
+      - ENV=${ENVIRONMENT}
+      - DB_HOST=dev-db
+      - DB_PORT=5432
+      - DB_USER=${DB_USER}
+      - DB_PASS=${DB_PASS}
+      - DB_DB=${POSTGRES_DB}
 
 volumes:
   laserpiente-db: {}
