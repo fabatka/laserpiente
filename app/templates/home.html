@@ -10,14 +10,19 @@
 {% block content %}
     {{ super() }}
     <div lang='hu' class="quizbox">
-        <h2>Página principal</h2>
-        <p>
-            Ez az oldal néhány spanyol nyelvtani gyakorlatot tartalmaz. A bal oldali menüben lehet az egyes kvízekhez
-            navigálni, a <i class='icon icon-book'></i> ikonra kattintva az adott kvízhez
-            tartozó elméleti összefoglaló érhető el, a <i class='icon icon-exclamation'></i> ikonra kattintva
-            hibajelentést/visszajelzést lehet küldeni az oldal karbantartójának (akár az adott feladattal, akár az
-            oldal működésével kapcsolatban).
-        </p>
+        <div class='card rounded shadow-lg'>
+            <div class='card-header rounded-top'>
+                <h2>Página principal</h2>
+            </div>
+            <div class='card-footer rounded-bottom'><p>
+                Ez az oldal néhány spanyol nyelvtani gyakorlatot tartalmaz. A bal oldali menüben lehet az egyes
+                kvízekhez
+                navigálni, a <i class='icon icon-book'></i> ikonra kattintva az adott kvízhez
+                tartozó elméleti összefoglaló érhető el, a <i class='icon icon-exclamation'></i> ikonra kattintva
+                hibajelentést/visszajelzést lehet küldeni az oldal karbantartójának (akár az adott feladattal, akár az
+                oldal működésével kapcsolatban).
+            </p></div>
+        </div>
     </div>
 {% endblock %}
 
