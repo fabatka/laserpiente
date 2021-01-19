@@ -113,10 +113,16 @@
                     </div>
                 </div>
                 <div id="question" class="question numeros"></div>
-                <div id="recordButton" class="recordingStopped"></div>
+                <div id="recordButton" class="recordingStopped" data-toggle="tooltip" title="Mantenga pulsado el botón durante la grabación!"></div>
                 <textarea wrap="soft" class="form__group numeros" name="answer_input" id="answer" rows="3"
                           cols="20">{{ answer }}</textarea>
                 <label for="answer"></label>
+            </div>
+            <div class="alert alert-warning alert-dismissible fade hidden show" role="alert">
+                <span id='message'></span>
+                <button id='messageClose' type="button" class="close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
             </div>
         </div>
         <div class='card-footer rounded-bottom'>

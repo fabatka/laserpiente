@@ -12,6 +12,10 @@ function handleSubmitClickEvent(event) {
     }
 }
 
+document.getElementById('messageClose').onclick = function () {
+    document.getElementById('message').parentElement.classList.add('hidden')
+}
+
 function getRandomInt(max) {
     return Math.floor(Math.random() * Math.floor(max));
 }

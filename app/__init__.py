@@ -12,8 +12,8 @@ from app.assets import bundles
 mail = Mail()
 
 env_loglevel_map = {
-    'dev': logging.DEBUG,
-    'prod': logging.INFO
+    'DEV': logging.DEBUG,
+    'PROD': logging.ERROR
 }
 
 
@@ -65,12 +65,12 @@ def create_app():
     app_instance.logger.addHandler(file_handler)
     app_instance.logger.setLevel(env_loglevel_map[app_instance.config['file']['env']['env']])
     app_instance.logger.info('La Serpiente startup')
-    if app_instance.config['file']['env']['env'] == 'dev':
+    if app_instance.config['file']['env']['env'] == 'DEV':
         app_instance.logger.setLevel(logging.DEBUG)
         app_instance.env = 'development'
         app_instance.logger.debug('Debug mode active')
         app_instance.debug = True
-    elif app_instance.config['file']['env']['env'] == 'prod':
+    elif app_instance.config['file']['env']['env'] == 'PROD':
         app_instance.logger.setLevel(logging.INFO)
         app_instance.env = 'production'
 

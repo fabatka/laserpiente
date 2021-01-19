@@ -4,6 +4,7 @@ const constraints = {audio: true, video: false};
 
 const recBtn = document.querySelector("div#recordButton");
 const ansTextBox = document.getElementById('answer');
+const message = document.getElementById('message')
 
 let rec;
 let localStream = null;
@@ -104,11 +105,18 @@ function stopRec() {
                 cache: false,
                 processData: false,
                 contentType: false
-            }).done(function (data) {
+            }).done(function (data, textStatus, xhr) {
                 // write response into textarea
                 // maybe return a non-200 status code and based on that write an output stating there was an error
                 // in speech recognition?
-                ansTextBox.value += data;
+                if (xhr.status === 200) {
+                    ansTextBox.value += data;
+                }
+                if (xhr.status === 250) {
+                    // ansTextBox.placeholder = data
+                    message.innerText = data
+                    message.parentElement.classList.remove('hidden')
+                }
             }).fail(function (xhr, status, error) {
                 // write error message into textarea
                 ansTextBox.value += xhr.responseText;
