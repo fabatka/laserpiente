@@ -1,6 +1,4 @@
 create schema laserpiente;
-create user dev with password 'devpass';
-grant all on schema laserpiente to dev;
 
 create table laserpiente.verbo
 (
@@ -19,16 +17,12 @@ create table laserpiente.verbo
 		unique (infinitivo, modo, tiempo)
 );
 
-alter table laserpiente.verbo owner to dev;
-
 create table laserpiente.frase
 (
     id    bigserial
         constraint frase_pk primary key,
     texto varchar not null
 );
-
-alter table laserpiente.frase owner to dev;
 
 create table laserpiente.ejercicio
 (
@@ -43,8 +37,6 @@ create table laserpiente.ejercicio
 
 create index ejercicio_quiz_index
     on laserpiente.ejercicio (quiz);
-
-alter table laserpiente.ejercicio owner to dev;
 
 
 insert into laserpiente.verbo (infinitivo, gerundio, participio, modo, tiempo, singular1, singular2, singular3, plural1, plural2, plural3)

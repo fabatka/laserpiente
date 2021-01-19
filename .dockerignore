@@ -1,5 +1,7 @@
 .idea
-__pycache__
 logs
-db
 audio
+__pycache__
+app/static/.webassets-cache
+app/static/dist
+db

@@ -1,5 +1,3 @@
 FROM postgres:12.2
 
-ENV POSTGRES_PASSWORD=devpass \
-    POSTGRES_DB=laserpiente
-COPY 01_create.sql /docker-entrypoint-initdb.d/
+COPY 01_create.sql 02_permissions.sh /docker-entrypoint-initdb.d/

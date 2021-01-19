@@ -68,3 +68,11 @@ th {
 table.table.table-responsive {
     margin: 0 3rem;
 }
+
+.alert {
+    margin-top: 10px;
+}
+
+.hidden {
+    display: none;
+}
