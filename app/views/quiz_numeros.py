@@ -72,7 +72,7 @@ def speech2text():
 
     # if the recording is too short, we don't even try to process it
     if (len(audio) / 1024) < 200:
-        return make_response('', 200)
+        return make_response('Por favor, mantenga pulsado el botón durante la grabación.', 250)
 
     filename = datetime.now().strftime('%Y-%m-%d_%H.%M.%S')
     if not os.path.exists('audio'):
@@ -86,15 +86,36 @@ def speech2text():
                      'Content-Type': 'audio/wav; codecs=audio/pcm; samplerate=16000'}
     azure_payload = audio
     current_app.logger.info('Sending audio to Azure for speech recognition')
-    error_response_text = 'Hiba'
+    error_response_text = 'Lo siento, el servicio de reconocimiento ha detectado un error interno.'
     try:
         speech2text_req = post(azure_host, headers=azure_headers, data=azure_payload)
+        current_app.logger.info(f'{speech2text_req=}')
         if speech2text_req.ok:
             current_app.logger.debug(speech2text_req.text)
             current_app.logger.info('Speech recognition request successful')
             response = json.loads(speech2text_req.text)
-            speech2text_result = response['NBest'][0]['Lexical']
-            return make_response(speech2text_result, 200)
+            current_app.logger.info(f'{response=}')
+            resp_status = response['RecognitionStatus']
+            if resp_status == 'Success':
+                speech2text_result = response['NBest'][0]['Lexical']
+                resp_code = 200
+            elif resp_status == 'NoMatch':
+                speech2text_result = ('Se detectó voz en la secuencia de audio, pero no se encontraron coincidencias '
+                                      'de palabras en el idioma de destino.')
+                resp_code = 250
+            elif resp_status == 'InitialSilenceTimeout':
+                speech2text_result = 'La mayoría de la secuencia de audio contiene solo silencio.'
+                resp_code = 250
+            elif resp_status == 'BabbleTimeout':
+                speech2text_result = 'Lo siento, hubo demasiado ruido en la secuencia de audio.'
+                resp_code = 250
+            elif resp_status == 'Error':
+                speech2text_result = 'Lo siento, el servicio de reconocimiento ha detectado un error interno.'
+                resp_code = 250
+            else:
+                speech2text_result = ''
+                resp_code = 205
+            return make_response(speech2text_result, resp_code)
         else:
             current_app.logger.error(f'Speect-to-text request unsuccessful. '
                                      f'Status code:{speech2text_req.status_code} '
